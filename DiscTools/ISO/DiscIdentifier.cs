@@ -17,6 +17,11 @@ namespace DiscTools.ISO
         UnknownFormat,
 
         /// <summary>
+        /// 
+        /// </summary>
+        PCFX,
+
+        /// <summary>
         /// This is definitely a CDFS disc, but we can't identify anything more about it
         /// </summary>
         UnknownCDFS,
@@ -166,6 +171,25 @@ namespace DiscTools.ISO
             if (!sectorCache.TryGetValue(lba, out data))
             {
                 data = new byte[2048];
+                dsr.ReadLBA_2048(lba, data, 0);
+                sectorCache[lba] = data;
+            }
+
+            //string resStr = System.Text.Encoding.ASCII.GetString(data);
+
+            /*
+            byte[] result = GetStringAt("cdrom", 50, 24);
+            string resStr = System.Text.Encoding.ASCII.GetString(result);
+            */
+            return data; // resStr;
+        }
+
+        public byte[] ReadData(int lba, int byteSize)
+        {
+            byte[] data;
+            if (!sectorCache.TryGetValue(lba, out data))
+            {
+                data = new byte[byteSize];
                 dsr.ReadLBA_2048(lba, data, 0);
                 sectorCache[lba] = data;
             }

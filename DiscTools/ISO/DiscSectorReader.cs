@@ -248,7 +248,8 @@ namespace DiscTools.ISO
                 else
                 {
                     if (Policy.ThrowExceptions2048)
-                        throw new InvalidOperationException("Unsupported scenario: reading 2048 bytes from an unhandled sector type");
+                        return 0;
+                        //throw new InvalidOperationException("Unsupported scenario: reading 2048 bytes from an unhandled sector type");
                     else return 0;
                 }
             }

@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CompilerServices.cs" />
+    <Compile Include="DiscInspector.cs" />
     <Compile Include="ISO\API_MednaDisc.cs" />
     <Compile Include="ISO\Bit.cs" />
     <Compile Include="ISO\BitReverse.cs" />
@@ -94,6 +95,7 @@
     <Compile Include="ISO\Internal\SectorSynth.cs" />
     <Compile Include="ISO\Internal\SynthUtils.cs" />
     <Compile Include="ISO\Util.cs" />
+    <Compile Include="Objects\DiscData.cs" />
     <Compile Include="SBI\SubQPatchData.cs" />
     <Compile Include="SerialNumber.cs" />
     <Compile Include="ISO\ISODirectoryNode.cs" />

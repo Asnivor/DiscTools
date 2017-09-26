@@ -4,11 +4,91 @@ using System.Text;
 using DiscTools.ISO;
 using System.Linq;
 using System.IO;
+using DiscTools.Objects;
 
 namespace DiscTools
 {
     public class SerialNumber
     {
+        public static string GetSaturnSerial(string cuePath)
+        {
+            if (!File.Exists(cuePath))
+            {
+                return "";
+            }
+
+            int lba = 0;
+            Disc disc = Disc.LoadAutomagic(cuePath);
+
+            if (disc == null)
+            {
+                // unable to mount disc - return null
+                return "";
+            }
+
+            var discView = EDiscStreamView.DiscStreamView_Mode1_2048;
+            if (disc.TOC.Session1Format == SessionFormat.Type20_CDXA)
+                discView = EDiscStreamView.DiscStreamView_Mode2_Form1_2048;
+
+            var iso = new ISOFile();
+            bool isIso = iso.Parse(new DiscStream(disc, discView, 0));
+
+            /*
+            if (isIso)
+            {
+                var appId = System.Text.Encoding.ASCII.GetString(iso.VolumeDescriptors[0].ApplicationIdentifier).TrimEnd('\0', ' ');
+
+                var desc = iso.Root.Children;
+
+                ISONode ifn = null;
+
+                foreach (var i in desc)
+                {
+                    if (i.Key.Contains("SYSTEM.CNF"))
+                        ifn = i.Value;
+                }
+
+                if (ifn == null)
+                {
+                    lba = 23;
+                }
+                else
+                {
+                    lba = Convert.ToInt32(ifn.Offset);
+                }
+            }
+            else
+            {
+                lba = 23;
+            }
+
+            */
+
+            DiscIdentifier di = new DiscIdentifier(disc);
+
+            // start at lba 0 (saturn header information is usually there)
+            byte[] data = di.GetPSXSerialNumber(lba);
+
+            Dictionary<int, string> sDict = new Dictionary<int, string>();
+
+            DiscData sd = new DiscData();
+            
+            for (int i = 0; i < 8; i++)
+            {
+                int blockSize = 32;
+                byte[] data32 = data.ToList().Skip(i * (blockSize)).Take(blockSize).ToArray();
+                string sS = System.Text.Encoding.Default.GetString(data32);
+                sDict.Add(i, sS);
+            }
+
+            
+
+            
+
+
+            return "";
+        }
+
         /// <summary>
         /// returns the PSX serial - Bizhawk DiscSystem requires either cue, ccd or iso (not bin or img)
         /// </summary>
