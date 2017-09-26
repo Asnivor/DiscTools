@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("DiscTools")]
+[assembly: AssemblyTitle("TestAppNET452")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Microsoft")]
-[assembly: AssemblyProduct("DiscTools")]
+[assembly: AssemblyProduct("TestAppNET452")]
 [assembly: AssemblyCopyright("Copyright © Microsoft 2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("3822d52f-0d07-4de2-9c51-53c62f2c3b67")]
+[assembly: Guid("c17b6927-a5c4-4ab5-a9ad-bcfa8f10c392")]
 
 // Version information for an assembly consists of the following four values:
 //

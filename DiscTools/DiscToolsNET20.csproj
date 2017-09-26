@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3822D52F-0D07-4DE2-9C51-53C62F2C3B67}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DiscTools</RootNamespace>
+    <AssemblyName>DiscTools</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\net20\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;NET2</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\net20\</OutputPath>
+    <DefineConstants>TRACE;NET2</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="LinqBridge, Version=1.3.0.0, Culture=neutral, PublicKeyToken=c2b14eb747628076, processorArchitecture=MSIL">
+      <HintPath>..\packages\LinqBridge.1.3.0\lib\net20\LinqBridge.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CompilerServices.cs" />
+    <Compile Include="ISO\API_MednaDisc.cs" />
+    <Compile Include="ISO\Bit.cs" />
+    <Compile Include="ISO\BitReverse.cs" />
+    <Compile Include="ISO\Disc.cs" />
+    <Compile Include="ISO\DiscDecoding.cs" />
+    <Compile Include="ISO\DiscExceptions.cs" />
+    <Compile Include="ISO\DiscFormats\Blobs\Blob_ECM.cs" />
+    <Compile Include="ISO\DiscFormats\Blobs\Blob_RawFile.cs" />
+    <Compile Include="ISO\DiscFormats\Blobs\Blob_WaveFile.cs" />
+    <Compile Include="ISO\DiscFormats\Blobs\Blog_ZeroPadAdapter.cs" />
+    <Compile Include="ISO\DiscFormats\Blobs\IBlob.cs" />
+    <Compile Include="ISO\DiscFormats\Blobs\RiffMaster.cs" />
+    <Compile Include="ISO\DiscFormats\CCD_format.cs" />
+    <Compile Include="ISO\DiscFormats\CUE\CueFileResolver.cs" />
+    <Compile Include="ISO\DiscFormats\CUE\CUE_Compile.cs" />
+    <Compile Include="ISO\DiscFormats\CUE\CUE_Context.cs" />
+    <Compile Include="ISO\DiscFormats\CUE\CUE_File.cs" />
+    <Compile Include="ISO\DiscFormats\CUE\CUE_Load.cs" />
+    <Compile Include="ISO\DiscFormats\CUE\CUE_Parse.cs" />
+    <Compile Include="ISO\DiscFormats\CUE\CUE_Synths.cs" />
+    <Compile Include="ISO\DiscFormats\CUE\CUE_Types.cs" />
+    <Compile Include="ISO\DiscFormats\M3U_File.cs" />
+    <Compile Include="ISO\DiscFormats\SBI_format.cs" />
+    <Compile Include="ISO\DiscFormats\TOC_format.cs" />
+    <Compile Include="ISO\DiscHasher.cs" />
+    <Compile Include="ISO\DiscIdentifier.cs" />
+    <Compile Include="ISO\DiscJob.cs" />
+    <Compile Include="ISO\DiscMountJob.cs" />
+    <Compile Include="ISO\DiscMountPolicy.cs" />
+    <Compile Include="ISO\DiscSectorReader.cs" />
+    <Compile Include="ISO\DiscStream.cs" />
+    <Compile Include="ISO\DiscStructure.cs" />
+    <Compile Include="ISO\DiscSubQ.cs" />
+    <Compile Include="ISO\DiscTOC.cs" />
+    <Compile Include="ISO\DiscTypes.cs" />
+    <Compile Include="ISO\DiscUtils.cs" />
+    <Compile Include="ISO\EndianBitConverter.cs" />
+    <Compile Include="ISO\Internal\Algorithms\ECM.cs" />
+    <Compile Include="ISO\Internal\Algorithms\SubQ_CRC.cs" />
+    <Compile Include="ISO\Internal\Jobs\ApplySBIJob.cs" />
+    <Compile Include="ISO\Internal\Jobs\LoadSBIJob.cs" />
+    <Compile Include="ISO\Internal\Jobs\Synthesize_A0A1A2_Job.cs" />
+    <Compile Include="ISO\Internal\Jobs\Synthesize_DiscStructure_From_DiscTOC_Job.cs" />
+    <Compile Include="ISO\Internal\Jobs\Synthesize_DiscTOC_From_RawTOCEntries_Job.cs" />
+    <Compile Include="ISO\Internal\Jobs\Synthesize_Leadout_Job.cs" />
+    <Compile Include="ISO\Internal\SectorSynth.cs" />
+    <Compile Include="ISO\Internal\SynthUtils.cs" />
+    <Compile Include="ISO\Util.cs" />
+    <Compile Include="SBI\SubQPatchData.cs" />
+    <Compile Include="SerialNumber.cs" />
+    <Compile Include="ISO\ISODirectoryNode.cs" />
+    <Compile Include="ISO\ISOFile.cs" />
+    <Compile Include="ISO\ISOFileNode.cs" />
+    <Compile Include="ISO\ISONode.cs" />
+    <Compile Include="ISO\ISONodeRecord.cs" />
+    <Compile Include="ISO\ISOVolumeDescriptor.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ISO\DiscMountJob.MednaDisc.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
