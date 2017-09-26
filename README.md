@@ -8,14 +8,14 @@ See the [Releases](https://github.com/Asnivor/DiscTools/releases) page for the l
 ## Usage (C#):
 
 * Add a reference to the DiscTools.dll
-* string serial = DiscSN.SerialNumber.GetPSXSerial(@"\path\to\cue_or_ccd_file");
+* string serial = DiscTools.SerialNumber.GetPSXSerial(@"\path\to\cue_or_ccd_file");
 
 For safety, you should probably wrap the above in a try/catch block to handle any exceptions that may occur (the library hasnt been fully tested).
 
 ## Usage (VB):
 
 * Add a reference to the DiscTools.dll
-* Dim serial As String = DiscSN.SerialNumber.GetPSXSerial("\path\to\cue_or_ccd_file")
+* Dim serial As String = DiscTools.SerialNumber.GetPSXSerial("\path\to\cue_or_ccd_file")
 
 For safety, you should probably wrap the above in a try/catch block to handle any exceptions that may occur (the library hasnt been fully tested).
 
