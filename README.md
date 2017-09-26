@@ -1,7 +1,9 @@
 # DiscTools
-Class libraries for .NET2.0 and .NET4.5.2 that allow you to interogate a PSX or Saturn disc image (based on code from the BizHawk team)
+Class libraries for .NET2.0 and .NET4.5.2 that allow you to interrogate a PSX disc image (based on code from the BizHawk team)
 
-See the [Releases](https://github.com/Asnivor/DiscTools/releases) page for the latest auto-build release.
+[![Build status](https://ci.appveyor.com/api/projects/status/58juhmjpih7mw266/branch/master?svg=true)](https://ci.appveyor.com/project/Asnivor/disctools/branch/master)
+
+See the [Releases](https://github.com/Asnivor/DiscTools/releases) page for the latest successful auto-build release.
 
 ## Usage (C#):
 
