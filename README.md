@@ -17,14 +17,24 @@ See the [Releases](https://github.com/Asnivor/DiscTools/releases) page for the l
 ## Usage (C#):
 
 * Add a reference to the DiscTools.dll
-* var disc = new DiscInspector(@"\path\to\cue_or_ccd_file");
+
+#### Quick Scan (may not detect all discs)
+* var disc = DiscInspector.ScanDisc(@"\path\to\cue_or_ccd_file");
+
+#### Intensive Scan (may take longer)
+* var disc = DiscInspector.ScanDisc(@"\path\to\cue_or_ccd_file", false);
 
 ## Usage (VB):
 
 * Add a reference to the DiscTools.dll
-* Dim disc = New DiscInspector("\path\to\cue_or_ccd_file")
 
-For safety, you should probably wrap the above in a try/catch block to handle any exceptions that may occur (the library hasnt been fully tested).
+#### Quick Scan (may not detect all discs)
+* Dim disc = DiscInspector.ScanDisc("\path\to\cue_or_ccd_file")
+
+#### Intensive Scan (may take longer)
+* Dim disc = DiscInspector.ScanDisc("\path\to\cue_or_ccd_file", False)
+
+
 
 The 'disc' object can now be inspected to get any relevant data that has been discovered:
 

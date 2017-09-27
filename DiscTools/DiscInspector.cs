@@ -21,15 +21,25 @@ namespace DiscTools
         private DiscIdentifier di;
         private int CurrentLBA;
         private bool isIso;
+        private bool IntensiveScanning = true;
 
-        public DiscInspector(string cuePath)
+        public DiscInspector()
+        {          
+
+            
+        }
+
+        public DiscInspector Scan()
         {
+
+            if (CuePath == null)
+                return this;
+
             DetectedDiscType = DetectedDiscType.UnknownFormat;
 
-            if (!File.Exists(cuePath))
-                return;
+            if (!File.Exists(CuePath))
+                return this;
 
-            CuePath = cuePath;
             iso = new ISOFile();
             CurrentLBA = 23;
 
@@ -39,11 +49,11 @@ namespace DiscTools
                 disc = Disc.LoadAutomagic(CuePath);
             }
 
-            catch { return; }
-            
+            catch { return this; }
+
 
             if (disc == null)
-                return;
+                return this;
 
             Data = new DiscData();
 
@@ -91,7 +101,7 @@ namespace DiscTools
             Data.TotalDataTracks = dataTracks;
             Data.TotalTracks = audioTracks + dataTracks;
 
-            
+
 
             if (isIso)
             {
@@ -145,6 +155,8 @@ namespace DiscTools
             DiscTypeString = DetectedDiscType.ToString();
             if (DiscTypeString.ToLower() == "turbocd")
                 DiscTypeString = "PC-Engine";
+
+            return this;
         }
 
         /// <summary>
@@ -294,6 +306,9 @@ namespace DiscTools
 
             */
 
+            if (IntensiveScanning == false)
+                return false;
+
             // long test
             for (int it = 0; it < 20000000; it++)
             {
@@ -370,7 +385,9 @@ namespace DiscTools
                 }
             }
 
-            /*
+            if (IntensiveScanning == false)
+                return false;
+            
             // we havent found the identifier in the ISO, iterate through LBAs starting at 0
             for (int i = 0; i < 10000000; i++)
             {
@@ -382,7 +399,7 @@ namespace DiscTools
                     return true;
                 }
             }
-            */
+            
 
             return false;
         }
@@ -622,6 +639,33 @@ namespace DiscTools
             {
                 return null;
             }
+        }
+
+        /// <summary>
+        /// Return a DiscInspector Object
+        /// IntensiveScan will return more matches but may take longer
+        /// </summary>
+        /// <param name="cuePath"></param>
+        /// <param name="IntensiveScan"></param>
+        public static DiscInspector ScanDisc(string cuePath, bool IntensiveScan)
+        {
+            var DI = new DiscInspector();
+            DI.CuePath = cuePath;
+            DI.IntensiveScanning = IntensiveScan;
+
+            var res = DI.Scan();
+            return res;
+        }
+
+        /// <summary>
+        /// Return a DiscInspector Object
+        /// IntensiveScan by default
+        /// </summary>
+        /// <param name="cuePath"></param>
+        /// <param name="IntensiveScan"></param>
+        public static DiscInspector ScanDisc(string cuePath)
+        {
+            return ScanDisc(cuePath, true);
         }
     }
 
