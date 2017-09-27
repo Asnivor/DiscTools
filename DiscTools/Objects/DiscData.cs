@@ -9,6 +9,8 @@ namespace DiscTools.Objects
     {
         public string GameTitle { get; set; }
         public string ManufacturerID { get; set; }
+        public string Publisher { get; set; }
+        public string Developer { get; set; }
         public string SerialNumber { get; set; }
         public string Version { get; set; }
         public string InternalDate { get; set; }

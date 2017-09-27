@@ -10,6 +10,10 @@ namespace TestAppNET20
     {
         static void Main(string[] args)
         {
+            string cdiPath = @"G:\_Emulation\Philips CD-i\discs\Hotel Mario.cue";
+            //string cdiPath = @"G:\_Emulation\Philips CD-i\discs\Zombie Dinos.cue";
+            var cdi = new DiscInspector(cdiPath);
+
             string sega = @"G:\_Emulation\Sega Megadrive - 32x - SegaCD\discs\segacd\sonic_cd_-_sega_cd_MK-4407_(redump).cue";
             var sDisc = new DiscInspector(sega);
 
@@ -54,18 +58,18 @@ namespace TestAppNET20
                     if (DISC.Data == null)
                         continue;
 
-                    switch (DISC.DiscType)
+                    switch (DISC.DetectedDiscType)
                     {
-                        case DiscTools.ISO.DiscType.PCFX:
+                        case DetectedDiscType.PCFX:
                             pcfx.Add(DISC);
                             break;
-                        case DiscTools.ISO.DiscType.SegaSaturn:
+                        case DetectedDiscType.SegaSaturn:
                             ss.Add(DISC);
                             break;
-                        case DiscTools.ISO.DiscType.SonyPSX:
+                        case DetectedDiscType.SonyPSX:
                             psx.Add(DISC);
                             break;
-                        case DiscTools.ISO.DiscType.TurboCD:
+                        case DetectedDiscType.SegaCD:
                             pce.Add(DISC);
                             break;
                         default:

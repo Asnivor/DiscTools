@@ -7,28 +7,30 @@ using System.IO;
 using DiscTools.Objects;
 
 namespace DiscTools
-{
+{    
     public class DiscInspector
     {
         public string CuePath { get; private set; }
         public DiscData Data { get; private set; }
-        public DiscType DiscType { get; private set; }
+        public DetectedDiscType DetectedDiscType { get; private set; }
         public string DiscTypeString { get; private set; }
 
         private Disc disc;
         private EDiscStreamView discView;
         private ISOFile iso;
         private DiscIdentifier di;
-        private int PsxLba;
+        private int CurrentLBA;
 
         public DiscInspector(string cuePath)
         {
+            DetectedDiscType = DetectedDiscType.UnknownFormat;
+
             if (!File.Exists(cuePath))
                 return;
 
             CuePath = cuePath;
             iso = new ISOFile();
-            PsxLba = 23;
+            CurrentLBA = 23;
 
             // load the disc
             disc = Disc.LoadAutomagic(CuePath);
@@ -43,19 +45,8 @@ namespace DiscTools
             if (disc.TOC.Session1Format == SessionFormat.Type20_CDXA)
                 discView = EDiscStreamView.DiscStreamView_Mode2_Form1_2048;
 
-            di = new DiscIdentifier(disc);
-
-            // identify disc type
-            DiscType = di.DetectDiscType();
-
-            if (DiscType != DiscType.SegaSaturn ||
-                DiscType != DiscType.SonyPSP ||
-                DiscType != DiscType.SonyPSX ||
-                DiscType != DiscType.MegaCD)
-            {
-                // disc wasnt detected. Maybe audio at track one or something else. Use secondary method
-                GetDiscTypeSecondary();
-            }
+            // detect disc type
+            DetectedDiscType = DetectDiscType();
 
             // populate basic disc data
             int dataTracks = 0;
@@ -99,7 +90,7 @@ namespace DiscTools
                 Data.CreationDateTime = ParseDiscDateTime(TruncateLongString(System.Text.Encoding.Default.GetString(vs.VolumeCreationDateTime.ToArray()).Trim(), 12));
                 Data.ModificationDateTime = ParseDiscDateTime(TruncateLongString(System.Text.Encoding.Default.GetString(vs.LastModifiedDateTime.ToArray()).Trim(), 12));
 
-                if (DiscType == DiscType.SonyPSX)
+                if (DetectedDiscType == DetectedDiscType.SonyPSX)
                 {
                     var appId = System.Text.Encoding.ASCII.GetString(iso.VolumeDescriptors[0].ApplicationIdentifier).TrimEnd('\0', ' ');
                     var desc = iso.Root.Children;
@@ -113,37 +104,221 @@ namespace DiscTools
 
                     if (ifn == null)
                     {
-                        PsxLba = 23;
+                        CurrentLBA = 23;
                     }
                     else
                     {
-                        PsxLba = Convert.ToInt32(ifn.Offset);
+                        CurrentLBA = Convert.ToInt32(ifn.Offset);
                     }
                 }
             }
 
             // get information based on disc type
-            switch (DiscType)
+            switch (DetectedDiscType)
             {
-                case DiscType.SegaSaturn:
+                case DetectedDiscType.SegaSaturn:
                     GetSaturnInfo();
                     break;
-                case DiscType.MegaCD:
+                case DetectedDiscType.SegaCD:
                     GetMegaCDInfo();
                     break;
-                case DiscType.SonyPSX:
+                case DetectedDiscType.SonyPSX:
                     GetPSXInfo();
-                    break;
-                case DiscType.TurboCD:
                     break;
                 default:
                     break;
             }
 
             // set the typeString
-            DiscTypeString = DiscType.ToString();
+            DiscTypeString = DetectedDiscType.ToString();
             if (DiscTypeString.ToLower() == "turbocd")
                 DiscTypeString = "PC-Engine";
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public DetectedDiscType DetectDiscType()
+        {
+            di = new DiscIdentifier(disc);
+
+            // identify disc type using BizHawk DiscSystem
+            var dt = di.DetectDiscType();
+
+            switch(dt)
+            {
+                case DiscType.SegaSaturn: GetSaturnInfo(); return DetectedDiscType.SegaSaturn;
+                case DiscType.SonyPSX: GetPSXInfo(); return DetectedDiscType.SonyPSX;
+                case DiscType.MegaCD: GetMegaCDInfo(); return DetectedDiscType.SegaCD;
+            }
+
+            // its none of the 3 above - continue (pcfx first)
+            if (GetPCFXInfo())
+                return DetectedDiscType.PCFX;
+
+            // PCE next (its very similar to pcfx and has to be tested after to iliminate false-positives)
+            if (GetPCECDInfo())
+                return DetectedDiscType.PCEngineCD;
+
+            // Philips CD-i
+            if (GetCDiInfo())
+                return DetectedDiscType.PhilipsCDi;
+
+            if (dt == DiscType.AudioDisc)
+                return DetectedDiscType.AudioCD;
+
+            if (dt == DiscType.UnknownCDFS)
+                return DetectedDiscType.UnknownCDFS;
+
+            return DetectedDiscType.UnknownFormat;
+        }
+
+        public bool GetCDiInfo()
+        {
+            // CDi header data appears to be on LBA16 (through trial and erro) and has no pointer in the TOC. 
+            // Because I am not 100% sure of this we will start at LBA0 and run through to LBA30
+            for (int i = 0; i < 31; i++)
+            {
+                byte[] data = di.ReadData(i, 2048);
+                string result = System.Text.Encoding.ASCII.GetString(data);
+                if (result.ToLower().Contains("cd-rtos"))
+                {
+                    Data.ManufacturerID = System.Text.Encoding.Default.GetString(data.ToList().Skip(1).Take(4).ToArray());
+                    Data.OtherData = System.Text.Encoding.Default.GetString(data.ToList().Skip(8).Take(16).ToArray()).Trim();
+                    int start = 190;
+                    int block = 128;
+
+                    List<string> header = new List<string>();
+                    for (int a = 0; a < 10; a++)
+                    {
+                        string test = System.Text.Encoding.Default.GetString(data.ToList().Skip(190 + (a * block)).Take(block).ToArray());
+                        header.Add(test);
+                    }
+
+                    Data.DeviceInformation = header[3].Trim();
+                    Data.GameTitle = header[0].Trim();
+                    Data.Publisher = header[1].Trim();
+                    Data.Developer = header[2].Trim();
+
+                    Data.InternalDate = TruncateLongString(header[5], 12);
+
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool GetPCFXInfo()
+        {
+            // PCFX appears to have its ident information either in the LBA of one of the TOC items
+            // or in LBA +- 1
+
+            // get TOC items
+            var tocItems = disc.TOC.TOCItems.Where(a => a.Exists == true && a.IsData == true).ToList();
+
+            // iterate through each LBA specified in the TOC and search for system string            
+            foreach (var item in tocItems)
+            {
+                int lb = item.LBA;
+                int lbaPlus1 = item.LBA + 1;
+                int lbaMinus1 = item.LBA - 1;
+
+                try
+                {
+                    List<string> datas = new List<string>();
+
+                    byte[] data = di.ReadData(lb, 2048);
+                    datas.Add(System.Text.Encoding.Default.GetString(data));
+
+                    byte[] data1 = di.ReadData(lbaPlus1, 2048);
+                    datas.Add(System.Text.Encoding.Default.GetString(data1));
+
+                    byte[] data2 = di.ReadData(lbaMinus1, 2048);
+                    datas.Add(System.Text.Encoding.Default.GetString(data2));
+
+                    // iterate through each string
+                    foreach (string sS in datas)
+                    {
+                        if (sS.ToLower().Contains("pc-fx"))
+                        {
+                            byte[] newData = System.Text.Encoding.ASCII.GetBytes(sS);
+
+                            if (sS.ToLower().StartsWith("pc-fx:hu_cd"))
+                            {
+                                // disc format does not have a gametitle
+                            }
+                            else
+                            {
+                                // game title should exist
+                                byte[] dataSm = newData.Skip(106).Take(48).ToArray();
+                                string t = System.Text.Encoding.Default.GetString(dataSm).Replace('\0', ' ').Trim().Split(new string[] { "  " }, StringSplitOptions.None).FirstOrDefault();
+                                Data.GameTitle = t;
+                            }
+                            return true;
+                        }
+                    }
+                }
+                catch (InvalidOperationException ex)
+                {
+                    string s = ex.ToString();
+                    continue;
+                }
+
+            }
+            
+            // no pcfx detected
+            return false;
+        }
+
+        public bool GetPCECDInfo()
+        {
+            // get TOC items
+            var tocItems = disc.TOC.TOCItems.Where(a => a.Exists == true && a.IsData == true).ToList();
+
+            foreach (var item in tocItems)
+            {
+                int lb = item.LBA;
+                int lbaPlus1 = item.LBA + 1;
+                int lbaMinus1 = item.LBA - 1;
+
+                try
+                {
+                    // will do the same lba +- one thing, just in case
+                    List<string> datas = new List<string>();
+
+                    byte[] data = di.ReadData(lb, 2048);
+                    datas.Add(System.Text.Encoding.Default.GetString(data));
+
+                    byte[] data1 = di.ReadData(lbaPlus1, 2048);
+                    datas.Add(System.Text.Encoding.Default.GetString(data1));
+
+                    byte[] data2 = di.ReadData(lbaMinus1, 2048);
+                    datas.Add(System.Text.Encoding.Default.GetString(data2));
+
+                    // iterate through each string
+                    foreach (string sS in datas)
+                    {
+                        if (sS.ToLower().Contains("pc engine"))
+                        {
+                            byte[] newData = System.Text.Encoding.ASCII.GetBytes(sS);
+
+                            // get game name
+                            byte[] dataSm = newData.Skip(106).Take(48).ToArray();
+                            string t = System.Text.Encoding.Default.GetString(dataSm).Replace('\0', ' ').Trim().Split(new string[] { "  " }, StringSplitOptions.None).FirstOrDefault();
+                            Data.GameTitle = t;
+                            return true;
+                        }                        
+                    }
+                }
+                catch (InvalidOperationException ex)
+                {
+                    string s = ex.ToString();
+                    continue;
+                }
+            }
+
+            return false;
         }
 
         public void GetSaturnInfo()
@@ -162,6 +337,11 @@ namespace DiscTools
             Data.AreaCodes = System.Text.Encoding.Default.GetString(d.ToList().Skip(64).Take(16).ToArray()).Trim();
             Data.PeripheralCodes = System.Text.Encoding.Default.GetString(d.ToList().Skip(80).Take(8).ToArray()).Trim(); // saturn docs show this area as 10 bytes, but it looks like its actually 8
             Data.GameTitle = System.Text.Encoding.Default.GetString(d.ToList().Skip(86).Take(120).ToArray()).Trim();
+        }
+
+        public void GetPhilipsCDiInfo()
+        {
+
         }
 
         public void GetMegaCDInfo()
@@ -186,116 +366,11 @@ namespace DiscTools
             Data.DeviceInformation = header[0].Trim();
             Data.OtherData = header[17].Trim();
             
-        }
-
-        public DiscType GetDiscTypeSecondary()
-        {
-            // get TOC
-            var tocItems = disc.TOC.TOCItems.Where(a => a.Exists == true && a.IsData == true).ToList();
-
-            // iterate through each LBA specified in the TOC and search for system string
-            int lb = 0;
-
-            /*
-            for (int i = 0; i < 2000000; i++)
-            {
-                lb = i;
-                byte[] da = di.ReadData(lb, 2048);
-                string s = System.Text.Encoding.Default.GetString(da);
-                if (s.ToLower().Contains("Angelique"))
-                {
-
-                }
-            }
-            */
-            
-
-            foreach (var item in tocItems)
-            {
-                lb = item.LBA;
-                int lbaPlus1 = item.LBA + 1;
-                int lbaMinus1 = item.LBA - 1;
-                  
-                try
-                {
-                    // sometimes the identifier string can be found in lba+1 or lba-1 as well
-                    List<string> datas = new List<string>();
-
-                    byte[] data = di.ReadData(lb, 2048);
-                    datas.Add(System.Text.Encoding.Default.GetString(data));
-
-                    byte[] data1 = di.ReadData(lbaPlus1, 2048);
-                    datas.Add(System.Text.Encoding.Default.GetString(data1));
-
-                    byte[] data2 = di.ReadData(lbaMinus1, 2048);
-                    datas.Add(System.Text.Encoding.Default.GetString(data2));
-
-                    // iterate through each string
-                    foreach (string sS in datas)
-                    {
-                        if (sS.ToLower().Contains("pc-fx"))
-                        {
-                            DiscType = DiscType.PCFX;
-
-                            byte[] newData = System.Text.Encoding.ASCII.GetBytes(sS);
-
-                            if (sS.ToLower().StartsWith("pc-fx:hu_cd"))
-                            {
-                                // disc format does not have a gametitle
-                            }
-                            else
-                            {
-                                // game title should exist
-                                byte[] dataSm = newData.Skip(106).Take(48).ToArray();
-                                string t = System.Text.Encoding.Default.GetString(dataSm).Replace('\0', ' ').Trim().Split(new string[] { "  " }, StringSplitOptions.None).FirstOrDefault();
-                                Data.GameTitle = t;
-                            }
-
-                            
-                            return DiscType;
-                        }
-
-                        if (sS.ToLower().Contains("pc engine"))
-                        {
-                            DiscType = DiscType.TurboCD;
-
-                            byte[] newData = System.Text.Encoding.ASCII.GetBytes(sS);
-
-                            // get game name
-                            byte[] dataSm = newData.Skip(106).Take(48).ToArray();
-                            string t = System.Text.Encoding.Default.GetString(dataSm).Replace('\0', ' ').Trim().Split(new string[] { "  " }, StringSplitOptions.None).FirstOrDefault();
-                            Data.GameTitle = t;
-                            return DiscType;
-                        }
-                        
-                        if (sS.ToLower().Contains("sony computer"))
-                        {
-                            DiscType = DiscType.SonyPSX;
-                            break;
-                        }
-
-                        if (sS.ToLower().Contains("segasaturn"))
-                        {
-                            DiscType = DiscType.SegaSaturn;
-                            break;
-                        }
-                    }                    
-                }
-                catch (InvalidOperationException ex)
-                {
-                    string s = ex.ToString();
-                    continue;
-                }
-                
-            }
-
-            
-            return DiscType.UnknownFormat;
-        }
+        }        
 
         public void GetPSXInfo()
         {
-            byte[] data = di.GetPSXSerialNumber(PsxLba);
+            byte[] data = di.GetPSXSerialNumber(CurrentLBA);
             byte[] data32 = data.ToList().Take(200).ToArray();
 
             string sS = System.Text.Encoding.Default.GetString(data32);
@@ -341,4 +416,18 @@ namespace DiscTools
             }
         }
     }
+
+    public enum DetectedDiscType
+    {
+        SonyPSX,
+        SegaSaturn,
+        PCEngineCD,
+        PCFX,
+        SegaCD,
+        PhilipsCDi,
+        AudioCD,
+        UnknownCDFS,
+        UnknownFormat
+    }
+
 }

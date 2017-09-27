@@ -49,18 +49,18 @@ namespace TestAppNET452
                     if (DISC.Data == null)
                         continue;
 
-                    switch (DISC.DiscType)
+                    switch (DISC.DetectedDiscType)
                     {
-                        case DiscTools.ISO.DiscType.PCFX:
+                        case DetectedDiscType.PCFX:
                             pcfx.Add(DISC);
                             break;
-                        case DiscTools.ISO.DiscType.SegaSaturn:
+                        case DetectedDiscType.SegaSaturn:
                             ss.Add(DISC);
                             break;
-                        case DiscTools.ISO.DiscType.SonyPSX:
+                        case DetectedDiscType.SonyPSX:
                             psx.Add(DISC);
                             break;
-                        case DiscTools.ISO.DiscType.TurboCD:
+                        case DetectedDiscType.SegaCD:
                             pce.Add(DISC);
                             break;
                         default:

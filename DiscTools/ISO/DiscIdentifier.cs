@@ -49,7 +49,9 @@ namespace DiscTools.ISO
         /// <summary>
         /// MegaDrive addon
         /// </summary>
-        MegaCD
+        MegaCD,
+
+        PhilipsCDi
     }
 
     public class DiscIdentifier
