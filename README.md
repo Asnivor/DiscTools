@@ -19,20 +19,20 @@ See the [Releases](https://github.com/Asnivor/DiscTools/releases) page for the l
 * Add a reference to the DiscTools.dll
 
 #### Quick Scan (may not detect all discs)
-* var disc = DiscInspector.ScanDisc(@"\path\to\cue_or_ccd_file");
+* var disc = DiscInspector.ScanDisc(@"\path\to\cue_or_ccd_file", false);
 
 #### Intensive Scan (may take longer)
-* var disc = DiscInspector.ScanDisc(@"\path\to\cue_or_ccd_file", false);
+* var disc = DiscInspector.ScanDisc(@"\path\to\cue_or_ccd_file");
 
 ## Usage (VB):
 
 * Add a reference to the DiscTools.dll
 
 #### Quick Scan (may not detect all discs)
-* Dim disc = DiscInspector.ScanDisc("\path\to\cue_or_ccd_file")
+* Dim disc = DiscInspector.ScanDisc("\path\to\cue_or_ccd_file", False)
 
 #### Intensive Scan (may take longer)
-* Dim disc = DiscInspector.ScanDisc("\path\to\cue_or_ccd_file", False)
+* Dim disc = DiscInspector.ScanDisc("\path\to\cue_or_ccd_file")
 
 
 
