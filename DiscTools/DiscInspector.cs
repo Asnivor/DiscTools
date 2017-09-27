@@ -248,21 +248,94 @@ namespace DiscTools
                 }
             }
 
-            return false;
-
+            /*
             // get TOC items
-            var tocItems = disc.TOC.TOCItems.Where(a => a.Exists == true && a.IsData == true).ToList();
+            var tocItems = disc.TOC.TOCItems.ToList();
 
-            for (int i = 0; i < 1000000; i++)
+            // iterate through each LBA specified in the TOC and search for system string            
+            foreach (var item in tocItems)
             {
-                byte[] data = di.ReadData(i, 2048);
-                string str = (System.Text.Encoding.Default.GetString(data));
+                int lb = item.LBA;
+                int lbaPlus1 = item.LBA + 1;
+                int lbaMinus1 = item.LBA - 1;
 
-                if (str.Trim('\0', ' ').ToLower().Contains("sega enterprises"))
+                try
                 {
-                    string test = str.Trim('\0', ' ');
+                    List<string> datas = new List<string>();
+
+                    byte[] data = di.ReadData(lb, 2048);
+                    datas.Add(System.Text.Encoding.Default.GetString(data));
+
+                    byte[] data1 = di.ReadData(lbaPlus1, 2048);
+                    datas.Add(System.Text.Encoding.Default.GetString(data1));
+
+                    byte[] data2 = di.ReadData(lbaMinus1, 2048);
+                    datas.Add(System.Text.Encoding.Default.GetString(data2));
+
+                    // iterate through each string
+                    foreach (string sS in datas)
+                    {
+                        if (sS.ToLower().Contains("segakatana"))
+                        {
+                            byte[] newData = System.Text.Encoding.ASCII.GetBytes(sS);
+
+                            
+                            return true;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    string s = ex.ToString();
+                    continue;
+                }
+
+            }
+
+            */
+
+            // long test
+            for (int it = 0; it < 20000000; it++)
+            {
+                byte[] data = di.ReadData(it, 2048);
+                string res = System.Text.Encoding.Default.GetString(data);
+                if (res.ToLower().Contains("segakatana"))
+                {
+                    int ind = res.ToLower().IndexOf("segakatana");
+                    string d = res.Substring(res.ToLower().IndexOf("segakatana"));
+
+                    List<string> header = new List<string>();
+
+                    byte[] dat = System.Text.Encoding.Default.GetBytes(d);
+
+                    for (int i = 0; i < 20; i++)
+                    {
+                        string lookup = System.Text.Encoding.Default.GetString(dat.Skip((i * 16) - 5).Take(16).ToArray());
+                        header.Add(lookup);
+                    }
+
+                    Data.SerialNumber = header[4].Split(' ').First().Trim();
+                    Data.Version = header[4].Split(' ').Last().Trim();
+                    Data.GameTitle = (header[8] + header[9]).Trim();
+                    Data.InternalDate = header[5].Trim();
+                    Data.Publisher = header[1].Trim();
+                    Data.AreaCodes = header[3].Split(' ').First().Trim();
+                    Data.PeripheralCodes = header[3].Split(' ').Last().Trim();
+
+                    Data.MediaID = header[2].Split(' ').First().Trim();
+                    Data.MediaInfo = header[2].Trim().Split(' ').Last().Trim();
+
+                    Data.DeviceInformation = header[0].Trim();
+                    Data.ManufacturerID = header[7].Trim();
+
+
+                    return true;
                 }
             }
+
+            // no dreamcast detected
+            return false;
+            
         }
 
         public bool GetNeoGeoCDInfo()

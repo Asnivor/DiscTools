@@ -10,9 +10,9 @@ namespace TestAppNET20
     {
         static void Main(string[] args)
         {
-            //string dcPath = @"G:\_Emulation\Dreamcast\games\Daytona_USA_USA_DC-ECHELON\E-DAYUSA.cue";
+            string dcPath = @"G:\_Emulation\Dreamcast\games\Daytona_USA_USA_DC-ECHELON\E-DAYUSA.cue";
             //string dcPath = @"G:\_Emulation\Dreamcast\games\Sword_Of_The_Berserk_USA_DC-KALISTO\kal-sotb.cue";
-            string dcPath = @"G:\_Emulation\Dreamcast\games\Sword_Of_The_Berserk_USA_DC-KALISTO\kal-sotb.cdi";
+            //string dcPath = @"G:\_Emulation\Dreamcast\games\Sword_Of_The_Berserk_USA_DC-KALISTO\kal-sotb.cdi";
             //string dcPath = @"G:\_Emulation\Dreamcast\games\Sega_Rally_2_Championship_USA_DC-KALISTO\KAL-SR2.CUE";
             var dc = new DiscInspector(dcPath);
 
