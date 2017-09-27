@@ -142,8 +142,6 @@ namespace DiscTools
                 DiscTypeString = "PC-Engine";
         }
 
-        
-
         public void GetSaturnInfo()
         {
             // read 2048 bytes of data from lba 0 (as saturn info is in the header)
@@ -158,7 +156,7 @@ namespace DiscTools
             Data.InternalDate = System.Text.Encoding.Default.GetString(d.ToList().Skip(48).Take(8).ToArray()).Trim();
             Data.DeviceInformation = System.Text.Encoding.Default.GetString(d.ToList().Skip(56).Take(8).ToArray()).Trim();
             Data.AreaCodes = System.Text.Encoding.Default.GetString(d.ToList().Skip(64).Take(16).ToArray()).Trim();
-            Data.PeripheralCodes = System.Text.Encoding.Default.GetString(d.ToList().Skip(80).Take(8).ToArray()).Trim();
+            Data.PeripheralCodes = System.Text.Encoding.Default.GetString(d.ToList().Skip(80).Take(8).ToArray()).Trim(); // saturn docs show this area as 10 bytes, but it looks like its actually 8
             Data.GameTitle = System.Text.Encoding.Default.GetString(d.ToList().Skip(86).Take(120).ToArray()).Trim();
         }
 
@@ -304,9 +302,15 @@ namespace DiscTools
         {
             if (dtString.Contains("0000000"))
                 return null;
-
-            DateTime dt = DateTime.ParseExact(dtString, "yyyyMMddHHmm", System.Globalization.CultureInfo.InvariantCulture);
-            return dt;
+            try
+            {
+                DateTime dt = DateTime.ParseExact(dtString, "yyyyMMddHHmm", System.Globalization.CultureInfo.InvariantCulture);
+                return dt;
+            }
+            catch
+            {
+                return null;
+            }
         }
     }
 }

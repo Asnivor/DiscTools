@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using DiscTools;
+using System.Linq;
 
 namespace TestAppNET20
 {
@@ -9,44 +10,70 @@ namespace TestAppNET20
     {
         static void Main(string[] args)
         {
+            string baseFolder = @"G:\_Emulation";
+            string[] discFolders = new string[]
+            {
+                "\\PC Engine",
+                "\\PCFX",
+                "\\PSX",
+                "\\Sega Saturn"
+            };
+
+            List<string> files = new List<string>();
+
+            foreach (var f in discFolders)
+            {
+                List<string> allFiles = System.IO.Directory.GetFiles(baseFolder + f, "*.*", System.IO.SearchOption.AllDirectories)
+                .Where(a => System.IO.Path.GetExtension(a).ToLower() == ".cue" ||
+                System.IO.Path.GetExtension(a).ToLower() == ".ccd" ||
+                System.IO.Path.GetExtension(a).ToLower() == ".toc").ToList();
+
+                files.AddRange(allFiles);
+            }
+
+            List<DiscInspector> psx = new List<DiscInspector>();
+            List<DiscInspector> ss = new List<DiscInspector>();
+            List<DiscInspector> pce = new List<DiscInspector>();
+            List<DiscInspector> pcfx = new List<DiscInspector>();
+            List<DiscInspector> unknownOrAudio = new List<DiscInspector>();
 
 
+            foreach (var s in files)
+            {
+                try
+                {
+                    var DISC = new DiscInspector(s);
+                    if (DISC == null)
+                        continue;
+                    if (DISC.Data == null)
+                        continue;
 
-            // get ss serial
-            string ssPath1 = @"G:\_Emulation\Sega Saturn\disks\Virtua Fighter CG Portrait Series Vol1 Sarah Bryant (J) [!]\Virtua Fighter CG Portrait Series Vol1 Sarah Bryant (J) [!] [SegaSaturn].CCD";
-            string ssPath2 = @"G:\_Emulation\PC Engine\discs\Ys III - Wanderers from Ys [U][CD][TGXCD1015][Falcom][1991][PCE]\Ys III - Wanderers from Ys [U][CD][TGXCD1015][Falcom][1991][PCE].cue";
-            string ssPath3 = @"G:\_Emulation\PC Engine\discs\Godzilla [U][SCD][TGXCD1051][Toho][1993][PCE]\Godzilla [U][SCD][TGXCD1051][Toho][1993][PCE].cue";
-            string ssPath4 = @"G:\_Emulation\PCFX\Games\Battle Heat\Battle Heat.cue";
-            string ssPath5 = @"G:\_Emulation\PCFX\Games\Angelique Special\Angelique Special.cue";
+                    switch (DISC.DiscType)
+                    {
+                        case DiscTools.ISO.DiscType.PCFX:
+                            pcfx.Add(DISC);
+                            break;
+                        case DiscTools.ISO.DiscType.SegaSaturn:
+                            ss.Add(DISC);
+                            break;
+                        case DiscTools.ISO.DiscType.SonyPSX:
+                            psx.Add(DISC);
+                            break;
+                        case DiscTools.ISO.DiscType.TurboCD:
+                            pce.Add(DISC);
+                            break;
+                        default:
+                            unknownOrAudio.Add(DISC);
+                            break;
+                    }
+                }
 
-          var disc = new DiscInspector(ssPath1);
-
-           disc = new DiscInspector(ssPath2);
-
-           disc = new DiscInspector(ssPath3);
-
-           disc = new DiscInspector(ssPath4);
-
-            disc = new DiscInspector(ssPath5);
-
-            //string ssResult = SerialNumber.GetSaturnSerial(ssPath);
-
-            // get psx serial
-            string psxPath = @"G:\_Emulation\PSX\iso\Tekken 3 (USA)\Tekken 3 (USA).cue";
-            string psxResult = SerialNumber.GetPSXSerial(psxPath);
-            Console.WriteLine(psxResult);
-
-            psxPath = @"G:\_Emulation\PSX\iso\Tekken 3 (E) [SCES-01237]\Tekken 3 (E) [SCES-01237].cue";
-            psxResult = SerialNumber.GetPSXSerial(psxPath);
-            Console.WriteLine(psxResult);
-
-
-            /*
-            // get ss serial
-            string ssPath = @"D:\Dropbox\Dropbox\_Games\Emulation\_Emulators\Mednafen\mednafen-latest\_roms\ss\Virtual Open Tennis\Virtual Open Tennis.ccd";
-            string ssResult = SerialNumber.GetSaturnSerial(ssPath);
-            Console.WriteLine(ssResult);
-            */
+                catch
+                {
+                    continue;
+                }
+                
+            }
 
             Console.ReadKey();
         }

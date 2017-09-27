@@ -81,8 +81,18 @@ namespace DiscTools.ISO.DiscFormats.CUE
             {
                 di = new FileInfo(path).Directory;
                 //fileInfos = di.GetFiles(Path.GetFileNameWithoutExtension(path)); //does this work?
-                fileInfos = MyFileInfosFromFileInfos(di.GetFiles()); //we (probably) have to enumerate all the files to do a search anyway, so might as well do this
-                                                                     //TODO - dont do the search until a resolve fails
+
+                try
+                {
+                    fileInfos = MyFileInfosFromFileInfos(di.GetFiles()); //we (probably) have to enumerate all the files to do a search anyway, so might as well do this
+                                                                         //TODO - dont do the search until a resolve fails
+                }
+                catch
+                {
+                    return null;
+                }
+
+
             }
             else
             {

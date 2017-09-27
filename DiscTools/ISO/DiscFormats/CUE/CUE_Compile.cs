@@ -220,6 +220,10 @@ namespace DiscTools.ISO.DiscFormats.CUE
 
             var options = Resolver.Resolve(f.Path);
             string choice = null;
+
+            if (options == null)
+                return;
+
             if (options.Count == 0)
             {
                 Error(string.Format("Couldn't resolve referenced cue file: {0} ; you can commonly repair the cue file yourself, or a file might be missing", f.Path));

@@ -474,7 +474,8 @@ namespace DiscTools.ISO.DiscFormats
         {
             var loadResults = LoadCCDPath(ccdPath);
             if (!loadResults.Valid)
-                throw loadResults.FailureException;
+                return null;
+                //throw loadResults.FailureException;
 
             Disc disc = new Disc();
 
