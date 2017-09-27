@@ -34,7 +34,13 @@ namespace DiscTools
             CurrentLBA = 23;
 
             // load the disc
-            disc = Disc.LoadAutomagic(CuePath);
+            try
+            {
+                disc = Disc.LoadAutomagic(CuePath);
+            }
+
+            catch { return; }
+            
 
             if (disc == null)
                 return;
@@ -175,6 +181,11 @@ namespace DiscTools
             if (GetNeoGeoCDInfo())
                 return DetectedDiscType.NeoGeoCD;
 
+            // DreamCast
+            if (GetDreamcastInfo())
+                return DetectedDiscType.DreamCast;
+            
+
             if (dt == DiscType.AudioDisc)
                 return DetectedDiscType.AudioCD;
 
@@ -182,6 +193,76 @@ namespace DiscTools
                 return DetectedDiscType.UnknownCDFS;
 
             return DetectedDiscType.UnknownFormat;
+        }
+
+        public bool GetDreamcastInfo()
+        {
+            if (isIso == true)
+            {
+                // looking for "IP.BIN"
+                var desc = iso.Root.Children;
+                ISONode ifn = null;
+
+                foreach (var i in desc)
+                {
+                    if (i.Key.ToUpper().Contains("IP.BIN"))
+                        ifn = i.Value;
+                }
+
+                if (ifn == null)
+                {
+                    // nothing
+                }
+                else
+                {
+                    CurrentLBA = Convert.ToInt32(ifn.Offset);
+                    // inspect currentlba to see if this is a neogeoCD
+                    byte[] dat = di.ReadData(CurrentLBA, 2048);
+                    string test1 = System.Text.Encoding.Default.GetString(dat);
+                    if (test1.ToLower().Contains("segakatana"))
+                    {
+                        List<string> header = new List<string>();
+                        for (int i = 0; i < 20; i++)
+                        {
+                            string lookup = System.Text.Encoding.Default.GetString(dat.Skip(i * 16).Take(16).ToArray());
+                            header.Add(lookup);
+                        }
+
+                        Data.SerialNumber = header[4].Split(' ').First().Trim();
+                        Data.Version = header[4].Split(' ').Last().Trim();
+                        Data.GameTitle = (header[8] + header[9]).Trim();
+                        Data.InternalDate = header[5].Trim();
+                        Data.Publisher = header[1].Trim();
+                        Data.AreaCodes = header[3].Split(' ').First().Trim();
+                        Data.PeripheralCodes = header[3].Split(' ').Last().Trim();
+
+                        Data.MediaID = header[2].Split(' ').First().Trim();
+                        Data.MediaInfo = header[2].Trim().Split(' ').Last().Trim();
+
+                        Data.DeviceInformation = header[0].Trim();
+                        Data.ManufacturerID = header[7].Trim();
+
+
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+
+            // get TOC items
+            var tocItems = disc.TOC.TOCItems.Where(a => a.Exists == true && a.IsData == true).ToList();
+
+            for (int i = 0; i < 1000000; i++)
+            {
+                byte[] data = di.ReadData(i, 2048);
+                string str = (System.Text.Encoding.Default.GetString(data));
+
+                if (str.Trim('\0', ' ').ToLower().Contains("sega enterprises"))
+                {
+                    string test = str.Trim('\0', ' ');
+                }
+            }
         }
 
         public bool GetNeoGeoCDInfo()
@@ -216,6 +297,7 @@ namespace DiscTools
                 }
             }
 
+            /*
             // we havent found the identifier in the ISO, iterate through LBAs starting at 0
             for (int i = 0; i < 10000000; i++)
             {
@@ -227,6 +309,7 @@ namespace DiscTools
                     return true;
                 }
             }
+            */
 
             return false;
         }
@@ -396,11 +479,6 @@ namespace DiscTools
             Data.GameTitle = System.Text.Encoding.Default.GetString(d.ToList().Skip(86).Take(120).ToArray()).Trim();
         }
 
-        public void GetPhilipsCDiInfo()
-        {
-
-        }
-
         public void GetMegaCDInfo()
         {
             // read 2048 bytes of data from lba 0 (as MegaCD info is in the header)
@@ -484,6 +562,7 @@ namespace DiscTools
         PhilipsCDi,
         AudioCD,
         NeoGeoCD,
+        DreamCast,
         UnknownCDFS,
         UnknownFormat
     }

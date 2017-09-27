@@ -7,7 +7,8 @@ Class libraries for .NET2.0 and .NET4.5.2 that currently allow you to interrogat
 * PC-FX
 * SegaCD
 * Philips CD-i
-* NeoGeo CD
+* NeoGeo CD (Currently Internal ISO Format Supported)
+* Dreamcast (Currently Internal ISO Format Supported)
 
 [![Build status](https://ci.appveyor.com/api/projects/status/58juhmjpih7mw266/branch/master?svg=true)](https://ci.appveyor.com/project/Asnivor/disctools/branch/master)
 
