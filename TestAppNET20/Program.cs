@@ -10,6 +10,10 @@ namespace TestAppNET20
     {
         static void Main(string[] args)
         {
+            //string neocdPath = @"G:\_Emulation\NeoGeo CD\discs\Metal Slug (1996)(SNK)(Jp-US)[!].cue";
+            string neocdPath = @"G:\_Emulation\NeoGeo CD\discs\Breakers (1997)(Visco)(Jp)[!].cue";
+            var neocd = new DiscInspector(neocdPath);
+
             string cdiPath = @"G:\_Emulation\Philips CD-i\discs\Hotel Mario.cue";
             //string cdiPath = @"G:\_Emulation\Philips CD-i\discs\Zombie Dinos.cue";
             var cdi = new DiscInspector(cdiPath);

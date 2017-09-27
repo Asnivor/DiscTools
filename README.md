@@ -7,6 +7,7 @@ Class libraries for .NET2.0 and .NET4.5.2 that currently allow you to interrogat
 * PC-FX
 * SegaCD
 * Philips CD-i
+* NeoGeo CD
 
 [![Build status](https://ci.appveyor.com/api/projects/status/58juhmjpih7mw266/branch/master?svg=true)](https://ci.appveyor.com/project/Asnivor/disctools/branch/master)
 
@@ -28,7 +29,7 @@ The 'disc' object can now be inspected to get any relevant data that has been di
 
 ![](Images/ss-data.PNG?raw=true)
 
-Saturn images have the most data to return. There is limited data for the other types.
+At the very least the library *should* be able to detect the system that the disc is for. If you are lucky it will also return lots more data.
 
 ## Attribution
 This library uses code from BizHawk multi-system emulator - https://github.com/TASVideos/BizHawk

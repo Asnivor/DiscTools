@@ -20,6 +20,7 @@ namespace DiscTools
         private ISOFile iso;
         private DiscIdentifier di;
         private int CurrentLBA;
+        private bool isIso;
 
         public DiscInspector(string cuePath)
         {
@@ -44,6 +45,9 @@ namespace DiscTools
             discView = EDiscStreamView.DiscStreamView_Mode1_2048;
             if (disc.TOC.Session1Format == SessionFormat.Type20_CDXA)
                 discView = EDiscStreamView.DiscStreamView_Mode2_Form1_2048;
+
+            // try and mount it as an ISO
+            isIso = iso.Parse(new DiscStream(disc, discView, 0));
 
             // detect disc type
             DetectedDiscType = DetectDiscType();
@@ -81,11 +85,13 @@ namespace DiscTools
             Data.TotalDataTracks = dataTracks;
             Data.TotalTracks = audioTracks + dataTracks;
 
-            bool isIso = iso.Parse(new DiscStream(disc, discView, 0));
+            
 
             if (isIso)
             {
-                Data.GameTitle = System.Text.Encoding.Default.GetString(iso.VolumeDescriptors.Where(a => a != null).First().VolumeIdentifier).Trim();
+                if (Data.GameTitle == null || Data.GameTitle == "")
+                    Data.GameTitle = System.Text.Encoding.Default.GetString(iso.VolumeDescriptors.Where(a => a != null).First().VolumeIdentifier).TrimEnd('\0', ' '); ;
+
                 var vs = iso.VolumeDescriptors.Where(a => a != null).ToArray().First();
                 Data.CreationDateTime = ParseDiscDateTime(TruncateLongString(System.Text.Encoding.Default.GetString(vs.VolumeCreationDateTime.ToArray()).Trim(), 12));
                 Data.ModificationDateTime = ParseDiscDateTime(TruncateLongString(System.Text.Encoding.Default.GetString(vs.LastModifiedDateTime.ToArray()).Trim(), 12));
@@ -165,6 +171,10 @@ namespace DiscTools
             if (GetCDiInfo())
                 return DetectedDiscType.PhilipsCDi;
 
+            // NeoGeo CD
+            if (GetNeoGeoCDInfo())
+                return DetectedDiscType.NeoGeoCD;
+
             if (dt == DiscType.AudioDisc)
                 return DetectedDiscType.AudioCD;
 
@@ -172,6 +182,53 @@ namespace DiscTools
                 return DetectedDiscType.UnknownCDFS;
 
             return DetectedDiscType.UnknownFormat;
+        }
+
+        public bool GetNeoGeoCDInfo()
+        {
+            // check whether its an ISO or not
+            if (isIso == true)
+            {
+                // we are looking for "ABS.TXT"
+                var desc = iso.Root.Children;
+                ISONode ifn = null;
+
+                foreach (var i in desc)
+                {
+                    if (i.Key.ToUpper().Contains("ABS.TXT"))
+                        ifn = i.Value;
+                }
+
+                if (ifn == null)
+                {
+                    // nothing
+                }
+                else
+                {
+                    CurrentLBA = Convert.ToInt32(ifn.Offset);
+                    // inspect currentlba to see if this is a neogeoCD
+                    byte[] dat = di.ReadData(CurrentLBA, 2048);
+                    string test1 = System.Text.Encoding.Default.GetString(dat);
+                    if (test1.ToLower().Contains("abstracted by snk"))
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            // we havent found the identifier in the ISO, iterate through LBAs starting at 0
+            for (int i = 0; i < 10000000; i++)
+            {
+                byte[] da = di.ReadData(i, 2048);
+                string ttesties = System.Text.Encoding.Default.GetString(da);
+
+                if (ttesties.ToLower().Contains("abstracted by snk"))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         public bool GetCDiInfo()
@@ -426,6 +483,7 @@ namespace DiscTools
         SegaCD,
         PhilipsCDi,
         AudioCD,
+        NeoGeoCD,
         UnknownCDFS,
         UnknownFormat
     }
