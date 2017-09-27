@@ -13,14 +13,22 @@ namespace TestAppNET20
 
 
             // get ss serial
-            string ssPath = @"G:\_Emulation\Sega Saturn\disks\Virtua Fighter CG Portrait Series Vol1 Sarah Bryant (J) [!]\Virtua Fighter CG Portrait Series Vol1 Sarah Bryant (J) [!] [SegaSaturn].CCD";
-            //string ssPath = @"G:\_Emulation\PC Engine\discs\Ys III - Wanderers from Ys [U][CD][TGXCD1015][Falcom][1991][PCE]\Ys III - Wanderers from Ys [U][CD][TGXCD1015][Falcom][1991][PCE].cue";
-            //string ssPath = @"G:\_Emulation\PC Engine\discs\Godzilla [U][SCD][TGXCD1051][Toho][1993][PCE]\Godzilla [U][SCD][TGXCD1051][Toho][1993][PCE].cue";
-            //string ssPath = @"G:\_Emulation\PCFX\Games\Battle Heat\Battle Heat.cue";
-            //string ssPath = @"G:\_Emulation\PCFX\Games\Angelique Special\Angelique Special.cue";
+            string ssPath1 = @"G:\_Emulation\Sega Saturn\disks\Virtua Fighter CG Portrait Series Vol1 Sarah Bryant (J) [!]\Virtua Fighter CG Portrait Series Vol1 Sarah Bryant (J) [!] [SegaSaturn].CCD";
+            string ssPath2 = @"G:\_Emulation\PC Engine\discs\Ys III - Wanderers from Ys [U][CD][TGXCD1015][Falcom][1991][PCE]\Ys III - Wanderers from Ys [U][CD][TGXCD1015][Falcom][1991][PCE].cue";
+            string ssPath3 = @"G:\_Emulation\PC Engine\discs\Godzilla [U][SCD][TGXCD1051][Toho][1993][PCE]\Godzilla [U][SCD][TGXCD1051][Toho][1993][PCE].cue";
+            string ssPath4 = @"G:\_Emulation\PCFX\Games\Battle Heat\Battle Heat.cue";
+            string ssPath5 = @"G:\_Emulation\PCFX\Games\Angelique Special\Angelique Special.cue";
 
-            var disc = new DiscInspector(ssPath);
-            
+          var disc = new DiscInspector(ssPath1);
+
+           disc = new DiscInspector(ssPath2);
+
+           disc = new DiscInspector(ssPath3);
+
+           disc = new DiscInspector(ssPath4);
+
+            disc = new DiscInspector(ssPath5);
+
             //string ssResult = SerialNumber.GetSaturnSerial(ssPath);
 
             // get psx serial

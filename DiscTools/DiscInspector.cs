@@ -13,6 +13,7 @@ namespace DiscTools
         public string CuePath { get; private set; }
         public DiscData Data { get; private set; }
         public DiscType DiscType { get; private set; }
+        public string DiscTypeString { get; private set; }
 
         private Disc disc;
         private EDiscStreamView discView;
@@ -135,7 +136,10 @@ namespace DiscTools
                     break;
             }
 
-            
+            // set the typeString
+            DiscTypeString = DiscType.ToString();
+            if (DiscTypeString.ToLower() == "turbocd")
+                DiscTypeString = "PC-Engine";
         }
 
         
@@ -165,48 +169,91 @@ namespace DiscTools
 
             // iterate through each LBA specified in the TOC and search for system string
             int lb = 0;
+
+            /*
+            for (int i = 0; i < 2000000; i++)
+            {
+                lb = i;
+                byte[] da = di.ReadData(lb, 2048);
+                string s = System.Text.Encoding.Default.GetString(da);
+                if (s.ToLower().Contains("Angelique"))
+                {
+
+                }
+            }
+            */
+            
+
             foreach (var item in tocItems)
             {
-                lb = item.LBA + 1;
+                lb = item.LBA;
+                int lbaPlus1 = item.LBA + 1;
+                int lbaMinus1 = item.LBA - 1;
+                  
                 try
                 {
+                    // sometimes the identifier string can be found in lba+1 or lba-1 as well
+                    List<string> datas = new List<string>();
+
                     byte[] data = di.ReadData(lb, 2048);
-                    string sS = System.Text.Encoding.Default.GetString(data);
+                    datas.Add(System.Text.Encoding.Default.GetString(data));
 
-                    if (sS.ToLower().Contains("pc-fx"))
+                    byte[] data1 = di.ReadData(lbaPlus1, 2048);
+                    datas.Add(System.Text.Encoding.Default.GetString(data1));
+
+                    byte[] data2 = di.ReadData(lbaMinus1, 2048);
+                    datas.Add(System.Text.Encoding.Default.GetString(data2));
+
+                    // iterate through each string
+                    foreach (string sS in datas)
                     {
-                        DiscType = DiscType.PCFX;
+                        if (sS.ToLower().Contains("pc-fx"))
+                        {
+                            DiscType = DiscType.PCFX;
 
-                        // get game name
-                        byte[] dataSm = data.Skip(106).Take(48).ToArray();
-                        string t = System.Text.Encoding.Default.GetString(dataSm).Replace('\0', ' ').Trim().Split(new string[] { "  " }, StringSplitOptions.None).FirstOrDefault();
-                        Data.GameTitle = t;
-                        return DiscType;
-                    }
+                            byte[] newData = System.Text.Encoding.ASCII.GetBytes(sS);
 
-                    if (sS.ToLower().Contains("pc engine"))
-                    {
-                        DiscType = DiscType.TurboCD;
+                            if (sS.ToLower().StartsWith("pc-fx:hu_cd"))
+                            {
+                                // disc format does not have a gametitle
+                            }
+                            else
+                            {
+                                // game title should exist
+                                byte[] dataSm = newData.Skip(106).Take(48).ToArray();
+                                string t = System.Text.Encoding.Default.GetString(dataSm).Replace('\0', ' ').Trim().Split(new string[] { "  " }, StringSplitOptions.None).FirstOrDefault();
+                                Data.GameTitle = t;
+                            }
 
-                        // get game name
-                        byte[] dataSm = data.Skip(106).Take(48).ToArray();
-                        string t = System.Text.Encoding.Default.GetString(dataSm).Replace('\0', ' ').Trim().Split(new string[] { "  " }, StringSplitOptions.None).FirstOrDefault();
-                        Data.GameTitle = t;
-                        return DiscType;
-                    }
+                            
+                            return DiscType;
+                        }
 
+                        if (sS.ToLower().Contains("pc engine"))
+                        {
+                            DiscType = DiscType.TurboCD;
 
-                    if (sS.ToLower().Contains("sony computer"))
-                    {
-                        DiscType = DiscType.SonyPSX;
-                        break;
-                    }
+                            byte[] newData = System.Text.Encoding.ASCII.GetBytes(sS);
 
-                    if (sS.ToLower().Contains("segasaturn"))
-                    {
-                        DiscType = DiscType.SegaSaturn;
-                        break;
-                    }
+                            // get game name
+                            byte[] dataSm = newData.Skip(106).Take(48).ToArray();
+                            string t = System.Text.Encoding.Default.GetString(dataSm).Replace('\0', ' ').Trim().Split(new string[] { "  " }, StringSplitOptions.None).FirstOrDefault();
+                            Data.GameTitle = t;
+                            return DiscType;
+                        }
+                        
+                        if (sS.ToLower().Contains("sony computer"))
+                        {
+                            DiscType = DiscType.SonyPSX;
+                            break;
+                        }
+
+                        if (sS.ToLower().Contains("segasaturn"))
+                        {
+                            DiscType = DiscType.SegaSaturn;
+                            break;
+                        }
+                    }                    
                 }
                 catch (InvalidOperationException ex)
                 {

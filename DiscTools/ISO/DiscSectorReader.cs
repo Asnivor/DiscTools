@@ -237,7 +237,8 @@ namespace DiscTools.ISO
                     if (form == 2)
                     {
                         if (Policy.ThrowExceptions2048)
-                            throw new InvalidOperationException("Unsupported scenario: reading 2048 bytes from a Mode2 Form 2 sector");
+                            return 2048;
+                        //throw new InvalidOperationException("Unsupported scenario: reading 2048 bytes from a Mode2 Form 2 sector");
                         else return 0;
                     }
 
@@ -245,11 +246,15 @@ namespace DiscTools.ISO
                     Buffer.BlockCopy(buf2442, 24, buffer, offset, 2048);
                     return 2048;
                 }
+                else if (mode == 255)
+                {
+                    return 2048;
+                }
                 else
                 {
                     if (Policy.ThrowExceptions2048)
-                        return 0;
-                        //throw new InvalidOperationException("Unsupported scenario: reading 2048 bytes from an unhandled sector type");
+                        return 2048;
+                    //throw new InvalidOperationException("Unsupported scenario: reading 2048 bytes from an unhandled sector type");
                     else return 0;
                 }
             }
