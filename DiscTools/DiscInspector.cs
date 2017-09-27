@@ -50,7 +50,8 @@ namespace DiscTools
 
             if (DiscType != DiscType.SegaSaturn ||
                 DiscType != DiscType.SonyPSP ||
-                DiscType != DiscType.SonyPSX)
+                DiscType != DiscType.SonyPSX ||
+                DiscType != DiscType.MegaCD)
             {
                 // disc wasnt detected. Maybe audio at track one or something else. Use secondary method
                 GetDiscTypeSecondary();
@@ -127,6 +128,9 @@ namespace DiscTools
                 case DiscType.SegaSaturn:
                     GetSaturnInfo();
                     break;
+                case DiscType.MegaCD:
+                    GetMegaCDInfo();
+                    break;
                 case DiscType.SonyPSX:
                     GetPSXInfo();
                     break;
@@ -158,6 +162,30 @@ namespace DiscTools
             Data.AreaCodes = System.Text.Encoding.Default.GetString(d.ToList().Skip(64).Take(16).ToArray()).Trim();
             Data.PeripheralCodes = System.Text.Encoding.Default.GetString(d.ToList().Skip(80).Take(8).ToArray()).Trim(); // saturn docs show this area as 10 bytes, but it looks like its actually 8
             Data.GameTitle = System.Text.Encoding.Default.GetString(d.ToList().Skip(86).Take(120).ToArray()).Trim();
+        }
+
+        public void GetMegaCDInfo()
+        {
+            // read 2048 bytes of data from lba 0 (as MegaCD info is in the header)
+            byte[] d = di.ReadData(0, 2048);
+
+            List<string> header = new List<string>();
+
+            for (int i = 0; i < 100; i++)
+            {
+                string l = System.Text.Encoding.ASCII.GetString(d.ToList().Skip(i * 16).Take(16).ToArray());
+                header.Add(l);
+            }
+
+            Data.ManufacturerID = header[16].Trim();
+            Data.GameTitle = (header[18] + header[19]).Trim();
+            Data.SerialNumber = header[24].Trim();
+            Data.AreaCodes = header[31].Trim();
+            Data.PeripheralCodes = header[25].Trim();
+            Data.InternalDate = header[5].Trim();
+            Data.DeviceInformation = header[0].Trim();
+            Data.OtherData = header[17].Trim();
+            
         }
 
         public DiscType GetDiscTypeSecondary()

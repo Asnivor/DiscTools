@@ -10,6 +10,12 @@ namespace TestAppNET20
     {
         static void Main(string[] args)
         {
+            string sega = @"G:\_Emulation\Sega Megadrive - 32x - SegaCD\discs\segacd\sonic_cd_-_sega_cd_MK-4407_(redump).cue";
+            var sDisc = new DiscInspector(sega);
+
+            sega = @"G:\_Emulation\Sega Megadrive - 32x - SegaCD\discs\segacd\Shining Force CD (Sega CD) (U)-redump.cue";
+            var sDisc2 = new DiscInspector(sega);
+
             string baseFolder = @"G:\_Emulation";
             string[] discFolders = new string[]
             {

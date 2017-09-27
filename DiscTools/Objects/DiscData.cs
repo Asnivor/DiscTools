@@ -15,6 +15,7 @@ namespace DiscTools.Objects
         public string DeviceInformation { get; set; }
         public string AreaCodes { get; set; }
         public string PeripheralCodes { get; set; }
+        public string OtherData { get; set; }
         public int TotalTracks { get; set; }
         public int TotalDataTracks { get; set; }
         public int TotalAudioTracks { get; set; }

@@ -1,5 +1,12 @@
 # DiscTools
-Class libraries for .NET2.0 and .NET4.5.2 that allow you to interrogate PSX, Sega Saturn, PCE-CD and PC-FX disc images (based on modified code from the BizHawk team)
+Class libraries for .NET2.0 and .NET4.5.2 that currently allow you to interrogate disc images (based on valid .cue or .ccd files) for the following systems:
+
+* PSX
+* Sega Saturn
+* PCE-CD
+* PC-FX
+* SegaCD
+
 
 [![Build status](https://ci.appveyor.com/api/projects/status/58juhmjpih7mw266/branch/master?svg=true)](https://ci.appveyor.com/project/Asnivor/disctools/branch/master)
 
