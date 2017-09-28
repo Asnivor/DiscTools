@@ -39,7 +39,7 @@ var disc = DiscInspector.ScanDisc(@"\path\to\cue_or_ccd_file");
 ```
 
 ```vb
-' VB Usage
+# VB Usage
 Dim disc = DiscInspector.ScanDisc("\path\to\cue_or_ccd_file")
 ```
 
