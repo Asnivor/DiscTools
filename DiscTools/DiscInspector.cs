@@ -658,8 +658,17 @@ namespace DiscTools
         }
 
         /// <summary>
-        /// Return a DiscInspector Object
-        /// IntensiveScan by default
+        /// Return a DiscInspector Object - quick scan that may miss detection on some non-iso based images
+        /// </summary>
+        /// <param name="cuePath"></param>
+        /// <param name="IntensiveScan"></param>
+        public static DiscInspector ScanDiscQuick(string cuePath)
+        {
+            return ScanDisc(cuePath, true);
+        }
+
+        /// <summary>
+        /// Return a DiscInspector Object - Intensive scan that has more chance of detection (but may take longer)
         /// </summary>
         /// <param name="cuePath"></param>
         /// <param name="IntensiveScan"></param>
