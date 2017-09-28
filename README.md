@@ -58,6 +58,34 @@ var disc = DiscInspector.QuickScanDisc(@"\path\to\cue_or_ccd_file");
 Dim disc = DiscInspector.QuickScanDisc("\path\to\cue_or_ccd_file")
 ```
 
+#### System Specific Scans
+* If you want to interrogate a disc for a certain system only (i.e you know ahead of time what the disc format is), then the methods below can be used
+* In most cases this **will** be quicker than the all-out system detection options
+* Again, all of these methods return a `DiscInspector` object
+
+```c#
+// C#
+var psxDisc = DiscInspector.ScanPSX(@"path\to\cue_or_ccd");
+var saturnDisc = DiscInspector.ScanSaturn(@"path\to\cue_or_ccd");
+var pcecdDisc = DiscInspector.ScanPCECD(@"path\to\cue_or_ccd");
+var pcfxDisc = DiscInspector.ScanPCFX(@"path\to\cue_or_ccd");
+var segaCDDisc = DiscInspector.ScanSegaCD(@"path\to\cue_or_ccd");
+var philipsCDiDisc = DiscInspector.ScanCDi(@"path\to\cue_or_ccd");
+var neogeoDisc = DiscInspector.ScanNeoGeoCD(@"path\to\cue_or_ccd");
+var dreamcastDisc = DiscInspector.ScanDreamcast(@"path\to\cue_or_ccd");
+```
+
+```vb
+# VB
+Dim psxDisc = DiscInspector.ScanPSX("path\to\cue_or_ccd")
+Dim saturnDisc = DiscInspector.ScanSaturn("path\to\cue_or_ccd")
+Dim pcecdDisc = DiscInspector.ScanPCECD("path\to\cue_or_ccd")
+Dim pcfxDisc = DiscInspector.ScanPCFX("path\to\cue_or_ccd")
+Dim segaCDDisc = DiscInspector.ScanSegaCD("path\to\cue_or_ccd")
+Dim philipsCDiDisc = DiscInspector.ScanCDi("path\to\cue_or_ccd")
+Dim neogeoDisc = DiscInspector.ScanNeoGeoCD("path\to\cue_or_ccd")
+Dim dreamcastDisc = DiscInspector.ScanDreamcast("path\to\cue_or_ccd")
+```
 
 
 ## Attribution

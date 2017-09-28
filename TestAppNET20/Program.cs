@@ -10,11 +10,34 @@ namespace TestAppNET20
     {
         static void Main(string[] args)
         {
+            
+
+
             //string dcPath = @"G:\_Emulation\Dreamcast\games\Daytona_USA_USA_DC-ECHELON\E-DAYUSA.cue";
             //string dcPath = @"G:\_Emulation\Dreamcast\games\Sword_Of_The_Berserk_USA_DC-KALISTO\kal-sotb.cue";
             //string dcPath = @"G:\_Emulation\Dreamcast\games\Sword_Of_The_Berserk_USA_DC-KALISTO\kal-sotb.cdi";
-            string dcPath = @"G:\_Emulation\Dreamcast\games\Sega_Rally_2_Championship_USA_DC-KALISTO\KAL-SR2.CUE";
-            var dc = DiscInspector.ScanDisc(dcPath, false);
+            //string dcPath = @"G:\_Emulation\Dreamcast\games\Sega_Rally_2_Championship_USA_DC-KALISTO\KAL-SR2.CUE";
+            //string dcPath = @"G:\_Emulation\PSX\iso\Legend of Mana (USA)\Legend of Mana (USA).cue";
+            //string dcPath = @"G:\_Emulation\NeoGeo CD\discs\Metal Slug (1996)(SNK)(Jp-US)[!].cue";
+            //string dcPath = @"G:\_Emulation\NeoGeo CD\discs\Breakers (1997)(Visco)(Jp)[!].cue";
+            //string dcPath = @"G:\_Emulation\Philips CD-i\discs\Hotel Mario.cue";
+            //string dcPath = @"G:\_Emulation\Sega Megadrive - 32x - SegaCD\discs\segacd\Shining Force CD (Sega CD) (U)-redump.cue";
+            //string dcPath = @"G:\_Emulation\Sega Saturn\disks\Primal Rage (Europe) (En,Fr,De,Es,It,Pt)\Primal Rage (Europe) (En,Fr,De,Es,It,Pt).cue";
+            //string dcPath = @"G:\_Emulation\PCFX\Games\Battle Heat\Battle Heat.cue";
+            //string dcPath = @"G:\_Emulation\Philips CD-i\discs\Zombie Dinos.cue";
+            string dcPath = @"G:\_Emulation\PSX\iso\Metal Gear Solid - Integral (J) [SLPM-86247]\Metal Gear Solid - Integral (J) (Disc 1) [SLPM-86247].cue";
+
+
+            //var cdi = DiscInspector.ScanCDi(@"G:\_Emulation\Philips CD-i\discs\Zombie Dinos.cue");
+            //var psx = DiscInspector.ScanPSX(@"G:\_Emulation\PSX\iso\Metal Gear Solid - Integral (J) [SLPM-86247]\Metal Gear Solid - Integral (J) (Disc 1) [SLPM-86247].cue");
+            //var saturn = DiscInspector.ScanSaturn(@"G:\_Emulation\Sega Saturn\disks\Primal Rage (Europe) (En,Fr,De,Es,It,Pt)\Primal Rage (Europe) (En,Fr,De,Es,It,Pt).cue");
+            //var pcecd = DiscInspector.ScanPCECD(@"G:\_Emulation\PC Engine\discs\Godzilla [U][SCD][TGXCD1051][Toho][1993][PCE]\Godzilla [U][SCD][TGXCD1051][Toho][1993][PCE].cue");
+            //var pcfx = DiscInspector.ScanPCFX(@"G:\_Emulation\PCFX\Games\Angelique Special\Angelique Special.cue");
+            //var segacd = DiscInspector.ScanSegaCD(@"G:\_Emulation\Sega Megadrive - 32x - SegaCD\discs\segacd\Shining Force CD (Sega CD) (U)-redump.cue");
+            //var neogeo = DiscInspector.ScanNeoGeoCD(@"G:\_Emulation\NeoGeo CD\discs\Breakers (1997)(Visco)(Jp)[!].cue");
+            var dreamcast = DiscInspector.ScanDreamcast(@"G:\_Emulation\Dreamcast\games\Daytona_USA_USA_DC-ECHELON\E-DAYUSA.cue");
+
+            var dc = DiscInspector.ScanDisc(dcPath);
 
             string stop = "";
 
