@@ -68,6 +68,9 @@ namespace DiscTools
                         {
                             byte[] newData = System.Text.Encoding.ASCII.GetBytes(sS);
 
+                            byte[] dataSm1 = newData.Skip(0).ToArray();
+                            string t1 = System.Text.Encoding.Default.GetString(dataSm1).Replace('\0', ' ').Trim();
+
                             // get game name
                             byte[] dataSm = newData.Skip(106).Take(48).ToArray();
                             string t = System.Text.Encoding.Default.GetString(dataSm).Replace('\0', ' ').Trim().Split(new string[] { "  " }, StringSplitOptions.None).FirstOrDefault();

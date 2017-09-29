@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace DiscTools
 {
@@ -65,7 +66,7 @@ namespace DiscTools
                 }
             }
 
-
+            // last ditch attempt - iterate through each item in the TOC and scan each LBA for the serial
             var tocItems = DISC.disc.TOC.TOCItems.Where(a => a.Exists == true && a.IsData == true).ToList();
             foreach (var toc in tocItems)
             {
@@ -91,6 +92,35 @@ namespace DiscTools
             if (!sS.Contains("cdrom:"))
                 return false;
 
+            /*
+             * regex pattern for PSX serial extraction
+             * supplied by clobber @ OpenEmu:
+             * https://github.com/OpenEmu/OpenEmu/blob/master/OpenEmu/PlayStation/OEPSXSystemController.m#L157-L167
+                // RegEx pattern match the disc serial (Note: regex backslashes are escaped)
+                // Handles all cases I've encountered so far:
+                //  BOOT=cdrom:\SCES_015.64;1           (no whitespace)
+                //  BOOT=cdrom:\SLUS_004.49             (no semicolon)
+                //  BOOT=cdrom:\SLUS-000.05;1           (hyphen instead of underscore)
+                //  BOOT = cdrom:\SLES_025.37;1         (whitespace)
+                //  BOOT = cdrom:SLUS_000.67;1          (no backslash)
+                //  BOOT = cdrom:\slus_005.94;1         (lowercase)
+                //  BOOT = cdrom:\TEKKEN3\SLUS_004.02;1 (extra path)
+                //  BOOT	= cdrom:\SLUS_010.41;1      (horizontal tab)
+            */
+            string PSXSerialRegex = @"BOOT\s*=\s*?cdrom:\\?(.+\\)?(.+?(?=;|\s))";
+
+
+            Regex pattern = new Regex(PSXSerialRegex);
+            var match = pattern.Match(sS);
+            int mCount = match.Groups.Count;
+            
+            if (mCount == 3)
+            {
+                Data.SerialNumber = match.Groups[2].ToString().Replace("_", "-").Replace(".", "");
+                return true;
+            }
+
+            /*
             // get the actual serial number from the returned string
             string[] arr = sS.Split(new string[] { "cdrom:" }, StringSplitOptions.None);
             string[] arr2 = arr[1].Split(new string[] { ";1" }, StringSplitOptions.None);
@@ -108,6 +138,8 @@ namespace DiscTools
             Data.SerialNumber = serial;
 
             return true;
+            */
+            return false;
 
         }
     }

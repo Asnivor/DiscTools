@@ -201,10 +201,24 @@ namespace DiscTools
 
                     if (GetPSXInfo())
                         return DetectedDiscType.SonyPSX;
-                }  
-                 
-                       
-                /* PSP */         
+                }
+
+                /* Saturn */
+                if (Data.ISOData.SystemIdentifier.Contains("SEGA SEGASATURN"))
+                {
+                    if (GetSaturnInfo())
+                        return DetectedDiscType.SegaSaturn;
+                    /*
+                    var ipBin = Data.ISOData.ISOFiles.Where(a => a.Key.Contains("IP.BIN")).FirstOrDefault();
+                    ifn = ipBin.Value;
+                    CurrentLBA = Convert.ToInt32(ifn.Offset);
+                    if (GetDreamcastInfo())
+                        return DetectedDiscType.DreamCast;
+                        */
+                }
+
+
+                /* PSP */
                 if (Data.ISOData.ApplicationIdentifier == "PSP GAME")
                 {
                     // still to do - getpspinfo
@@ -290,13 +304,13 @@ namespace DiscTools
             
 
             // Now looping through TOCs to try and identify LBAs
-            var tocItems = disc.TOC.TOCItems.Where(a => a.Exists == true).ToList(); //&& a.IsData == true).ToList();
+            var tocItems = disc.TOC.TOCItems.Where(a => a.Exists == true && a.IsData == true).ToList(); //&& a.IsData == true).ToList();
             for (int i = 0; i < tocItems.Count(); i++)
             {
                 // we are going to check LBA +- 1 as some systems (pcfx) has some weird stuff going on that I havent been able to work out
                 int lb = tocItems[0].LBA;
                 int lbaPlus1 = tocItems[0].LBA + 1;
-                int lbaMinus1 = tocItems[0].LBA - 1;
+                //int lbaMinus1 = tocItems[0].LBA - 1;
 
                 try
                 {
@@ -308,15 +322,19 @@ namespace DiscTools
                     byte[] data1 = di.ReadData(lbaPlus1, 2048);
                     datas.Add(System.Text.Encoding.Default.GetString(data1));
 
+                    /*
                     if (lbaMinus1 >= 0)
                     {
                         byte[] data2 = di.ReadData(lbaMinus1, 2048);
                         datas.Add(System.Text.Encoding.Default.GetString(data2));
                     }  
+                    */
 
                     // iterate through each string
+                    int strCount = 0;
                     foreach (string sS in datas)
                     {
+                        strCount++;
                         /* PCFX */
                         if (sS.ToLower().Contains("pc-fx"))
                         {
@@ -338,7 +356,7 @@ namespace DiscTools
 
 
                         /* PC Engine CD */
-                        if (sS.ToLower().Contains("pc engine"))
+                        if (sS.ToLower().Contains("pc engine") && !sS.ToLower().Contains("pc-fx"))
                         {
                             byte[] newData = System.Text.Encoding.ASCII.GetBytes(sS);
 
@@ -521,6 +539,65 @@ namespace DiscTools
         public static DiscInspector ScanDisc(string cuePath)
         {
             return ScanDisc(cuePath, true);
+        }
+
+
+        public static void test()
+        {
+
+            List<string> allFiles = System.IO.Directory.GetFiles(@"G:\_Emulation\PC Engine\discs", "*.*", System.IO.SearchOption.AllDirectories)
+                .Where(a => System.IO.Path.GetExtension(a).ToLower() == ".cue" ||
+                System.IO.Path.GetExtension(a).ToLower() == ".ccd" ||
+                System.IO.Path.GetExtension(a).ToLower() == ".toc").ToList();
+
+            foreach (var file in allFiles)
+            {
+                var DISC = new DiscInspector();
+                DISC.CuePath = file;
+                DISC.IntensiveScanning = true;
+                DISC.InitProcess();
+
+                var ident = DISC.di.DetectDiscType();
+
+                
+                var tocItems = DISC.disc.TOC.TOCItems.Where(a => a.Exists == true && a.IsData == true).ToList();
+                foreach (var item in tocItems)
+                {
+                    int lba = item.LBA;
+                    int lbam1 = item.LBA - 1;
+                    int lbap1 = item.LBA + 1;
+
+                    byte[] data = DISC.di.ReadData(lba, 2048);
+                    string t1 = System.Text.Encoding.Default.GetString(data);
+
+                    if (t1.Contains("PC Engine"))
+                    {
+                        break;
+                    }
+
+                    byte[] datam1 = DISC.di.ReadData(lbam1, 2048);
+                    string t2 = System.Text.Encoding.Default.GetString(datam1);
+
+                    if (t2.Contains("PC Engine"))
+                    {
+                        break;
+                    }
+
+                    byte[] datap1 = DISC.di.ReadData(lbap1, 2048);
+                    string t3 = System.Text.Encoding.Default.GetString(datap1);
+
+                    if (t3.Contains("PC Engine"))
+                    {
+                        break;
+                    }
+                }
+
+                string no = "nothing";
+
+  
+            }
+
+            
         }
     }
 

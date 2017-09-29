@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace DiscTools.ISO
 {
@@ -56,16 +57,23 @@ namespace DiscTools.ISO
 
     public class DiscIdentifier
     {
-        public DiscSectorReader dsr { get; set; }
+        
 
         public DiscIdentifier(Disc disc)
         {
             this.disc = disc;
             dsr = new DiscSectorReader(disc);
 
+            _dsr = new DiscSectorReader(disc);
+
             //the first check for mode 0 should be sufficient for blocking attempts to read audio sectors, so dont do this
             //dsr.Policy.ThrowExceptions2048 = false;
         }
+
+        public DiscSectorReader dsr { get; set; }
+        private readonly Disc _disc;
+        private readonly DiscSectorReader _dsr;
+        private readonly Dictionary<int, byte[]> _sectorCache = new Dictionary<int, byte[]>();
 
         Disc disc;
         //DiscSectorReader dsr;
@@ -77,6 +85,8 @@ namespace DiscTools.ISO
         /// </summary>
         public DiscType DetectDiscType()
         {
+            if (DetectTurboCD()) return DiscType.TurboCD;
+
             //check track 1's data type. if it's an audio track, further data-track testing is useless
             //furthermore, it's probably senseless (no binary data there to read)
             //however a sector could mark itself as audio without actually being.. we'll just wait for that one.
@@ -90,6 +100,8 @@ namespace DiscTools.ISO
 
             // not fully tested yet
             if (DetectPSX()) return DiscType.SonyPSX;
+
+            
 
             //we dont know how to detect TurboCD.
             //an emulator frontend will likely just guess TurboCD if the disc is UnknownFormat
@@ -146,6 +158,19 @@ namespace DiscTools.ISO
                 );
         }
 
+        bool DetectTurboCD()
+        {
+            foreach (var c in disc.TOC.TOCItems.Where(a => a.Exists == true && a.IsData == true))
+            {
+                int curLba = c.LBA;
+                var data = ReadSectorCached(c.LBA + 1);
+                if (System.Text.Encoding.Default.GetString(data).Contains("PC Engine") &&
+                    !System.Text.Encoding.Default.GetString(data).Contains("PC-FX"))
+                    return true;
+            }
+            return false;
+        }
+
         private bool StringAt(string s, int n, int lba = 0)
         {
             //read it if we dont have it cached
@@ -184,6 +209,24 @@ namespace DiscTools.ISO
             string resStr = System.Text.Encoding.ASCII.GetString(result);
             */
             return data; // resStr;
+        }
+        
+
+        private byte[] ReadSectorCached(int lba)
+        {
+            //read it if we dont have it cached
+            //we wont be caching very much here, it's no big deal
+            //identification is not something we want to take a long time
+            byte[] data;
+            if (!_sectorCache.TryGetValue(lba, out data))
+            {
+                data = new byte[2048];
+                int read = _dsr.ReadLBA_2048(lba, data, 0);
+                if (read != 2048)
+                    return null;
+                _sectorCache[lba] = data;
+            }
+            return data;
         }
 
         public byte[] ReadData(int lba, int byteSize)

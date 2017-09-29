@@ -43,19 +43,19 @@ var disc = DiscInspector.ScanDisc(@"\path\to\cue_or_ccd_file");
 Dim disc = DiscInspector.ScanDisc("\path\to\cue_or_ccd_file")
 ```
 
-#### QuickScanDisc()
+#### ScanDiscQuick()
 * Performs a quick scan in order to identify the `DetectedDiscType`. For some system discs (NeoGeoCD & Dreamcast) that may have been written in a non-ISO format there is a good chance that they will not be detected properly
 * Returns a `DiscInspector` object that contains a `DetectedDiscType` enum along with a `DiscTypeString` string
 * Within this object is also a `DiscData` object that contains information (if any) that has been gleaned from interrogating the disc
 
 ```c#
 // C# Usage
-var disc = DiscInspector.QuickScanDisc(@"\path\to\cue_or_ccd_file");
+var disc = DiscInspector.ScanDiscQuick(@"\path\to\cue_or_ccd_file");
 ```
 
 ```vb
 # VB Usage
-Dim disc = DiscInspector.QuickScanDisc("\path\to\cue_or_ccd_file")
+Dim disc = DiscInspector.ScanDiscQuick("\path\to\cue_or_ccd_file")
 ```
 
 #### System Specific Scans
