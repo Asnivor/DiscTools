@@ -91,6 +91,13 @@ namespace DiscTools
             Data.TotalDataTracks = dataTracks;
             Data.TotalTracks = audioTracks + dataTracks;
 
+            if (DetectedDiscType == DetectedDiscType.UnknownFormat)
+            {
+                var test = di.DetectDiscType();
+                if (test == DiscType.AudioDisc)
+                    DetectedDiscType = DetectedDiscType.AudioCD;
+            }
+
             DiscTypeString = DetectedDiscType.ToString();
 
             return this;
@@ -528,7 +535,7 @@ namespace DiscTools
         /// <param name="IntensiveScan"></param>
         public static DiscInspector ScanDiscQuick(string cuePath)
         {
-            return ScanDisc(cuePath, true);
+            return ScanDisc(cuePath, false);
         }
 
         /// <summary>

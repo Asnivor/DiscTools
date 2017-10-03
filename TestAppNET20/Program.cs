@@ -18,7 +18,7 @@ namespace TestAppNET20
             //string dcPath = @"G:\_Emulation\Dreamcast\games\Sword_Of_The_Berserk_USA_DC-KALISTO\kal-sotb.cdi";
             //string dcPath = @"G:\_Emulation\Dreamcast\games\Sega_Rally_2_Championship_USA_DC-KALISTO\KAL-SR2.CUE";
             //string dcPath = @"G:\_Emulation\PSX\iso\Legend of Mana (USA)\Legend of Mana (USA).cue";
-            string dcPath = @"G:\_Emulation\Sega Saturn\disks\ws-gals_panic.cue";
+            //string dcPath = @"G:\_Emulation\Sega Saturn\disks\ws-gals_panic.cue";
             //string dcPath = @"G:\_Emulation\NeoGeo CD\discs\Metal Slug (1996)(SNK)(Jp-US)[!].cue";
             //string dcPath = @"G:\_Emulation\NeoGeo CD\discs\Breakers (1997)(Visco)(Jp)[!].cue";
             //string dcPath = @"G:\_Emulation\Philips CD-i\discs\Hotel Mario.cue";
@@ -41,7 +41,11 @@ namespace TestAppNET20
             //var neogeo = DiscInspector.ScanNeoGeoCD(@"G:\_Emulation\NeoGeo CD\discs\Breakers (1997)(Visco)(Jp)[!].cue");
             //var dreamcast = DiscInspector.ScanDreamcast(@"G:\_Emulation\Dreamcast\games\Daytona_USA_USA_DC-ECHELON\E-DAYUSA.cue");
 
-            var dc = DiscInspector.ScanDisc(dcPath);
+            //string dcPath = @"G:\_Emulation\PSX\iso\Alien Trilogy (E) [SLES-00101]\Alien Trilogy (E) [SLES-00101]\Alien Trilogy (E) [SLES-00101].cue";
+            //string dcPath = @"G:\_Emulation\PC Engine\discs\L-Dis (1991)(Masaya - NCS)(JP).ccd";
+
+            string dcPath = @"G:\_Emulation\Sega Saturn\disks\Pandemonium! (E).cue";
+            var dc = DiscInspector.ScanDiscQuick(dcPath);
 
             string stop = "";
 
