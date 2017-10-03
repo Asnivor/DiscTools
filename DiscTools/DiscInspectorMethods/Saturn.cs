@@ -22,6 +22,23 @@ namespace DiscTools
                 // translate the vd
                 DISC.Data.ISOData = PopulateISOData(vs);
                 DISC.Data.ISOData.ISOFiles = DISC.iso.Root.Children;
+
+                if (DISC.Data.ISOData.SystemIdentifier.Contains("SEGA SEGASATURN"))
+                {
+                    if (DISC.GetSaturnInfo())
+                    {
+                        DISC.DetectedDiscType = DetectedDiscType.SegaSaturn;
+                        DISC.DiscTypeString = DISC.DetectedDiscType.ToString();
+                        return DISC;
+                    }
+                    /*
+                    var ipBin = Data.ISOData.ISOFiles.Where(a => a.Key.Contains("IP.BIN")).FirstOrDefault();
+                    ifn = ipBin.Value;
+                    CurrentLBA = Convert.ToInt32(ifn.Offset);
+                    if (GetDreamcastInfo())
+                        return DetectedDiscType.DreamCast;
+                        */
+                }
             }
 
             bool satTest = DISC.StringAt("SEGA SEGASATURN", 0);
@@ -47,8 +64,19 @@ namespace DiscTools
 
             // read the info
             Data.ManufacturerID = System.Text.Encoding.Default.GetString(d.ToList().Skip(16).Take(16).ToArray()).Trim();
+
+            /* These appear on the same 'line' but the offset appears to change. Will just try splitting by whitespace
             Data.SerialNumber = System.Text.Encoding.Default.GetString(d.ToList().Skip(32).Take(10).ToArray()).Trim();
             Data.Version = System.Text.Encoding.Default.GetString(d.ToList().Skip(42).Take(7).ToArray()).Trim();
+            */
+
+            string serialAndVer = System.Text.Encoding.Default.GetString(d.ToList().Skip(32).Take(16).ToArray()).Trim();
+
+            // split by V
+            string[] arr1 = serialAndVer.Split('V');
+            Data.SerialNumber = arr1[0];
+            Data.Version = "V" + arr1[1];
+
             Data.InternalDate = System.Text.Encoding.Default.GetString(d.ToList().Skip(48).Take(8).ToArray()).Trim();
             Data.DeviceInformation = System.Text.Encoding.Default.GetString(d.ToList().Skip(56).Take(8).ToArray()).Trim();
             Data.AreaCodes = System.Text.Encoding.Default.GetString(d.ToList().Skip(64).Take(16).ToArray()).Trim();
