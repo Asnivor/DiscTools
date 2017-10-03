@@ -74,8 +74,8 @@ namespace DiscTools
 
             // split by V
             string[] arr1 = serialAndVer.Split('V');
-            Data.SerialNumber = arr1[0];
-            Data.Version = "V" + arr1[1];
+            Data.SerialNumber = arr1[0].Trim();
+            Data.Version = ("V" + arr1[1]).Trim();
 
             Data.InternalDate = System.Text.Encoding.Default.GetString(d.ToList().Skip(48).Take(8).ToArray()).Trim();
             Data.DeviceInformation = System.Text.Encoding.Default.GetString(d.ToList().Skip(56).Take(8).ToArray()).Trim();
