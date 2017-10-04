@@ -45,6 +45,7 @@
     <Compile Include="CompilerServices.cs" />
     <Compile Include="CueHandler.cs" />
     <Compile Include="DiscInspector.cs" />
+    <Compile Include="DiscInspectorMethods\Panasonic3DO.cs" />
     <Compile Include="DiscInspectorMethods\PCEngine.cs" />
     <Compile Include="DiscInspectorMethods\PCFX.cs" />
     <Compile Include="DiscInspectorMethods\SegaCD.cs" />

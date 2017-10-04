@@ -9,6 +9,7 @@ Class libraries for .NET2.0 and .NET4.5.2 that currently allow you to interrogat
 * Philips CD-i
 * NeoGeo CD
 * Dreamcast
+* Panasonic 3DO
 
 [![Build status](https://ci.appveyor.com/api/projects/status/58juhmjpih7mw266/branch/master?svg=true)](https://ci.appveyor.com/project/Asnivor/disctools/branch/master)
 

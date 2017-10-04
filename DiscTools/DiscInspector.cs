@@ -386,6 +386,12 @@ namespace DiscTools
                         CurrentLBA = 23;
                         if (GetPSXInfo())
                             return DetectedDiscType.SonyPSX;
+
+                        /* 3DO */
+                        if (sS.ToLower().Contains("iamaduckiamaduck"))
+                        {
+                            return DetectedDiscType.Panasonic3DO;
+                        }
                     }
                 }
                 catch (InvalidOperationException ex)
@@ -570,6 +576,48 @@ namespace DiscTools
             return ScanDisc(cuePath, true);
         }
 
+        public static void UnknownTest()
+        {
+            string path = @"G:\_Emulation\Panasonic 3DO\Need for Speed, The (1994)(Electronic Arts)(US)[A1115 CC 735507-2 R70].cue";
+            var DISC = new DiscInspector();
+            DISC.CuePath = path;
+            DISC.IntensiveScanning = true;
+            DISC.InitProcess();
+
+            var tocItems = DISC.disc.TOC.TOCItems.Where(a => a.Exists == true && a.IsData == true).ToList();
+            foreach (var item in tocItems)
+            {
+                int lba = item.LBA;
+                int lbam1 = item.LBA - 1;
+                int lbap1 = item.LBA + 1;
+
+                byte[] data = DISC.di.ReadData(lba, 2048);
+                string t1 = System.Text.Encoding.Default.GetString(data);
+
+                if (t1.Contains("PC Engine"))
+                {
+                    break;
+                }
+
+                byte[] datam1 = DISC.di.ReadData(lbam1, 2048);
+                string t2 = System.Text.Encoding.Default.GetString(datam1);
+
+                if (t2.Contains("PC Engine"))
+                {
+                    break;
+                }
+
+                byte[] datap1 = DISC.di.ReadData(lbap1, 2048);
+                string t3 = System.Text.Encoding.Default.GetString(datap1);
+
+                if (t3.Contains("PC Engine"))
+                {
+                    break;
+                }
+
+            }
+        }
+
 
         public static void test()
         {
@@ -643,7 +691,8 @@ namespace DiscTools
         NeoGeoCD,
         DreamCast,
         UnknownCDFS,
-        UnknownFormat
+        UnknownFormat,
+        Panasonic3DO
     }
 
 }
