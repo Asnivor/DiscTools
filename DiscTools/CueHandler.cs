@@ -25,10 +25,16 @@ namespace DiscTools
             // split by FILE
             string[] split = ca.Split(new string[] { "FILE " }, StringSplitOptions.None);
 
+            if (split.Length < 2)
+                split = ca.Split(new string[] { "File " }, StringSplitOptions.None);
+
+            if (split.Length < 2)
+                split = ca.Split(new string[] { "file " }, StringSplitOptions.None);
+
             // begin iteration - we only want BINARY entries
             for (int i = 0; i < split.Length; i++)
             {
-                if (split[i].Contains(" BINARY"))
+                if (split[i].ToUpper().Contains(" BINARY"))
                 {
                     // we want this
                     newCueData += "FILE " + split[i];
