@@ -27,7 +27,7 @@ namespace TestAppNET20
             //string dcPath = @"G:\_Emulation\PCFX\Games\Battle Heat\Battle Heat.cue";
             //string dcPath = @"G:\_Emulation\PCFX\Games\Angelique Special\Angelique Special.cue";
             //string dcPath = @"G:\_Emulation\Philips CD-i\discs\Zombie Dinos.cue";
-            //string dcPath = @"G:\_Emulation\PSX\iso\Metal Gear Solid - Integral (J) [SLPM-86247]\Metal Gear Solid - Integral (J) (Disc 1) [SLPM-86247].cue";
+            string dcPath = @"G:\_Emulation\PSX\iso\Metal Gear Solid - Integral (J) [SLPM-86247]\Metal Gear Solid - Integral (J) (Disc 1) [SLPM-86247].cue";
             //string dcPath = @"G:\_Emulation\PC Engine\discs\Cyber_City_OEDO_808_(NTSC-J)_[NSCD0003]\Cyber_City_OEDO_808_(NTSC-J)_[NSCD0003].cue";
             //string dcPath = @"G:\_Emulation\Sega Saturn\disks\Virtua Fighter CG Portrait Series Vol1 Sarah Bryant (J) [!]\Virtua Fighter CG Portrait Series Vol1 Sarah Bryant (J) [!] [SegaSaturn].CCD";
 
@@ -49,7 +49,7 @@ namespace TestAppNET20
             //string dcPath = @"G:\_Emulation\Panasonic 3DO\Need for Speed, The (1994)(Electronic Arts)(US)[A1115 CC 735507-2 R70].cue";
             //string dcPath = @"G:\_Emulation\Sega Saturn\disks\ws-gals_panic.cue";
             //string dcPath = @"G:\_Emulation\Commadore Amiga\cd32\Zool - Ninja of the 'Nth' Dimension (1993)(Gremlin)[!].cue";
-            string dcPath = @"C:\Users\matt\Desktop\test1\Angelique Special.cue";
+            //string dcPath = @"C:\Users\matt\Desktop\test1\Angelique Special.cue";
 
             //string dcPath = @"G:\_Emulation\Commadore Amiga\cdtv\Nemac IV - Director's Cut (1996)(ZenTek)[!].cue";
 
