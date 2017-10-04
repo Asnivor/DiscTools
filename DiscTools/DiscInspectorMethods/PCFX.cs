@@ -14,6 +14,16 @@ namespace DiscTools
             DISC.IntensiveScanning = true;
             DISC.InitProcess();
 
+            if (DISC.disc == null || DISC.DetectedDiscType == DetectedDiscType.UnknownFormat || DISC.DetectedDiscType == DetectedDiscType.UnknownCDFS)
+            {
+                string newCue = CueHandler.ParseCue(cuePath);
+                DISC.CuePath = newCue;
+                DISC.InitProcess();
+                if (System.IO.File.Exists(newCue))
+                    System.IO.File.Delete(newCue);
+                DISC.CuePath = cuePath;
+            }
+
             if (DISC.isIso == true)
             {
                 // take only the first volume descriptor (all the discs Ive seen so far that have multiple - anything after the first is null values)

@@ -525,6 +525,17 @@ namespace DiscTools
             DI.IntensiveScanning = IntensiveScan;
 
             var res = DI.Scan();
+
+            if (res == null || res.DetectedDiscType == DetectedDiscType.UnknownFormat || res.DetectedDiscType == DetectedDiscType.UnknownCDFS)
+            {
+                string newCue = CueHandler.ParseCue(cuePath);
+                DI.CuePath = newCue;
+                res = DI.Scan();
+                if (File.Exists(newCue))
+                    File.Delete(newCue);
+            }
+            res.CuePath = cuePath;
+
             return res;
         }
 

@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CompilerServices.cs" />
+    <Compile Include="CueHandler.cs" />
     <Compile Include="DiscInspector.cs" />
     <Compile Include="DiscInspectorMethods\CDi.cs" />
     <Compile Include="DiscInspectorMethods\Dreamcast.cs" />

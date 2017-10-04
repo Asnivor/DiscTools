@@ -44,9 +44,9 @@ namespace TestAppNET20
             //string dcPath = @"G:\_Emulation\PSX\iso\Alien Trilogy (E) [SLES-00101]\Alien Trilogy (E) [SLES-00101]\Alien Trilogy (E) [SLES-00101].cue";
             //string dcPath = @"G:\_Emulation\PC Engine\discs\L-Dis (1991)(Masaya - NCS)(JP).ccd";
 
-            string dcPath = @"G:\_Emulation\Sega Saturn\disks\Pandemonium! (E).cue";
+            string dcPath = @"G:\_Emulation\PSX\iso\Alien Trilogy (E) [SLES-00101]\Alien Trilogy (E) [SLES-00101]\Alien Trilogy (E) [SLES-00101].cue";
             //string dcPath = @"G:\_Emulation\Sega Saturn\disks\ws-gals_panic.cue";
-            var dc = DiscInspector.ScanDiscQuick(dcPath);
+            var dc = DiscInspector.ScanDisc(dcPath);
 
             string stop = "";
 
