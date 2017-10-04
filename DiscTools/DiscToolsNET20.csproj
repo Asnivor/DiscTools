@@ -48,6 +48,7 @@
     <Compile Include="DiscInspectorMethods\Panasonic3DO.cs" />
     <Compile Include="DiscInspectorMethods\PCEngine.cs" />
     <Compile Include="DiscInspectorMethods\PCFX.cs" />
+    <Compile Include="DiscInspectorMethods\AmigaCD32.cs" />
     <Compile Include="DiscInspectorMethods\SegaCD.cs" />
     <Compile Include="DiscInspectorMethods\CDi.cs" />
     <Compile Include="DiscInspectorMethods\NeoGeoCD.cs" />

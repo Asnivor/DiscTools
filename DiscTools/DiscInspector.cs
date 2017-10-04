@@ -272,6 +272,20 @@ namespace DiscTools
 
                 /* Philips CD-i */
                 // Havent found an ISO format CD-i image yet
+
+                /* CD32 */
+                if (Data.ISOData.SystemIdentifier.Contains("CDTV") || Data.ISOData.SystemIdentifier.Contains("AMIGA"))
+                {
+                    // its either CDTV or CD32
+                    foreach (var child in Data.ISOData.ISOFiles)
+                    {
+                        if (child.Key.ToLower().Contains("cd32"))
+                            return DetectedDiscType.AmigaCD32;
+                        else
+                            return DetectedDiscType.AmigaCDTV;
+                    }
+                    
+                }
             }
 
             // ISO-related checks completed
@@ -392,6 +406,13 @@ namespace DiscTools
                         {
                             return DetectedDiscType.Panasonic3DO;
                         }
+
+                        /* CD-32 */
+                        if (sS.ToLower().Contains("cdtv"))
+                        {
+                            return DetectedDiscType.AmigaCDTV;
+                        }
+                           
                     }
                 }
                 catch (InvalidOperationException ex)
@@ -413,6 +434,16 @@ namespace DiscTools
             {
                 if (GetDreamcastInfo())
                     return DetectedDiscType.DreamCast;
+            }
+
+            /* cdtv */
+            // some discs appear to be formatted weirdly.
+            for (int i = 0; i < 1000; i++)
+            {
+                byte[] data = di.ReadData(i, 2048);
+                string cdtv = System.Text.Encoding.Default.GetString(data);
+                if (cdtv.ToLower().Contains("amiga"))
+                    return DetectedDiscType.AmigaCDTV;
             }
 
 
@@ -578,7 +609,7 @@ namespace DiscTools
 
         public static void UnknownTest()
         {
-            string path = @"G:\_Emulation\Panasonic 3DO\Need for Speed, The (1994)(Electronic Arts)(US)[A1115 CC 735507-2 R70].cue";
+            string path = @"G:\_Emulation\Commadore Amiga\cd32\Zool - Ninja of the 'Nth' Dimension (1993)(Gremlin)[!].cue";
             var DISC = new DiscInspector();
             DISC.CuePath = path;
             DISC.IntensiveScanning = true;
@@ -692,7 +723,9 @@ namespace DiscTools
         DreamCast,
         UnknownCDFS,
         UnknownFormat,
-        Panasonic3DO
+        Panasonic3DO,
+        AmigaCDTV,
+        AmigaCD32
     }
 
 }

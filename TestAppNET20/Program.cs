@@ -46,8 +46,12 @@ namespace TestAppNET20
 
             //DiscInspector.UnknownTest();
 
-            string dcPath = @"G:\_Emulation\Panasonic 3DO\Need for Speed, The (1994)(Electronic Arts)(US)[A1115 CC 735507-2 R70].cue";
+            //string dcPath = @"G:\_Emulation\Panasonic 3DO\Need for Speed, The (1994)(Electronic Arts)(US)[A1115 CC 735507-2 R70].cue";
             //string dcPath = @"G:\_Emulation\Sega Saturn\disks\ws-gals_panic.cue";
+            //string dcPath = @"G:\_Emulation\Commadore Amiga\cd32\Zool - Ninja of the 'Nth' Dimension (1993)(Gremlin)[!].cue";
+            //string dcPath = @"G:\_Emulation\Commadore Amiga\cd32\Flink (1994)(Psygnosis)(M4)[!].cue";
+
+            string dcPath = @"G:\_Emulation\Commadore Amiga\cdtv\Nemac IV - Director's Cut (1996)(ZenTek)[!].cue";
             var dc = DiscInspector.ScanDisc(dcPath);
 
             string stop = "";
