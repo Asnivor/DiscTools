@@ -51,7 +51,10 @@ namespace TestAppNET20
             //string dcPath = @"G:\_Emulation\Commadore Amiga\cd32\Zool - Ninja of the 'Nth' Dimension (1993)(Gremlin)[!].cue";
             //string dcPath = @"G:\_Emulation\Commadore Amiga\cd32\Flink (1994)(Psygnosis)(M4)[!].cue";
 
-            string dcPath = @"G:\_Emulation\Commadore Amiga\cdtv\Nemac IV - Director's Cut (1996)(ZenTek)[!].cue";
+            //string dcPath = @"G:\_Emulation\Commadore Amiga\cdtv\Nemac IV - Director's Cut (1996)(ZenTek)[!].cue";
+
+            //string dcPath = @"G:\_Emulation\Bandai Playdia\Aqua Adventure - Blue Lilty (1994)(Bandai)(JP)[!].cue";
+            string dcPath = @"G:\_Emulation\Bandai Playdia\Ultraman - Hiragana Dai Sakusen (1992)(Bandai)(JP).cue";
             var dc = DiscInspector.ScanDisc(dcPath);
 
             string stop = "";

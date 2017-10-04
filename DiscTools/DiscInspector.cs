@@ -286,6 +286,13 @@ namespace DiscTools
                     }
                     
                 }
+
+                /* Playdia */
+                if (Data.ISOData.SystemIdentifier.Contains("ASAHI-CDV"))
+                {
+                    return DetectedDiscType.BandaiPlaydia;
+
+                }
             }
 
             // ISO-related checks completed
@@ -444,7 +451,12 @@ namespace DiscTools
                 string cdtv = System.Text.Encoding.Default.GetString(data);
                 if (cdtv.ToLower().Contains("amiga"))
                     return DetectedDiscType.AmigaCDTV;
+
+                if (cdtv.ToLower().Contains("asahi-cdv"))
+                    return DetectedDiscType.BandaiPlaydia;
             }
+
+            
 
 
             // attempt to identify disc type using BizHawk DiscSystem if type still unknown
@@ -725,7 +737,8 @@ namespace DiscTools
         UnknownFormat,
         Panasonic3DO,
         AmigaCDTV,
-        AmigaCD32
+        AmigaCD32,
+        BandaiPlaydia
     }
 
 }
