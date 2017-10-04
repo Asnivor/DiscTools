@@ -14,6 +14,7 @@ namespace DiscTools
         public DiscData Data { get; private set; }
         public DetectedDiscType DetectedDiscType { get; private set; }
         public string DiscTypeString { get; private set; }
+        public string DiscViewString { get; set; }
 
         private Disc disc;
         private EDiscStreamView discView;
@@ -584,6 +585,7 @@ namespace DiscTools
                     File.Delete(newCue);
             }
             res.CuePath = cuePath;
+            res.DiscViewString = DI.discView.ToString();
 
             return res;
         }
