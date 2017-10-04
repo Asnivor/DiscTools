@@ -539,6 +539,17 @@ namespace DiscTools
             return res;
         }
 
+        public static DiscInspector ScanDiscNoCorrection(string cuePath)
+        {
+            var DI = new DiscInspector();
+            DI.CuePath = cuePath;
+            DI.IntensiveScanning = true;
+
+            var res = DI.Scan();
+
+            return res;
+        }
+
         /// <summary>
         /// Return a DiscInspector Object - quick scan that may miss detection on some non-iso based images
         /// </summary>
