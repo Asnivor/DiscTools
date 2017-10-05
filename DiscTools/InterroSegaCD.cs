@@ -47,7 +47,7 @@ namespace DiscTools.Inspection
                 header.Add(l);
             }
 
-            if (!header[16].Trim().Contains("SEGA"))
+            if (header[16].Trim().Contains("SEGA"))
                 return false;
 
             discI.Data.ManufacturerID = header[16].Trim();

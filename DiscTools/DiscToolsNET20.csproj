@@ -45,15 +45,7 @@
     <Compile Include="CompilerServices.cs" />
     <Compile Include="CueHandler.cs" />
     <Compile Include="DiscInspector.cs" />
-    <Compile Include="DiscInspectorMethods\Panasonic3DO.cs" />
-    <Compile Include="DiscInspectorMethods\PCEngine.cs" />
-    <Compile Include="DiscInspectorMethods\PCFX.cs" />
-    <Compile Include="DiscInspectorMethods\AmigaCD32.cs" />
-    <Compile Include="DiscInspectorMethods\SegaCD.cs" />
-    <Compile Include="DiscInspectorMethods\CDi.cs" />
-    <Compile Include="DiscInspectorMethods\NeoGeoCD.cs" />
-    <Compile Include="DiscInspectorMethods\Dreamcast.cs" />
-    <Compile Include="DiscInspectorMethods\Saturn.cs" />
+    <Compile Include="Inspection\InterroSpecific.cs" />
     <Compile Include="Inspection\InterroDreamcast.cs" />
     <Compile Include="Inspection\InterroAmiga.cs" />
     <Compile Include="Inspection\InterroCDi.cs" />
@@ -117,7 +109,6 @@
     <Compile Include="ISO\Internal\SynthUtils.cs" />
     <Compile Include="ISO\Util.cs" />
     <Compile Include="Objects\DiscData.cs" />
-    <Compile Include="DiscInspectorMethods\PSX.cs" />
     <Compile Include="SBI\SubQPatchData.cs" />
     <Compile Include="SerialNumber.cs" />
     <Compile Include="ISO\ISODirectoryNode.cs" />

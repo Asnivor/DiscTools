@@ -76,6 +76,10 @@ var segaCDDisc = DiscInspector.ScanSegaCD(@"path\to\cue_or_ccd");
 var philipsCDiDisc = DiscInspector.ScanCDi(@"path\to\cue_or_ccd");
 var neogeoDisc = DiscInspector.ScanNeoGeoCD(@"path\to\cue_or_ccd");
 var dreamcastDisc = DiscInspector.ScanDreamcast(@"path\to\cue_or_ccd");
+var philips3DODisc = DiscInspector.Scan3DO(@"path\to\cue_or_ccd");
+var cdtvDisc = DiscInspector.ScanAmigaCDTV(@"path\to\cue_or_ccd");
+var cd32Disc = DiscInspector.ScanAmigaCD32(@"path\to\cue_or_ccd");
+var playdiaDisc = DiscInspector.ScanPlaydia(@"path\to\cue_or_ccd");
 ```
 
 ```vb
@@ -88,6 +92,10 @@ Dim segaCDDisc = DiscInspector.ScanSegaCD("path\to\cue_or_ccd")
 Dim philipsCDiDisc = DiscInspector.ScanCDi("path\to\cue_or_ccd")
 Dim neogeoDisc = DiscInspector.ScanNeoGeoCD("path\to\cue_or_ccd")
 Dim dreamcastDisc = DiscInspector.ScanDreamcast("path\to\cue_or_ccd")
+Dim philips3DODisc = DiscInspector.Scan3DO(@"path\to\cue_or_ccd")
+Dim cdtvDisc = DiscInspector.ScanAmigaCDTV(@"path\to\cue_or_ccd")
+Dim cd32Disc = DiscInspector.ScanAmigaCD32(@"path\to\cue_or_ccd")
+Dim playdiaDisc = DiscInspector.ScanPlaydia(@"path\to\cue_or_ccd")
 ```
 
 

@@ -30,18 +30,13 @@ namespace DiscTools.Inspection
         /* Constructors */
         //public Interrogator() { }
 
-        /// <summary>
-        /// Scan for all systems
-        /// </summary>
-        /// <param name="cuePath"></param>
-        /// <param name="intenseScan"></param>
         public Interrogator(string cuePath, bool intenseScan)
         {
             discI.CuePath = cuePath;
             IntenseScan = intenseScan;
-            iso = new ISOFile();
 
             discI.DetectedDiscType = DetectedDiscType.UnknownFormat;
+            discI.iso = new ISOFile();
             discI.Data = new DiscData();
         }
 
@@ -71,23 +66,17 @@ namespace DiscTools.Inspection
             if (disc.TOC.Session1Format == SessionFormat.Type20_CDXA)
                 discView = EDiscStreamView.DiscStreamView_Mode2_Form1_2048;
 
-            // biztools discident init
-            di = new DiscIdentifier(disc);
-
             // try and mount it as an ISO
             isIso = iso.Parse(new DiscStream(disc, discView, 0));
 
             // if iso is mounted, populate data from volume descriptor(s) (at the moment just from the first one)
-            if (isIso)
-            {
-                var vs = iso.VolumeDescriptors.Where(a => a != null).ToArray().First();
+            var vs = iso.VolumeDescriptors.Where(a => a != null).ToArray().First();
 
-                // translate the vd
-                discI.Data.ISOData = PopulateISOData(vs);
-                discI.Data.ISOData.ISOFiles = iso.Root.Children;
-                ifn = null;
-            }
-            
+            // translate the vd
+            discI.Data.ISOData = PopulateISOData(vs);
+            discI.Data.ISOData.ISOFiles = iso.Root.Children;
+            ifn = null;
+
             // populate basic disc data
             int dataTracks = 0;
             int audioTracks = 0;
@@ -120,9 +109,6 @@ namespace DiscTools.Inspection
                 case DetectedDiscType.UnknownFormat:
                 case DetectedDiscType.UnknownCDFS:
                     discI.DetectedDiscType = InterrogateALL();
-                    break;
-                default:
-                    discI.DetectedDiscType = InterrogateSpecific(detectedDiscType);
                     break;
             }
 
