@@ -10,16 +10,16 @@ namespace DiscTools
 {    
     public partial class DiscInspector
     {
-        public string CuePath { get; private set; }
-        public DiscData Data { get; private set; }
-        public DetectedDiscType DetectedDiscType { get; private set; }
-        public string DiscTypeString { get; private set; }
+        public string CuePath { get; set; }
+        public DiscData Data { get; set; }
+        public DetectedDiscType DetectedDiscType { get; set; }
+        public string DiscTypeString { get; set; }
         public string DiscViewString { get; set; }
 
         private Disc disc;
         private EDiscStreamView discView;
-        private ISOFile iso;
-        private DiscIdentifier di;
+        public ISOFile iso;
+        public DiscIdentifier di;
         private int CurrentLBA;
         private bool isIso;
         private bool IntensiveScanning = true;
