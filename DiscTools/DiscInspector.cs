@@ -42,7 +42,7 @@ namespace DiscTools
                 inter = new Interrogator(newCue, IntensiveScan);
                 inter.Start();
 
-                if (File.Exists(newCue))
+                if (File.Exists(newCue) && newCue != cuePath)
                     File.Delete(newCue);
             }
             res.CuePath = cuePath;
@@ -91,7 +91,7 @@ namespace DiscTools
                 inter = new Interrogator(newCue, true);
                 inter.Start(DetectedDiscType.SonyPSX);
 
-                if (File.Exists(newCue))
+                if (File.Exists(newCue) && newCue != cuePath)
                     File.Delete(newCue);
             }
             res.CuePath = cuePath;
@@ -110,7 +110,7 @@ namespace DiscTools
                 inter = new Interrogator(newCue, true);
                 inter.Start(DetectedDiscType.SegaSaturn);
 
-                if (File.Exists(newCue))
+                if (File.Exists(newCue) && newCue != cuePath)
                     File.Delete(newCue);
             }
             res.CuePath = cuePath;
@@ -129,7 +129,7 @@ namespace DiscTools
                 inter = new Interrogator(newCue, true);
                 inter.Start(DetectedDiscType.PCEngineCD);
 
-                if (File.Exists(newCue))
+                if (File.Exists(newCue) && newCue != cuePath)
                     File.Delete(newCue);
             }
             res.CuePath = cuePath;
@@ -148,7 +148,7 @@ namespace DiscTools
                 inter = new Interrogator(newCue, true);
                 inter.Start(DetectedDiscType.PCFX);
 
-                if (File.Exists(newCue))
+                if (File.Exists(newCue) && newCue != cuePath)
                     File.Delete(newCue);
             }
             res.CuePath = cuePath;
@@ -167,7 +167,7 @@ namespace DiscTools
                 inter = new Interrogator(newCue, true);
                 inter.Start(DetectedDiscType.SegaCD);
 
-                if (File.Exists(newCue))
+                if (File.Exists(newCue) && newCue != cuePath)
                     File.Delete(newCue);
             }
             res.CuePath = cuePath;
@@ -186,7 +186,7 @@ namespace DiscTools
                 inter = new Interrogator(newCue, true);
                 inter.Start(DetectedDiscType.PhilipsCDi);
 
-                if (File.Exists(newCue))
+                if (File.Exists(newCue) && newCue != cuePath)
                     File.Delete(newCue);
             }
             res.CuePath = cuePath;
@@ -205,7 +205,7 @@ namespace DiscTools
                 inter = new Interrogator(newCue, true);
                 inter.Start(DetectedDiscType.NeoGeoCD);
 
-                if (File.Exists(newCue))
+                if (File.Exists(newCue) && newCue != cuePath)
                     File.Delete(newCue);
             }
             res.CuePath = cuePath;
@@ -224,7 +224,7 @@ namespace DiscTools
                 inter = new Interrogator(newCue, true);
                 inter.Start(DetectedDiscType.DreamCast);
 
-                if (File.Exists(newCue))
+                if (File.Exists(newCue) && newCue != cuePath)
                     File.Delete(newCue);
             }
             res.CuePath = cuePath;
@@ -243,7 +243,7 @@ namespace DiscTools
                 inter = new Interrogator(newCue, true);
                 inter.Start(DetectedDiscType.Panasonic3DO);
 
-                if (File.Exists(newCue))
+                if (File.Exists(newCue) && newCue != cuePath)
                     File.Delete(newCue);
             }
             res.CuePath = cuePath;
@@ -262,7 +262,7 @@ namespace DiscTools
                 inter = new Interrogator(newCue, true);
                 inter.Start(DetectedDiscType.AmigaCDTV);
 
-                if (File.Exists(newCue))
+                if (File.Exists(newCue) && newCue != cuePath)
                     File.Delete(newCue);
             }
             res.CuePath = cuePath;
@@ -281,7 +281,7 @@ namespace DiscTools
                 inter = new Interrogator(newCue, true);
                 inter.Start(DetectedDiscType.AmigaCD32);
 
-                if (File.Exists(newCue))
+                if (File.Exists(newCue) && newCue != cuePath)
                     File.Delete(newCue);
             }
             res.CuePath = cuePath;
@@ -300,7 +300,7 @@ namespace DiscTools
                 inter = new Interrogator(newCue, true);
                 inter.Start(DetectedDiscType.BandaiPlaydia);
 
-                if (File.Exists(newCue))
+                if (File.Exists(newCue) && newCue != cuePath)
                     File.Delete(newCue);
             }
             res.CuePath = cuePath;
