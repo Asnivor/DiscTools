@@ -36,16 +36,8 @@ namespace DiscTools
             var inter = new Interrogator(cuePath, IntensiveScan);
             var res = inter.Start();
 
-            if (res == null || res.DetectedDiscType == DetectedDiscType.UnknownFormat || res.DetectedDiscType == DetectedDiscType.UnknownCDFS)
-            {
-                string newCue = CueHandler.ParseCue(cuePath);
-                inter = new Interrogator(newCue, IntensiveScan);
-                inter.Start();
-
-                if (File.Exists(newCue) && newCue != cuePath)
-                    File.Delete(newCue);
-            }
-            res.CuePath = cuePath;
+            // run the cue routine
+            res = CueHandler.CueRoutine(res, cuePath, IntensiveScan);
 
             return res;            
         }
@@ -85,16 +77,8 @@ namespace DiscTools
             var inter = new Interrogator(cuePath, true);
             var res = inter.Start(DetectedDiscType.SonyPSX);
 
-            if (res == null || res.DetectedDiscType == DetectedDiscType.UnknownFormat || res.DetectedDiscType == DetectedDiscType.UnknownCDFS)
-            {
-                string newCue = CueHandler.ParseCue(cuePath);
-                inter = new Interrogator(newCue, true);
-                inter.Start(DetectedDiscType.SonyPSX);
-
-                if (File.Exists(newCue) && newCue != cuePath)
-                    File.Delete(newCue);
-            }
-            res.CuePath = cuePath;
+            // run the cue routine
+            res = CueHandler.CueRoutine(res, cuePath, true);
 
             return res;
         }
@@ -104,16 +88,8 @@ namespace DiscTools
             var inter = new Interrogator(cuePath, true);
             var res = inter.Start(DetectedDiscType.SegaSaturn);
 
-            if (res == null || res.DetectedDiscType == DetectedDiscType.UnknownFormat || res.DetectedDiscType == DetectedDiscType.UnknownCDFS)
-            {
-                string newCue = CueHandler.ParseCue(cuePath);
-                inter = new Interrogator(newCue, true);
-                inter.Start(DetectedDiscType.SegaSaturn);
-
-                if (File.Exists(newCue) && newCue != cuePath)
-                    File.Delete(newCue);
-            }
-            res.CuePath = cuePath;
+            // run the cue routine
+            res = CueHandler.CueRoutine(res, cuePath, true);
 
             return res;
         }
@@ -123,16 +99,8 @@ namespace DiscTools
             var inter = new Interrogator(cuePath, true);
             var res = inter.Start(DetectedDiscType.PCEngineCD);
 
-            if (res == null || res.DetectedDiscType == DetectedDiscType.UnknownFormat || res.DetectedDiscType == DetectedDiscType.UnknownCDFS)
-            {
-                string newCue = CueHandler.ParseCue(cuePath);
-                inter = new Interrogator(newCue, true);
-                inter.Start(DetectedDiscType.PCEngineCD);
-
-                if (File.Exists(newCue) && newCue != cuePath)
-                    File.Delete(newCue);
-            }
-            res.CuePath = cuePath;
+            // run the cue routine
+            res = CueHandler.CueRoutine(res, cuePath, true);
 
             return res;
         }
@@ -142,16 +110,8 @@ namespace DiscTools
             var inter = new Interrogator(cuePath, true);
             var res = inter.Start(DetectedDiscType.PCFX);
 
-            if (res == null || res.DetectedDiscType == DetectedDiscType.UnknownFormat || res.DetectedDiscType == DetectedDiscType.UnknownCDFS)
-            {
-                string newCue = CueHandler.ParseCue(cuePath);
-                inter = new Interrogator(newCue, true);
-                inter.Start(DetectedDiscType.PCFX);
-
-                if (File.Exists(newCue) && newCue != cuePath)
-                    File.Delete(newCue);
-            }
-            res.CuePath = cuePath;
+            // run the cue routine
+            res = CueHandler.CueRoutine(res, cuePath, true);
 
             return res;
         }
@@ -161,16 +121,8 @@ namespace DiscTools
             var inter = new Interrogator(cuePath, true);
             var res = inter.Start(DetectedDiscType.SegaCD);
 
-            if (res == null || res.DetectedDiscType == DetectedDiscType.UnknownFormat || res.DetectedDiscType == DetectedDiscType.UnknownCDFS)
-            {
-                string newCue = CueHandler.ParseCue(cuePath);
-                inter = new Interrogator(newCue, true);
-                inter.Start(DetectedDiscType.SegaCD);
-
-                if (File.Exists(newCue) && newCue != cuePath)
-                    File.Delete(newCue);
-            }
-            res.CuePath = cuePath;
+            // run the cue routine
+            res = CueHandler.CueRoutine(res, cuePath, true);
 
             return res;
         }
@@ -180,16 +132,8 @@ namespace DiscTools
             var inter = new Interrogator(cuePath, true);
             var res = inter.Start(DetectedDiscType.PhilipsCDi);
 
-            if (res == null || res.DetectedDiscType == DetectedDiscType.UnknownFormat || res.DetectedDiscType == DetectedDiscType.UnknownCDFS)
-            {
-                string newCue = CueHandler.ParseCue(cuePath);
-                inter = new Interrogator(newCue, true);
-                inter.Start(DetectedDiscType.PhilipsCDi);
-
-                if (File.Exists(newCue) && newCue != cuePath)
-                    File.Delete(newCue);
-            }
-            res.CuePath = cuePath;
+            // run the cue routine
+            res = CueHandler.CueRoutine(res, cuePath, true);
 
             return res;
         }
@@ -199,16 +143,8 @@ namespace DiscTools
             var inter = new Interrogator(cuePath, true);
             var res = inter.Start(DetectedDiscType.NeoGeoCD);
 
-            if (res == null || res.DetectedDiscType == DetectedDiscType.UnknownFormat || res.DetectedDiscType == DetectedDiscType.UnknownCDFS)
-            {
-                string newCue = CueHandler.ParseCue(cuePath);
-                inter = new Interrogator(newCue, true);
-                inter.Start(DetectedDiscType.NeoGeoCD);
-
-                if (File.Exists(newCue) && newCue != cuePath)
-                    File.Delete(newCue);
-            }
-            res.CuePath = cuePath;
+            // run the cue routine
+            res = CueHandler.CueRoutine(res, cuePath, true);
 
             return res;
         }
@@ -218,16 +154,8 @@ namespace DiscTools
             var inter = new Interrogator(cuePath, true);
             var res = inter.Start(DetectedDiscType.DreamCast);
 
-            if (res == null || res.DetectedDiscType == DetectedDiscType.UnknownFormat || res.DetectedDiscType == DetectedDiscType.UnknownCDFS)
-            {
-                string newCue = CueHandler.ParseCue(cuePath);
-                inter = new Interrogator(newCue, true);
-                inter.Start(DetectedDiscType.DreamCast);
-
-                if (File.Exists(newCue) && newCue != cuePath)
-                    File.Delete(newCue);
-            }
-            res.CuePath = cuePath;
+            // run the cue routine
+            res = CueHandler.CueRoutine(res, cuePath, true);
 
             return res;
         }
@@ -237,16 +165,8 @@ namespace DiscTools
             var inter = new Interrogator(cuePath, true);
             var res = inter.Start(DetectedDiscType.Panasonic3DO);
 
-            if (res == null || res.DetectedDiscType == DetectedDiscType.UnknownFormat || res.DetectedDiscType == DetectedDiscType.UnknownCDFS)
-            {
-                string newCue = CueHandler.ParseCue(cuePath);
-                inter = new Interrogator(newCue, true);
-                inter.Start(DetectedDiscType.Panasonic3DO);
-
-                if (File.Exists(newCue) && newCue != cuePath)
-                    File.Delete(newCue);
-            }
-            res.CuePath = cuePath;
+            // run the cue routine
+            res = CueHandler.CueRoutine(res, cuePath, true);
 
             return res;
         }
@@ -256,16 +176,8 @@ namespace DiscTools
             var inter = new Interrogator(cuePath, true);
             var res = inter.Start(DetectedDiscType.AmigaCDTV);
 
-            if (res == null || res.DetectedDiscType == DetectedDiscType.UnknownFormat || res.DetectedDiscType == DetectedDiscType.UnknownCDFS)
-            {
-                string newCue = CueHandler.ParseCue(cuePath);
-                inter = new Interrogator(newCue, true);
-                inter.Start(DetectedDiscType.AmigaCDTV);
-
-                if (File.Exists(newCue) && newCue != cuePath)
-                    File.Delete(newCue);
-            }
-            res.CuePath = cuePath;
+            // run the cue routine
+            res = CueHandler.CueRoutine(res, cuePath, true);
 
             return res;
         }
@@ -275,16 +187,8 @@ namespace DiscTools
             var inter = new Interrogator(cuePath, true);
             var res = inter.Start(DetectedDiscType.AmigaCD32);
 
-            if (res == null || res.DetectedDiscType == DetectedDiscType.UnknownFormat || res.DetectedDiscType == DetectedDiscType.UnknownCDFS)
-            {
-                string newCue = CueHandler.ParseCue(cuePath);
-                inter = new Interrogator(newCue, true);
-                inter.Start(DetectedDiscType.AmigaCD32);
-
-                if (File.Exists(newCue) && newCue != cuePath)
-                    File.Delete(newCue);
-            }
-            res.CuePath = cuePath;
+            // run the cue routine
+            res = CueHandler.CueRoutine(res, cuePath, true);
 
             return res;
         }
@@ -294,16 +198,8 @@ namespace DiscTools
             var inter = new Interrogator(cuePath, true);
             var res = inter.Start(DetectedDiscType.BandaiPlaydia);
 
-            if (res == null || res.DetectedDiscType == DetectedDiscType.UnknownFormat || res.DetectedDiscType == DetectedDiscType.UnknownCDFS)
-            {
-                string newCue = CueHandler.ParseCue(cuePath);
-                inter = new Interrogator(newCue, true);
-                inter.Start(DetectedDiscType.BandaiPlaydia);
-
-                if (File.Exists(newCue) && newCue != cuePath)
-                    File.Delete(newCue);
-            }
-            res.CuePath = cuePath;
+            // run the cue routine
+            res = CueHandler.CueRoutine(res, cuePath, true);
 
             return res;
         }
