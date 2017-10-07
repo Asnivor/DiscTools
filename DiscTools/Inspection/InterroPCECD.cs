@@ -27,15 +27,17 @@ namespace DiscTools.Inspection
         {
             if (lbaString.ToLower().Contains("pc engine") && !lbaString.ToLower().Contains("pc-fx"))
             {
-                byte[] newData = System.Text.Encoding.ASCII.GetBytes(lbaString);
+                int ind = lbaString.IndexOf("PC Engine");
+                string d = lbaString.Substring(lbaString.IndexOf("PC Engine"));
 
-                byte[] dataSm1 = newData.Skip(0).ToArray();
+                byte[] newData = System.Text.Encoding.ASCII.GetBytes(d);
+
+                byte[] dataSm1 = newData.Skip(74).Take(16).ToArray();
                 string t1 = System.Text.Encoding.Default.GetString(dataSm1).Replace('\0', ' ').Trim();
 
                 // get game name
-                byte[] dataSm = newData.Skip(106).Take(48).ToArray();
-                string t = System.Text.Encoding.Default.GetString(dataSm).Replace('\0', ' ').Trim().Split(new string[] { "  " }, StringSplitOptions.None).FirstOrDefault();
-                discI.Data.GameTitle = t;
+                if (t1.Trim() != "")
+                    discI.Data.GameTitle = t1;
 
                 return true;
             }
