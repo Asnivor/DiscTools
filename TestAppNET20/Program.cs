@@ -62,7 +62,13 @@ namespace TestAppNET20
 
             //string dcPath = @"G:\_Emulation\Dreamcast\games\Dead_or_Alive_2_USA_DC-UTOPIA\dead2.cdi";
             // string dcPath = @"G:\_Emulation\Gamecube - Wii\disks\Mortal Kombat - Deadly Alliance (Europe).iso";
-            string dcPath = @"G:\_Emulation\Gamecube - Wii\wii\Super Mario Galaxy 2 WII PAL MULTI5.iso";
+            //string dcPath = @"G:\_Emulation\Gamecube - Wii\wii\Super Mario Galaxy 2 WII PAL MULTI5.iso";
+
+            //string dcPath = @"G:\_Emulation\PS2\Games\Gran Turismo 4 (USA)\Gran Turismo 4 (USA).iso";
+
+            //string dcPath = @"G:\_Emulation\PS2\Games\Grand Theft Auto III (Europe) (En,Fr,De,Es,It) (v1.60)\Grand Theft Auto III (Europe) (En,Fr,De,Es,It) (v1.60).iso";
+
+            string dcPath = @"G:\_Emulation\PS2\Games\Dark Wind (Europe) (En,Fr,De,Es,It)\Dark Wind (Europe) (En,Fr,De,Es,It).cue";
 
             var dc = DiscInspector.ScanDisc(dcPath);
 

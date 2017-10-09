@@ -2,6 +2,7 @@
 Class libraries for .NET2.0 and .NET4.5.2 that currently allow you to interrogate disc images (based on valid .cue, .ccd or .iso files) for the following systems:
 
 * PSX
+* PS2
 * Sega Saturn
 * PC-Engine CD
 * PC-FX
@@ -73,6 +74,7 @@ Dim disc = DiscInspector.ScanDiscQuick("\path\to\cue_or_ccd_or_iso_file")
 ```c#
 // C#
 var psxDisc = DiscInspector.ScanPSX(@"path\to\cue_or_ccd_or_iso");
+var ps2Disc = DiscInspector.ScanPS2(@"path\to\cue_or_ccd_or_iso");
 var saturnDisc = DiscInspector.ScanSaturn(@"path\to\cue_or_ccd_or_iso");
 var pcecdDisc = DiscInspector.ScanPCECD(@"path\to\cue_or_ccd_or_iso");
 var pcfxDisc = DiscInspector.ScanPCFX(@"path\to\cue_or_ccd_or_iso");
@@ -85,12 +87,13 @@ var cdtvDisc = DiscInspector.ScanAmigaCDTV(@"path\to\cue_or_ccd_or_iso");
 var cd32Disc = DiscInspector.ScanAmigaCD32(@"path\to\cue_or_ccd_or_iso");
 var playdiaDisc = DiscInspector.ScanPlaydia(@"path\to\cue_or_ccd_or_iso");
 var gcDisc = DiscInspector.ScanGamecube(@"path\to\cue_or_ccd_or_iso");
-var wiiDisc = DiscInspector.ScanGamecube(@"path\to\cue_or_ccd_or_iso");
+var wiiDisc = DiscInspector.ScanWii(@"path\to\cue_or_ccd_or_iso");
 ```
 
 ```vb
 # VB
 Dim psxDisc = DiscInspector.ScanPSX("path\to\cue_or_ccd_or_iso")
+Dim ps2Disc = DiscInspector.ScanPS2(@"path\to\cue_or_ccd_or_iso")
 Dim saturnDisc = DiscInspector.ScanSaturn("path\to\cue_or_ccd_or_iso")
 Dim pcecdDisc = DiscInspector.ScanPCECD("path\to\cue_or_ccd_or_iso")
 Dim pcfxDisc = DiscInspector.ScanPCFX("path\to\cue_or_ccd_or_iso")
@@ -103,7 +106,7 @@ Dim cdtvDisc = DiscInspector.ScanAmigaCDTV(@"path\to\cue_or_ccd_or_iso")
 Dim cd32Disc = DiscInspector.ScanAmigaCD32(@"path\to\cue_or_ccd_or_iso")
 Dim playdiaDisc = DiscInspector.ScanPlaydia(@"path\to\cue_or_ccd_or_iso")
 Dim gcDisc = DiscInspector.ScanGamecube(@"path\to\cue_or_ccd_or_iso")
-Dim wiiDisc = DiscInspector.ScanGamecube(@"path\to\cue_or_ccd_or_iso")
+Dim wiiDisc = DiscInspector.ScanWii(@"path\to\cue_or_ccd_or_iso")
 ```
 
 

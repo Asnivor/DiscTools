@@ -22,7 +22,7 @@ namespace DiscTools.Inspection
             {
                 // psx
                 if (ScanISOPSX())
-                    return DetectedDiscType.SonyPSX;
+                    return DiscSubType;
 
                 // saturn
                 if (ScanISOSaturn())
@@ -102,7 +102,7 @@ namespace DiscTools.Inspection
             // psx
             CurrentLBA = 23;
             if (GetPSXData())
-                return DetectedDiscType.SonyPSX;
+                return DiscSubType;
 
             // neogeo - no direct method yet
 
@@ -144,7 +144,7 @@ namespace DiscTools.Inspection
 
                 // psx
                 if (GetPSXData(text))
-                    return DetectedDiscType.SonyPSX;
+                    return DiscSubType;
 
                 // saturn
                 if (GetSaturnData(text))
@@ -211,7 +211,7 @@ namespace DiscTools.Inspection
 
                 // psx
                 if (GetPSXData(dataStr))
-                    return DetectedDiscType.SonyPSX;
+                    return DiscSubType;
 
                 // saturn
                 if (GetSaturnData(dataStr))
@@ -281,7 +281,7 @@ namespace DiscTools.Inspection
 
                     // psx
                     if (GetPSXData(dataStr))
-                        return DetectedDiscType.SonyPSX;
+                        return DiscSubType;
 
                     // saturn
                     if (GetSaturnData(dataStr))

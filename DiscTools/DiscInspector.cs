@@ -83,6 +83,17 @@ namespace DiscTools
             return res;
         }
 
+        public static DiscInspector ScanPS2(string cuePath)
+        {
+            var inter = new Interrogator(cuePath, true);
+            var res = inter.Start(DetectedDiscType.SonyPSX);
+
+            // run the cue routine
+            res = CueHandler.CueRoutine(res, cuePath, true);
+
+            return res;
+        }
+
         public static DiscInspector ScanSaturn(string cuePath)
         {
             var inter = new Interrogator(cuePath, true);
@@ -214,6 +225,17 @@ namespace DiscTools
 
             return res;
         }
+
+        public static DiscInspector ScanWii(string cuePath)
+        {
+            var inter = new Interrogator(cuePath, true);
+            var res = inter.Start(DetectedDiscType.Wii);
+
+            // run the cue routine
+            res = CueHandler.CueRoutine(res, cuePath, true);
+
+            return res;
+        }
     }
 
     public enum DetectedDiscType
@@ -235,7 +257,8 @@ namespace DiscTools
         AmigaCD32,
         BandaiPlaydia,
         Gamecube,
-        Wii
+        Wii,
+        SonyPS2
     }
 
 }

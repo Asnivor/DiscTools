@@ -43,10 +43,9 @@ namespace DiscTools.Inspection
 
         public bool GetPSXData(string lbaString)
         {
-            if (!lbaString.Contains("cdrom:"))
-                return false;
-
-            /*
+            if (lbaString.Contains("cdrom:"))
+            {
+                /*
              * regex pattern for PSX serial extraction
              * supplied by clobber @ OpenEmu:
              * https://github.com/OpenEmu/OpenEmu/blob/master/OpenEmu/PlayStation/OEPSXSystemController.m#L157-L167
@@ -61,17 +60,63 @@ namespace DiscTools.Inspection
                 //  BOOT = cdrom:\TEKKEN3\SLUS_004.02;1 (extra path)
                 //  BOOT	= cdrom:\SLUS_010.41;1      (horizontal tab)
             */
-            string PSXSerialRegex = @"BOOT\s*=\s*?cdrom:\\?(.+\\)?(.+?(?=;|\s))";
+                string PSXSerialRegex = @"BOOT\s*=\s*?cdrom:\\?(.+\\)?(.+?(?=;|\s))";
 
-            Regex pattern = new Regex(PSXSerialRegex);
-            var match = pattern.Match(lbaString);
-            int mCount = match.Groups.Count;
+                Regex pattern = new Regex(PSXSerialRegex);
+                var match = pattern.Match(lbaString);
+                int mCount = match.Groups.Count;
 
-            if (mCount == 3)
-            {
-                discI.Data.SerialNumber = match.Groups[2].ToString().Replace("_", "-").Replace(".", "");
-                return true;
+                if (mCount == 3)
+                {
+                    discI.Data.SerialNumber = match.Groups[2].ToString().Replace("_", "-").Replace(".", "");
+                    DiscSubType = DetectedDiscType.SonyPSX;
+
+                    if (isIso)
+                    {
+                        discI.Data.GameTitle = discI.Data.ISOData.VolumeIdentifier;
+                        discI.Data.Publisher = discI.Data.ISOData.PublisherIdentifier;
+                        discI.Data.Developer = discI.Data.ISOData.DataPreparerIdentifier;
+                    }
+
+                    return true;
+                }
             }
+
+            if (lbaString.Contains("BOOT2"))
+            {
+                // PS2
+                string PS2SerialRegex = @"BOOT2\s*=\s*?cdrom0:\\?(.+\\)?(.+?(?=;|\s))";
+
+                Regex pattern = new Regex(PS2SerialRegex);
+                var match = pattern.Match(lbaString);
+                int mCount = match.Groups.Count;
+
+                if (mCount == 3)
+                {
+                    discI.Data.SerialNumber = match.Groups[2].ToString().Replace("_", "-").Replace(".", "");
+                    DiscSubType = DetectedDiscType.SonyPS2;
+
+                    if (isIso)
+                    {
+                        discI.Data.GameTitle = discI.Data.ISOData.VolumeIdentifier;
+                        discI.Data.Publisher = discI.Data.ISOData.PublisherIdentifier;
+                        discI.Data.Developer = discI.Data.ISOData.DataPreparerIdentifier;
+                    }
+
+                    // get other info
+                    string[] arr = lbaString.Split(new string[] { "\r\n" }, StringSplitOptions.None);
+                    string version = arr[1];
+                    string region = arr[2];
+
+                    discI.Data.Version = version.Replace("VER = ", "").Trim().TrimEnd('\0');
+                    discI.Data.AreaCodes = region.Replace("VMODE = ", "").Trim().TrimEnd('\0');
+
+
+                    return true;
+                }
+            }
+
+            
 
             return false;
         }
