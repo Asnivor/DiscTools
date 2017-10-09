@@ -46,6 +46,7 @@
     <Compile Include="CueHandler.cs" />
     <Compile Include="DiscInspector.cs" />
     <Compile Include="Inspection\InterroDiscJuggler.cs" />
+    <Compile Include="Inspection\InterroWii.cs" />
     <Compile Include="Inspection\InterroGamecube.cs" />
     <Compile Include="Inspection\InterroSpecific.cs" />
     <Compile Include="Inspection\InterroDreamcast.cs" />

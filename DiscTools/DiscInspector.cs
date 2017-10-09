@@ -234,7 +234,8 @@ namespace DiscTools
         AmigaCDTV,
         AmigaCD32,
         BandaiPlaydia,
-        Gamecube
+        Gamecube,
+        Wii
     }
 
 }

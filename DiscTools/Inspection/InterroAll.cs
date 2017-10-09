@@ -55,6 +55,10 @@ namespace DiscTools.Inspection
                 // pcfx - currently no ISO lookup method
 
                 // CD-i - currently no ISO lookup method
+
+                // gamecube - currently no ISO lookup method
+
+                // wii - currently no ISO lookup method
             }
 
 
@@ -81,6 +85,10 @@ namespace DiscTools.Inspection
             // gamecube
             if (GetGamecubeData(System.Text.Encoding.Default.GetString(currSector)))
                 return DetectedDiscType.Gamecube;
+
+            // wii
+            if (GetWiiData(System.Text.Encoding.Default.GetString(currSector)))
+                return DetectedDiscType.Wii;
 
             CurrentLBA = 16;
             currSector = di.ReadData(CurrentLBA, 2048);
@@ -146,6 +154,10 @@ namespace DiscTools.Inspection
                 if (GetGamecubeData(text))
                     return DetectedDiscType.Gamecube;
 
+                // wii
+                if (GetWiiData(text))
+                    return DetectedDiscType.Wii;
+
                 // dreamcast
                 if (GetDreamcastData(text))
                     return DetectedDiscType.DreamCast;
@@ -208,6 +220,10 @@ namespace DiscTools.Inspection
                 // gamecube
                 if (GetGamecubeData(dataStr))
                     return DetectedDiscType.Gamecube;
+
+                // wii
+                if (GetWiiData(dataStr))
+                    return DetectedDiscType.Wii;
 
                 // dreamcast
                 if (GetDreamcastData(dataStr))
@@ -274,6 +290,10 @@ namespace DiscTools.Inspection
                     // gamecube
                     if (GetGamecubeData(dataStr))
                         return DetectedDiscType.Gamecube;
+
+                    // gamecube
+                    if (GetWiiData(dataStr))
+                        return DetectedDiscType.Wii;
 
                     // dreamcast
                     if (GetDreamcastData(dataStr))

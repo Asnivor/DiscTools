@@ -61,7 +61,8 @@ namespace TestAppNET20
             //string dcPath = @"C:\Users\admin\Downloads\Snatcher_(NTSC-J)_[KMCD2002]\Dragon_Ball_Z_-_Idainaru_Son_Gokuu_Densetsu_(NTSC-J)_[BNCD4001].cue";
 
             //string dcPath = @"G:\_Emulation\Dreamcast\games\Dead_or_Alive_2_USA_DC-UTOPIA\dead2.cdi";
-            string dcPath = @"G:\_Emulation\Gamecube - Wii\disks\Mortal Kombat - Deadly Alliance (Europe).iso";
+            // string dcPath = @"G:\_Emulation\Gamecube - Wii\disks\Mortal Kombat - Deadly Alliance (Europe).iso";
+            string dcPath = @"G:\_Emulation\Gamecube - Wii\wii\Super Mario Galaxy 2 WII PAL MULTI5.iso";
 
             var dc = DiscInspector.ScanDisc(dcPath);
 

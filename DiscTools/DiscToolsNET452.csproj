@@ -64,6 +64,7 @@
     <Compile Include="Inspection\InterroSaturn.cs" />
     <Compile Include="Inspection\InterroSegaCD.cs" />
     <Compile Include="Inspection\InterroSpecific.cs" />
+    <Compile Include="Inspection\InterroWii.cs" />
     <Compile Include="Inspection\Statics\NintendoLookup.cs" />
     <Compile Include="Inspection\TextConverters.cs" />
     <Compile Include="ISO\API_MednaDisc.cs" />
