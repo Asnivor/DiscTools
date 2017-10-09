@@ -13,6 +13,8 @@ Class libraries for .NET2.0 and .NET4.5.2 that currently allow you to interrogat
 * Amiga CDTV / CD32
 * Bandai Playdia
 
+*There is also currently experimental support for detecting DreamCast DiscJuggler (.cdi) files. This may be very slow as the disc is not being 'mounted' in the traditional sense.*
+
 [![Build status](https://ci.appveyor.com/api/projects/status/58juhmjpih7mw266/branch/master?svg=true)](https://ci.appveyor.com/project/Asnivor/disctools/branch/master)
 
 See the [Releases](https://github.com/Asnivor/DiscTools/releases) page for the latest successful auto-build release.

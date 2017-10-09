@@ -1,6 +1,7 @@
 ﻿using DiscTools.ISO;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -12,7 +13,7 @@ namespace DiscTools.Inspection
         /// Runs through interrogation process to identify all discs
         /// </summary>
         public DetectedDiscType InterrogateALL()
-        {
+        {            
             ///////////////////////
             /* First ISO related */
             ///////////////////////

@@ -35,7 +35,7 @@
     <Prefer32Bit>false</Prefer32Bit>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
-  <ItemGroup>  
+  <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -52,6 +52,7 @@
     <Compile Include="Inspection\InterroAll.cs" />
     <Compile Include="Inspection\InterroAmiga.cs" />
     <Compile Include="Inspection\InterroCDi.cs" />
+    <Compile Include="Inspection\InterroDiscJuggler.cs" />
     <Compile Include="Inspection\InterroDreamcast.cs" />
     <Compile Include="Inspection\Interrogator.cs" />
     <Compile Include="Inspection\InterroNeoGeoCD.cs" />
@@ -112,6 +113,7 @@
     <Compile Include="ISO\Internal\SynthUtils.cs" />
     <Compile Include="ISO\Util.cs" />
     <Compile Include="Objects\DiscData.cs" />
+    <Compile Include="OtherFormats\CDi.cs" />
     <Compile Include="SBI\SubQPatchData.cs" />
     <Compile Include="SerialNumber.cs" />
     <Compile Include="ISO\ISODirectoryNode.cs" />
@@ -128,6 +130,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -56,9 +56,13 @@ namespace TestAppNET20
             //string dcPath = @"G:\_Emulation\Bandai Playdia\Aqua Adventure - Blue Lilty (1994)(Bandai)(JP)[!].cue";
             //string dcPath = @"G:\_Emulation\Bandai Playdia\Ultraman - Hiragana Dai Sakusen (1992)(Bandai)(JP).cue";
 
-            string dcPath = @"C:\Users\admin\Downloads\Snatcher_(NTSC-J)_[KMCD2002]\Snatcher_(NTSC-J)_[KMCD2002].cue";
+            //string dcPath = @"C:\Users\admin\Downloads\Snatcher_(NTSC-J)_[KMCD2002]\Snatcher_(NTSC-J)_[KMCD2002].cue";
             //string dcPath = @"C:\Users\admin\Downloads\Snatcher_(NTSC-J)_[KMCD2002]\Kisou_Louga_(NTSC-J)_[KSCD3004].cue";
             //string dcPath = @"C:\Users\admin\Downloads\Snatcher_(NTSC-J)_[KMCD2002]\Dragon_Ball_Z_-_Idainaru_Son_Gokuu_Densetsu_(NTSC-J)_[BNCD4001].cue";
+
+            //string dcPath = @"G:\_Emulation\Dreamcast\games\Dead_or_Alive_2_USA_DC-UTOPIA\dead2.cdi";
+            string dcPath = @"G:\_Emulation\Atari Jaguar CD\baldies.cdi";
+
             var dc = DiscInspector.ScanDisc(dcPath);
 
             string stop = "";

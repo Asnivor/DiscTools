@@ -45,6 +45,7 @@
     <Compile Include="CompilerServices.cs" />
     <Compile Include="CueHandler.cs" />
     <Compile Include="DiscInspector.cs" />
+    <Compile Include="Inspection\InterroDiscJuggler.cs" />
     <Compile Include="Inspection\InterroSpecific.cs" />
     <Compile Include="Inspection\InterroDreamcast.cs" />
     <Compile Include="Inspection\InterroAmiga.cs" />
@@ -60,6 +61,7 @@
     <Compile Include="Inspection\InterroAll.cs" />
     <Compile Include="Inspection\Interrogator.cs" />
     <Compile Include="Inspection\TextConverters.cs" />
+    <Compile Include="OtherFormats\CDi.cs" />
     <Compile Include="ISO\API_MednaDisc.cs" />
     <Compile Include="ISO\Bit.cs" />
     <Compile Include="ISO\BitReverse.cs" />

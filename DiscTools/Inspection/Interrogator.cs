@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Linq;
+using DiscTools.OtherFormats;
 
 namespace DiscTools.Inspection
 {
@@ -57,6 +58,22 @@ namespace DiscTools.Inspection
             // cue existance check
             if (discI.CuePath == null || !File.Exists(discI.CuePath))
                 return discI;
+
+            //////////////////
+            /* OtherFormats */
+            //////////////////
+
+            // discjuggler - currently only implemented for dreamcast CDI files
+            if (IntenseScan)
+            {
+                if (Path.GetExtension(discI.CuePath).ToLower() == ".cdi")
+                {
+                    discI.DetectedDiscType = ScanDiscJuggler();
+
+                    return discI;
+                }
+            }
+
 
             // attempt to mount the disc
             try
