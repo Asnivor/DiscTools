@@ -37,23 +37,10 @@ namespace DiscTools.Inspection
                 return false;
 
             discI.Data.OtherData = dvdMag;
+            discI.DetectedDiscType = DetectedDiscType.Gamecube;
 
             string consoleId = Encoding.Default.GetString(Encoding.Default.GetBytes(lbaString).Skip(0).Take(1).ToArray());
-            switch (consoleId)
-            {
-                case "D":   // Emulated/Ported/Promotional
-                    discI.DetectedDiscType = DetectedDiscType.Gamecube;
-                    discI.Data.DeviceInformation = "Emulated/Ported/Promotional";
-                    break;
-                case "G":   // Gamecube
-                    discI.DetectedDiscType = DetectedDiscType.Gamecube;
-                    discI.Data.DeviceInformation = "Gamecube";
-                    break;
-                case "U":   // GBA-Player Boot CD
-                    discI.DetectedDiscType = DetectedDiscType.Gamecube;
-                    discI.Data.DeviceInformation = "GBA-Player Boot CD";
-                    break;
-            }
+            discI.Data.DeviceInformation = Statics.NintendoLookup.GetDiscId(consoleId);
 
             // game name
             string gName = Encoding.Default.GetString(Encoding.Default.GetBytes(lbaString).Skip(32).Take(992).ToArray()).Trim().TrimEnd('\0');
@@ -65,21 +52,7 @@ namespace DiscTools.Inspection
 
             // country code
             string cc = Encoding.Default.GetString(Encoding.Default.GetBytes(lbaString).Skip(3).Take(1).ToArray());
-            switch (cc)
-            {
-                case "E":
-                    discI.Data.AreaCodes = "E - USA/NTSC";
-                    break;
-                case "P":
-                    discI.Data.AreaCodes = "P - Europe/PAL";
-                    break;
-                case "J":
-                    discI.Data.AreaCodes = "J - Japan/NTSC";
-                    break;
-                case "U":
-                    discI.Data.AreaCodes = "U - Europe/PAL (LoZ Oot (MQ))?";
-                    break;
-            }
+            discI.Data.AreaCodes = Statics.NintendoLookup.GetRegion(cc);
 
             // maker code
             string makerHex = Encoding.Default.GetString(Encoding.Default.GetBytes(lbaString).Skip(4).Take(2).ToArray());

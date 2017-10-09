@@ -7,6 +7,8 @@ namespace DiscTools.Inspection.Statics
     public class NintendoLookup
     {
         public Dictionary<string, string> Publishers { get; set; }
+        public Dictionary<string, string> DiscIDs { get; set; }
+        public Dictionary<string, string> Regions { get; set; }
 
         public static string GetMaker(string makerHex)
         {
@@ -17,9 +19,56 @@ namespace DiscTools.Inspection.Statics
             return "Unknown Publisher";
         }
 
+        public static string GetDiscId(string discIdString)
+        {
+            var m = new NintendoLookup();
+            if (m.DiscIDs.ContainsKey(discIdString))
+                return m.DiscIDs[discIdString];
+
+            return "Unknown DiscID";
+        }
+
+        public static string GetRegion(string regionString)
+        {
+            var m = new NintendoLookup();
+            if (m.Regions.ContainsKey(regionString))
+                return m.Regions[regionString];
+
+            return "Unknown Region";
+        }
+
 
         public NintendoLookup()
         {
+            Regions = new Dictionary<string, string>
+            {
+                { "D", "German" },
+                { "E", "USA" },
+                { "F", "France" },
+                { "I", "Italy" },
+                { "J", "Japan" },
+                { "K", "Korea" },
+                { "P", "PAL" },
+                { "R", "Russia" },
+                { "S", "Spanish" },
+                { "T", "Taiwan" },
+                { "U", "Australia" },
+            };
+
+            DiscIDs = new Dictionary<string, string>
+            {
+                { "D",  "Emulated/Ported/Promotional"},
+                { "G",  "Gamecube"},
+                { "U",  "GBA-Player Boot CD"},
+                { "R",  "Revolution - Wii"},
+                { "S",  "Wii"},
+                { "P",  "Gamecube Promotional"},
+                { "0",  "Diagnostic Disc"},
+                { "1",  "Diagnostic Disc (maybe)"},
+                { "4",  "Wii Backup Disc"},
+                { "_",  "WiiFit Chan Installer"},
+            };
+
             Publishers = new Dictionary<string, string>
             {
                 { "0A", "Jaleco" },
