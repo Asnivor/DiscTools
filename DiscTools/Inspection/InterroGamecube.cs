@@ -76,67 +76,8 @@ namespace DiscTools.Inspection
 
             // maker code
             string makerHex = Encoding.Default.GetString(Encoding.Default.GetBytes(lbaString).Skip(4).Take(2).ToArray());
-            string vendor = "";
-
-            switch (makerHex)
-            {
-                case "01":
-                    vendor = "Nintendo";
-                    break;
-                case "08":
-                    vendor = "Capcom";
-                    break;
-                case "41":
-                    vendor = "Ubisoft";
-                    break;
-                case "4F":
-                    vendor = "Eidos";
-                    break;
-                case "51":
-                    vendor = "Acclaim";
-                    break;
-                case "52":
-                    vendor = "Activision";
-                    break;
-                case "5D":
-                    vendor = "Midway";
-                    break;
-                case "5G":
-                    vendor = "Hudson";
-                    break;
-                case "64":
-                    vendor = "Lucas Arts";
-                    break;
-                case "69":
-                    vendor = "Electronic Arts";
-                    break;
-                case "6S":
-                    vendor = "TDK Mediactive";
-                    break;
-                case "8P":
-                    vendor = "Sega";
-                    break;
-                case "A4":
-                    vendor = "Mirage Studios";
-                    break;
-                case "AF":
-                    vendor = "Namco";
-                    break;
-                case "B2":
-                    vendor = "Bandai";
-                    break;
-                case "DA":
-                    vendor = "Tomy";
-                    break;
-                case "EM":
-                    vendor = "Konami";
-                    break;
-                default:
-                    vendor = "Unknown";
-                    break;
-            }
-
-            discI.Data.ManufacturerID = vendor;
+            
+            discI.Data.Publisher = Statics.NintendoLookup.GetMaker(makerHex);
 
             // disc id
             string discId = Encoding.Default.GetString(Encoding.Default.GetBytes(lbaString).Skip(6).Take(1).ToArray());

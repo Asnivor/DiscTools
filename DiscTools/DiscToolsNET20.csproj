@@ -61,6 +61,7 @@
     <Compile Include="Inspection\InterroPSX.cs" />
     <Compile Include="Inspection\InterroAll.cs" />
     <Compile Include="Inspection\Interrogator.cs" />
+    <Compile Include="Inspection\Statics\NintendoLookup.cs" />
     <Compile Include="Inspection\TextConverters.cs" />
     <Compile Include="OtherFormats\CDi.cs" />
     <Compile Include="ISO\API_MednaDisc.cs" />
