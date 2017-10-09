@@ -41,12 +41,12 @@ See the [Releases](https://github.com/Asnivor/DiscTools/releases) page for the l
 
 ```c#
 // C# Usage
-var disc = DiscInspector.ScanDisc(@"\path\to\cue_or_ccd_file");
+var disc = DiscInspector.ScanDisc(@"\path\to\cue_or_ccd_or_iso_file");
 ```
 
 ```vb
 # VB Usage
-Dim disc = DiscInspector.ScanDisc("\path\to\cue_or_ccd_file")
+Dim disc = DiscInspector.ScanDisc("\path\to\cue_or_ccd_or_iso_file")
 ```
 
 #### ScanDiscQuick()
@@ -56,12 +56,12 @@ Dim disc = DiscInspector.ScanDisc("\path\to\cue_or_ccd_file")
 
 ```c#
 // C# Usage
-var disc = DiscInspector.ScanDiscQuick(@"\path\to\cue_or_ccd_file");
+var disc = DiscInspector.ScanDiscQuick(@"\path\to\cue_or_ccd_or_iso_file");
 ```
 
 ```vb
 # VB Usage
-Dim disc = DiscInspector.ScanDiscQuick("\path\to\cue_or_ccd_file")
+Dim disc = DiscInspector.ScanDiscQuick("\path\to\cue_or_ccd_or_iso_file")
 ```
 
 #### System Specific Scans
@@ -71,36 +71,36 @@ Dim disc = DiscInspector.ScanDiscQuick("\path\to\cue_or_ccd_file")
 
 ```c#
 // C#
-var psxDisc = DiscInspector.ScanPSX(@"path\to\cue_or_ccd");
-var saturnDisc = DiscInspector.ScanSaturn(@"path\to\cue_or_ccd");
-var pcecdDisc = DiscInspector.ScanPCECD(@"path\to\cue_or_ccd");
-var pcfxDisc = DiscInspector.ScanPCFX(@"path\to\cue_or_ccd");
-var segaCDDisc = DiscInspector.ScanSegaCD(@"path\to\cue_or_ccd");
-var philipsCDiDisc = DiscInspector.ScanCDi(@"path\to\cue_or_ccd");
-var neogeoDisc = DiscInspector.ScanNeoGeoCD(@"path\to\cue_or_ccd");
-var dreamcastDisc = DiscInspector.ScanDreamcast(@"path\to\cue_or_ccd");
-var philips3DODisc = DiscInspector.Scan3DO(@"path\to\cue_or_ccd");
-var cdtvDisc = DiscInspector.ScanAmigaCDTV(@"path\to\cue_or_ccd");
-var cd32Disc = DiscInspector.ScanAmigaCD32(@"path\to\cue_or_ccd");
-var playdiaDisc = DiscInspector.ScanPlaydia(@"path\to\cue_or_ccd");
-var gcDisc = DiscInspector.ScanGamecube(@"path\to\cue_or_ccd");
+var psxDisc = DiscInspector.ScanPSX(@"path\to\cue_or_ccd_or_iso");
+var saturnDisc = DiscInspector.ScanSaturn(@"path\to\cue_or_ccd_or_iso");
+var pcecdDisc = DiscInspector.ScanPCECD(@"path\to\cue_or_ccd_or_iso");
+var pcfxDisc = DiscInspector.ScanPCFX(@"path\to\cue_or_ccd_or_iso");
+var segaCDDisc = DiscInspector.ScanSegaCD(@"path\to\cue_or_ccd_or_iso");
+var philipsCDiDisc = DiscInspector.ScanCDi(@"path\to\cue_or_ccd_or_iso");
+var neogeoDisc = DiscInspector.ScanNeoGeoCD(@"path\to\cue_or_ccd_or_iso");
+var dreamcastDisc = DiscInspector.ScanDreamcast(@"path\to\cue_or_ccd_or_iso");
+var philips3DODisc = DiscInspector.Scan3DO(@"path\to\cue_or_ccd_or_iso");
+var cdtvDisc = DiscInspector.ScanAmigaCDTV(@"path\to\cue_or_ccd_or_iso");
+var cd32Disc = DiscInspector.ScanAmigaCD32(@"path\to\cue_or_ccd_or_iso");
+var playdiaDisc = DiscInspector.ScanPlaydia(@"path\to\cue_or_ccd_or_iso");
+var gcDisc = DiscInspector.ScanGamecube(@"path\to\cue_or_ccd_or_iso");
 ```
 
 ```vb
 # VB
-Dim psxDisc = DiscInspector.ScanPSX("path\to\cue_or_ccd")
-Dim saturnDisc = DiscInspector.ScanSaturn("path\to\cue_or_ccd")
-Dim pcecdDisc = DiscInspector.ScanPCECD("path\to\cue_or_ccd")
-Dim pcfxDisc = DiscInspector.ScanPCFX("path\to\cue_or_ccd")
-Dim segaCDDisc = DiscInspector.ScanSegaCD("path\to\cue_or_ccd")
-Dim philipsCDiDisc = DiscInspector.ScanCDi("path\to\cue_or_ccd")
-Dim neogeoDisc = DiscInspector.ScanNeoGeoCD("path\to\cue_or_ccd")
-Dim dreamcastDisc = DiscInspector.ScanDreamcast("path\to\cue_or_ccd")
-Dim philips3DODisc = DiscInspector.Scan3DO(@"path\to\cue_or_ccd")
-Dim cdtvDisc = DiscInspector.ScanAmigaCDTV(@"path\to\cue_or_ccd")
-Dim cd32Disc = DiscInspector.ScanAmigaCD32(@"path\to\cue_or_ccd")
-Dim playdiaDisc = DiscInspector.ScanPlaydia(@"path\to\cue_or_ccd")
-Dim gcDisc = DiscInspector.ScanGamecube(@"path\to\cue_or_ccd")
+Dim psxDisc = DiscInspector.ScanPSX("path\to\cue_or_ccd_or_iso")
+Dim saturnDisc = DiscInspector.ScanSaturn("path\to\cue_or_ccd_or_iso")
+Dim pcecdDisc = DiscInspector.ScanPCECD("path\to\cue_or_ccd_or_iso")
+Dim pcfxDisc = DiscInspector.ScanPCFX("path\to\cue_or_ccd_or_iso")
+Dim segaCDDisc = DiscInspector.ScanSegaCD("path\to\cue_or_ccd_or_iso")
+Dim philipsCDiDisc = DiscInspector.ScanCDi("path\to\cue_or_ccd_or_iso")
+Dim neogeoDisc = DiscInspector.ScanNeoGeoCD("path\to\cue_or_ccd_or_iso")
+Dim dreamcastDisc = DiscInspector.ScanDreamcast("path\to\cue_or_ccd_or_iso")
+Dim philips3DODisc = DiscInspector.Scan3DO(@"path\to\cue_or_ccd_or_iso")
+Dim cdtvDisc = DiscInspector.ScanAmigaCDTV(@"path\to\cue_or_ccd_or_iso")
+Dim cd32Disc = DiscInspector.ScanAmigaCD32(@"path\to\cue_or_ccd_or_iso")
+Dim playdiaDisc = DiscInspector.ScanPlaydia(@"path\to\cue_or_ccd_or_iso")
+Dim gcDisc = DiscInspector.ScanGamecube(@"path\to\cue_or_ccd_or_iso")
 ```
 
 
