@@ -26,6 +26,13 @@ namespace DiscTools.Inspection
                         return DetectedDiscType.SonyPSX;
                 }
 
+                // psp
+                if (systemType == DetectedDiscType.SonyPSP)
+                {
+                    if (ScanISOPSP())
+                        return DetectedDiscType.SonyPSP;
+                }
+
                 // saturn
                 if (systemType == DetectedDiscType.SegaSaturn)
                 {
@@ -184,6 +191,13 @@ namespace DiscTools.Inspection
                         return DetectedDiscType.SonyPSX;
                 }
 
+                // psp
+                if (systemType == DetectedDiscType.SonyPSP)
+                {
+                    if (GetPSXData(text))
+                        return DetectedDiscType.SonyPSP;
+                }
+
                 // saturn
                 if (systemType == DetectedDiscType.SegaSaturn)
                 {
@@ -281,6 +295,13 @@ namespace DiscTools.Inspection
                 {
                     if (GetPSXData(dataStr))
                         return DetectedDiscType.SonyPSX;
+                }
+
+                // psp
+                if (systemType == DetectedDiscType.SonyPSP)
+                {
+                    if (GetPSXData(dataStr))
+                        return DetectedDiscType.SonyPSP;
                 }
 
                 // saturn
@@ -383,6 +404,13 @@ namespace DiscTools.Inspection
                     {
                         if (GetPSXData(dataStr))
                             return DetectedDiscType.SonyPSX;
+                    }
+
+                    // psp
+                    if (systemType == DetectedDiscType.SonyPSP)
+                    {
+                        if (GetPSXData(dataStr))
+                            return DetectedDiscType.SonyPSP;
                     }
 
                     // saturn

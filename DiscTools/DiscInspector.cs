@@ -50,6 +50,14 @@ namespace DiscTools
             return res;
         }
 
+        public static DiscInspector ScanDiscQuickNoCorrection(string cuePath)
+        {
+            var inter = new Interrogator(cuePath, false);
+            var res = inter.Start();
+
+            return res;
+        }
+
         /// <summary>
         /// Return a DiscInspector Object - quick scan that may miss detection on some non-iso based images
         /// </summary>
@@ -87,6 +95,17 @@ namespace DiscTools
         {
             var inter = new Interrogator(cuePath, true);
             var res = inter.Start(DetectedDiscType.SonyPSX);
+
+            // run the cue routine
+            res = CueHandler.CueRoutine(res, cuePath, true);
+
+            return res;
+        }
+
+        public static DiscInspector ScanPSP(string cuePath)
+        {
+            var inter = new Interrogator(cuePath, true);
+            var res = inter.Start(DetectedDiscType.SonyPSP);
 
             // run the cue routine
             res = CueHandler.CueRoutine(res, cuePath, true);

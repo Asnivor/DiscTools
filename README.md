@@ -3,6 +3,7 @@ Class libraries for .NET2.0 and .NET4.5.2 that currently allow you to interrogat
 
 * PSX
 * PS2
+* PSP
 * Sega Saturn
 * PC-Engine CD
 * PC-FX
@@ -75,6 +76,7 @@ Dim disc = DiscInspector.ScanDiscQuick("\path\to\cue_or_ccd_or_iso_file")
 // C#
 var psxDisc = DiscInspector.ScanPSX(@"path\to\cue_or_ccd_or_iso");
 var ps2Disc = DiscInspector.ScanPS2(@"path\to\cue_or_ccd_or_iso");
+var pspDisc = DiscInspector.ScanPSP(@"path\to\cue_or_ccd_or_iso");
 var saturnDisc = DiscInspector.ScanSaturn(@"path\to\cue_or_ccd_or_iso");
 var pcecdDisc = DiscInspector.ScanPCECD(@"path\to\cue_or_ccd_or_iso");
 var pcfxDisc = DiscInspector.ScanPCFX(@"path\to\cue_or_ccd_or_iso");
@@ -94,6 +96,7 @@ var wiiDisc = DiscInspector.ScanWii(@"path\to\cue_or_ccd_or_iso");
 # VB
 Dim psxDisc = DiscInspector.ScanPSX("path\to\cue_or_ccd_or_iso")
 Dim ps2Disc = DiscInspector.ScanPS2(@"path\to\cue_or_ccd_or_iso")
+Dim pspDisc = DiscInspector.ScanPSP(@"path\to\cue_or_ccd_or_iso")
 Dim saturnDisc = DiscInspector.ScanSaturn("path\to\cue_or_ccd_or_iso")
 Dim pcecdDisc = DiscInspector.ScanPCECD("path\to\cue_or_ccd_or_iso")
 Dim pcfxDisc = DiscInspector.ScanPCFX("path\to\cue_or_ccd_or_iso")

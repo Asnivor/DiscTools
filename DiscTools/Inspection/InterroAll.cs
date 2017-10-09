@@ -24,6 +24,10 @@ namespace DiscTools.Inspection
                 if (ScanISOPSX())
                     return DiscSubType;
 
+                // psp
+                if (ScanISOPSP())
+                    return DetectedDiscType.SonyPSP;
+
                 // saturn
                 if (ScanISOSaturn())
                     return DetectedDiscType.SegaSaturn;
@@ -146,6 +150,9 @@ namespace DiscTools.Inspection
                 if (GetPSXData(text))
                     return DiscSubType;
 
+                if (GetPSPData(text))
+                    return DetectedDiscType.SonyPSP;
+
                 // saturn
                 if (GetSaturnData(text))
                     return DetectedDiscType.SegaSaturn;
@@ -212,6 +219,9 @@ namespace DiscTools.Inspection
                 // psx
                 if (GetPSXData(dataStr))
                     return DiscSubType;
+
+                if (GetPSPData(dataStr))
+                    return DetectedDiscType.SonyPSP;
 
                 // saturn
                 if (GetSaturnData(dataStr))
@@ -282,6 +292,9 @@ namespace DiscTools.Inspection
                     // psx
                     if (GetPSXData(dataStr))
                         return DiscSubType;
+
+                    if (GetPSPData(dataStr))
+                        return DetectedDiscType.SonyPSP;
 
                     // saturn
                     if (GetSaturnData(dataStr))

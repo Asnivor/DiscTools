@@ -68,7 +68,9 @@ namespace TestAppNET20
 
             //string dcPath = @"G:\_Emulation\PS2\Games\Grand Theft Auto III (Europe) (En,Fr,De,Es,It) (v1.60)\Grand Theft Auto III (Europe) (En,Fr,De,Es,It) (v1.60).iso";
 
-            string dcPath = @"G:\_Emulation\PS2\Games\Dark Wind (Europe) (En,Fr,De,Es,It)\Dark Wind (Europe) (En,Fr,De,Es,It).cue";
+            //string dcPath = @"G:\_Emulation\PS2\Games\Dark Wind (Europe) (En,Fr,De,Es,It)\Dark Wind (Europe) (En,Fr,De,Es,It).cue";
+
+            string dcPath = @"G:\_Emulation\psp\Ace_Combat_Joint_Assault_EUR_PSP-RoME\rm-acja.iso";
 
             var dc = DiscInspector.ScanDisc(dcPath);
 
