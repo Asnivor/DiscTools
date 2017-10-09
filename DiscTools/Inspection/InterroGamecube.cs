@@ -29,6 +29,15 @@ namespace DiscTools.Inspection
             // most of this stuff gleaned from:  https://github.com/sleepy9090/GameCubeIsoAnalyzer
 
             // console identification
+            // dvdMagic
+            //string dvdMag = Encoding.Default.GetString(Encoding.Default.GetBytes(lbaString).Skip(28).Take(4).ToArray());
+            string dvdMag = getHexStringFromByteArray(Encoding.Default.GetBytes(lbaString).Skip(28).Take(4).ToArray());
+
+            if (dvdMag != "C2339F3D")
+                return false;
+
+            discI.Data.OtherData = dvdMag;
+
             string consoleId = Encoding.Default.GetString(Encoding.Default.GetBytes(lbaString).Skip(0).Take(1).ToArray());
             switch (consoleId)
             {
@@ -44,8 +53,6 @@ namespace DiscTools.Inspection
                     discI.DetectedDiscType = DetectedDiscType.Gamecube;
                     discI.Data.DeviceInformation = "GBA-Player Boot CD";
                     break;
-                default:
-                    return false;
             }
 
             // game name
@@ -87,9 +94,7 @@ namespace DiscTools.Inspection
             string ver = Encoding.Default.GetString(Encoding.Default.GetBytes(lbaString).Skip(7).Take(1).ToArray());
             discI.Data.Version = ver;
 
-            // dvdMagic
-            string dvdMag = Encoding.Default.GetString(Encoding.Default.GetBytes(lbaString).Skip(28).Take(4).ToArray());
-            discI.Data.OtherData = dvdMag;
+            
             
             return true;
         }
