@@ -102,6 +102,14 @@ namespace DiscTools.Inspection
                     return DetectedDiscType.SegaSaturn;
             }
 
+            // gamecube
+            if (systemType == DetectedDiscType.Gamecube)
+            {
+                CurrentLBA = 0;
+                if (GetGamecubeData())
+                    return DetectedDiscType.Gamecube;
+            }
+
             // dreamcast - no direct method yet
 
             // sega cd (megacd)
@@ -181,6 +189,13 @@ namespace DiscTools.Inspection
                 {
                     if (GetSaturnData(text))
                         return DetectedDiscType.SegaSaturn;
+                }
+
+                // gamecube
+                if (systemType == DetectedDiscType.Gamecube)
+                {
+                    if (GetGamecubeData(text))
+                        return DetectedDiscType.Gamecube;
                 }
 
                 // dreamcast
@@ -273,6 +288,13 @@ namespace DiscTools.Inspection
                 {
                     if (GetSaturnData(dataStr))
                         return DetectedDiscType.SegaSaturn;
+                }
+
+                // gamecube
+                if (systemType == DetectedDiscType.Gamecube)
+                {
+                    if (GetGamecubeData(dataStr))
+                        return DetectedDiscType.Gamecube;
                 }
 
                 // dreamcast
@@ -370,6 +392,12 @@ namespace DiscTools.Inspection
                             return DetectedDiscType.SegaSaturn;
                     }
 
+                    // gamecube
+                    if (systemType == DetectedDiscType.Gamecube)
+                    {
+                        if (GetGamecubeData(dataStr))
+                            return DetectedDiscType.Gamecube;
+                    }
 
                     // dreamcast
                     if (systemType == DetectedDiscType.DreamCast)

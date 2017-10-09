@@ -203,6 +203,17 @@ namespace DiscTools
 
             return res;
         }
+
+        public static DiscInspector ScanGamecube(string cuePath)
+        {
+            var inter = new Interrogator(cuePath, true);
+            var res = inter.Start(DetectedDiscType.Gamecube);
+
+            // run the cue routine
+            res = CueHandler.CueRoutine(res, cuePath, true);
+
+            return res;
+        }
     }
 
     public enum DetectedDiscType
@@ -222,7 +233,8 @@ namespace DiscTools
         Panasonic3DO,
         AmigaCDTV,
         AmigaCD32,
-        BandaiPlaydia
+        BandaiPlaydia,
+        Gamecube
     }
 
 }

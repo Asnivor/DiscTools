@@ -1,5 +1,5 @@
 # DiscTools
-Class libraries for .NET2.0 and .NET4.5.2 that currently allow you to interrogate disc images (based on valid .cue or .ccd files) for the following systems:
+Class libraries for .NET2.0 and .NET4.5.2 that currently allow you to interrogate disc images (based on valid .cue, .ccd or .iso files) for the following systems:
 
 * PSX
 * Sega Saturn
@@ -12,6 +12,7 @@ Class libraries for .NET2.0 and .NET4.5.2 that currently allow you to interrogat
 * Panasonic 3DO
 * Amiga CDTV / CD32
 * Bandai Playdia
+* Gamecube
 
 *There is also currently experimental support for detecting DreamCast DiscJuggler (.cdi) files. This may be very slow as the disc is not being 'mounted' in the traditional sense.*
 
@@ -20,9 +21,9 @@ Class libraries for .NET2.0 and .NET4.5.2 that currently allow you to interrogat
 See the [Releases](https://github.com/Asnivor/DiscTools/releases) page for the latest successful auto-build release.
 
 ## Limitations
-* DiscTools will only accept a valid *.cue or *.ccd input file
+* DiscTools will only accept a valid *.cue, *.ccd or *.iso input file
 * Cue files with multiple *.bin or *.iso tracks **are** supported
-* Referenced audio tracks that have been converted into a different format (*.mp3, *.ogg, *.ape etc..) are **not** currently supported
+* Referenced audio tracks that have been converted into a different format (*.mp3, *.ogg, *.ape etc..) are **not** currently supported, but DiscTools should generate a cuesheet on the fly that will attempt to load the BINARY tracks
 * If an error is encountered the DiscInspector methods will either return a `null` object, or a DiscInspector object that contains a `DetectedDiscType` property set to 'UnknownFormat'
 
 ## Setup
@@ -82,6 +83,7 @@ var philips3DODisc = DiscInspector.Scan3DO(@"path\to\cue_or_ccd");
 var cdtvDisc = DiscInspector.ScanAmigaCDTV(@"path\to\cue_or_ccd");
 var cd32Disc = DiscInspector.ScanAmigaCD32(@"path\to\cue_or_ccd");
 var playdiaDisc = DiscInspector.ScanPlaydia(@"path\to\cue_or_ccd");
+var gcDisc = DiscInspector.ScanGamecube(@"path\to\cue_or_ccd");
 ```
 
 ```vb
@@ -98,6 +100,7 @@ Dim philips3DODisc = DiscInspector.Scan3DO(@"path\to\cue_or_ccd")
 Dim cdtvDisc = DiscInspector.ScanAmigaCDTV(@"path\to\cue_or_ccd")
 Dim cd32Disc = DiscInspector.ScanAmigaCD32(@"path\to\cue_or_ccd")
 Dim playdiaDisc = DiscInspector.ScanPlaydia(@"path\to\cue_or_ccd")
+Dim gcDisc = DiscInspector.ScanGamecube(@"path\to\cue_or_ccd")
 ```
 
 

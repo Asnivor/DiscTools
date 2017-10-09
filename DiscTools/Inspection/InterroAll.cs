@@ -64,30 +64,37 @@ namespace DiscTools.Inspection
             /* Non-ISO Direct queries (where we can guess the LBA) */
             /////////////////////////////////////////////////////////
 
+            // saturn
+            CurrentLBA = 0;
+            currSector = di.ReadData(CurrentLBA, 2048);
+            if (GetSaturnData(System.Text.Encoding.Default.GetString(currSector)))
+                return DetectedDiscType.SegaSaturn;
+
+            // amiga - but of a kludge, maybe try lba 0
+            if (GetAmigaData(System.Text.Encoding.Default.GetString(currSector)))
+                return DiscSubType;
+
+            // sega cd (megacd)
+            if (GetSegaCDData(System.Text.Encoding.Default.GetString(currSector)))
+                return DetectedDiscType.SegaCD;
+
+            // gamecube
+            if (GetGamecubeData(System.Text.Encoding.Default.GetString(currSector)))
+                return DetectedDiscType.Gamecube;
+
+            CurrentLBA = 16;
+            currSector = di.ReadData(CurrentLBA, 2048);
+            if (GetSegaCDData(System.Text.Encoding.Default.GetString(currSector)))
+                return DetectedDiscType.SegaCD;
+
+            // CD-i - check lba 16 first - this seems to be quite common  
+            if (GetCDiData(System.Text.Encoding.Default.GetString(currSector)))
+                return DetectedDiscType.PhilipsCDi;
+
             // psx
             CurrentLBA = 23;
             if (GetPSXData())
                 return DetectedDiscType.SonyPSX;
-
-            // saturn
-            CurrentLBA = 0;
-            if (GetSaturnData())
-                return DetectedDiscType.SegaSaturn;
-
-            // dreamcast - no direct method yet
-
-            // sega cd (megacd)
-            CurrentLBA = 0;
-            if (GetSegaCDData())
-                return DetectedDiscType.SegaCD;
-            CurrentLBA = 16;
-            if (GetSegaCDData())
-                return DetectedDiscType.SegaCD;
-
-            // amiga - but of a kludge, maybe try lba 0
-            CurrentLBA = 0;
-            if (GetAmigaData())
-                return DiscSubType;
 
             // neogeo - no direct method yet
 
@@ -97,10 +104,7 @@ namespace DiscTools.Inspection
 
             // pcfx - no direct method yet
 
-            // CD-i - check lba 16 first - this seems to be quite common
-            CurrentLBA = 16;
-            if (GetCDiData())
-                return DetectedDiscType.PhilipsCDi;
+            // dreamcast - no direct method yet
 
 
 
@@ -137,6 +141,10 @@ namespace DiscTools.Inspection
                 // saturn
                 if (GetSaturnData(text))
                     return DetectedDiscType.SegaSaturn;
+
+                // gamecube
+                if (GetGamecubeData(text))
+                    return DetectedDiscType.Gamecube;
 
                 // dreamcast
                 if (GetDreamcastData(text))
@@ -196,6 +204,10 @@ namespace DiscTools.Inspection
                 // saturn
                 if (GetSaturnData(dataStr))
                     return DetectedDiscType.SegaSaturn;
+
+                // gamecube
+                if (GetGamecubeData(dataStr))
+                    return DetectedDiscType.Gamecube;
 
                 // dreamcast
                 if (GetDreamcastData(dataStr))
@@ -258,6 +270,10 @@ namespace DiscTools.Inspection
                     // saturn
                     if (GetSaturnData(dataStr))
                         return DetectedDiscType.SegaSaturn;
+
+                    // gamecube
+                    if (GetGamecubeData(dataStr))
+                        return DetectedDiscType.Gamecube;
 
                     // dreamcast
                     if (GetDreamcastData(dataStr))

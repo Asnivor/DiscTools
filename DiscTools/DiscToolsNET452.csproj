@@ -54,6 +54,7 @@
     <Compile Include="Inspection\InterroCDi.cs" />
     <Compile Include="Inspection\InterroDiscJuggler.cs" />
     <Compile Include="Inspection\InterroDreamcast.cs" />
+    <Compile Include="Inspection\InterroGamecube.cs" />
     <Compile Include="Inspection\Interrogator.cs" />
     <Compile Include="Inspection\InterroNeoGeoCD.cs" />
     <Compile Include="Inspection\InterroPCECD.cs" />
