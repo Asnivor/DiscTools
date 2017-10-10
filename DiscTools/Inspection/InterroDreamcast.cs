@@ -10,10 +10,10 @@ namespace DiscTools.Inspection
     {
         public bool ScanISODreamcast()
         {
-            if (discI.Data.ISOData.SystemIdentifier.Contains("SEGAKATANA"))
+            if (discI.Data._ISOData.SystemIdentifier.Contains("SEGAKATANA"))
             {
                 // store lba for IP.BIN
-                var cnf = discI.Data.ISOData.ISOFiles.Where(a => a.Key.Contains("IP.BIN")).FirstOrDefault();
+                var cnf = discI.Data._ISOData.ISOFiles.Where(a => a.Key.Contains("IP.BIN")).FirstOrDefault();
                 if (cnf.Key.Contains("IP.BIN"))
                 {
                     ifn = cnf.Value;

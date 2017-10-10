@@ -10,10 +10,10 @@ namespace DiscTools.Inspection
     {
         public bool ScanISOAmiga()
         {
-            if (discI.Data.ISOData.SystemIdentifier.Contains("CDTV") || discI.Data.ISOData.SystemIdentifier.Contains("AMIGA"))
+            if (discI.Data._ISOData.SystemIdentifier.Contains("CDTV") || discI.Data._ISOData.SystemIdentifier.Contains("AMIGA"))
             {
                 // is it CDTV or CD32?
-                foreach (var child in discI.Data.ISOData.ISOFiles)
+                foreach (var child in discI.Data._ISOData.ISOFiles)
                 {
                     if (child.Key.ToLower().Contains("cd32"))
                     {

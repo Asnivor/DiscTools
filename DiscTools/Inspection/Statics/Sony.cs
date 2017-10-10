@@ -1,17 +1,20 @@
-﻿using System;
+﻿using DiscTools.Inspection.Statics.SonyMethods;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
 namespace DiscTools.Inspection.Statics
 {
-    public class SonyLookup
+    public class Sony
     {
+        
+
         public Dictionary<string, string> PSPRegion { get; set; }
 
         public static string GetPSPRegion(string regionCode)
         {
-            var psp = new SonyLookup();
+            var psp = new Sony();
             if (psp.PSPRegion.ContainsKey(regionCode))
                 return psp.PSPRegion[regionCode];
 
@@ -20,6 +23,9 @@ namespace DiscTools.Inspection.Statics
 
         public static DiscInspector ParsePSPParam(DiscInspector discI, byte[] currSector)
         {
+            var sfo = new SFO(currSector);
+
+
             string sS = System.Text.Encoding.Default.GetString(currSector);
 
             // PARAM.SFO parsing
@@ -60,7 +66,7 @@ namespace DiscTools.Inspection.Statics
             return discI;
         }
 
-        public SonyLookup()
+        public Sony()
         {
             PSPRegion = new Dictionary<string, string>()
             {

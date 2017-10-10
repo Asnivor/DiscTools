@@ -10,7 +10,7 @@ namespace DiscTools.Inspection
     {
         public bool ScanISOSegaCD()
         {
-            if (discI.Data.ISOData.SystemIdentifier.Contains("MEGA_CD"))
+            if (discI.Data._ISOData.SystemIdentifier.Contains("MEGA_CD"))
             {
                 if (StringAt("SEGADISCSYSTEM", 0))
                 {

@@ -10,7 +10,7 @@ namespace DiscTools.Inspection
     {
         public bool ScanISONeoGeoCD()
         {
-            var absTxt = discI.Data.ISOData.ISOFiles.Where(a => a.Key.Contains("ABS.TXT")).ToList();
+            var absTxt = discI.Data._ISOData.ISOFiles.Where(a => a.Key.Contains("ABS.TXT")).ToList();
             if (absTxt.Count == 0)
                 return false;
 

@@ -10,7 +10,7 @@ namespace DiscTools.Inspection
     {
         public bool ScanISOPlaydia()
         {
-            if (discI.Data.ISOData.SystemIdentifier.Contains("ASAHI-CDV"))
+            if (discI.Data._ISOData.SystemIdentifier.Contains("ASAHI-CDV"))
             {
                 return true;
             }

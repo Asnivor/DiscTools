@@ -101,8 +101,8 @@ namespace DiscTools.Inspection
                 var vs = iso.VolumeDescriptors.Where(a => a != null).ToArray().First();
 
                 // translate the vd
-                discI.Data.ISOData = PopulateISOData(vs);
-                discI.Data.ISOData.ISOFiles = iso.Root.Children;
+                discI.Data._ISOData = PopulateISOData(vs);
+                discI.Data._ISOData.ISOFiles = iso.Root.Children;
                 ifn = null;
             }
 
@@ -217,7 +217,7 @@ namespace DiscTools.Inspection
             return i;
         }
 
-        private static string convertHexToAscii(String hexString)
+        public static string convertHexToAscii(String hexString)
         {
             try
             {
@@ -241,7 +241,7 @@ namespace DiscTools.Inspection
             return string.Empty;
         }
 
-        private static string getHexStringFromByteArray(byte[] byteArray)
+        public static string getHexStringFromByteArray(byte[] byteArray)
         {
             string hexString = "";
             foreach (var b in byteArray)

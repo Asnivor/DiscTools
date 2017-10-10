@@ -10,7 +10,7 @@ namespace DiscTools.Inspection
     {
         public bool ScanISOSaturn()
         {
-            if (discI.Data.ISOData.SystemIdentifier.Contains("SEGA SEGASATURN"))
+            if (discI.Data._ISOData.SystemIdentifier.Contains("SEGA SEGASATURN"))
             {
                 CurrentLBA = 0;
                 return GetSaturnData();

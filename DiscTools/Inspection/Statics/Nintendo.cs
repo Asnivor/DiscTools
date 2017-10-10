@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DiscTools.Inspection.Statics
 {
-    public class NintendoLookup
+    public class Nintendo
     {
         public Dictionary<string, string> Publishers { get; set; }
         public Dictionary<string, string> DiscIDs { get; set; }
@@ -12,7 +12,7 @@ namespace DiscTools.Inspection.Statics
 
         public static string GetMaker(string makerHex)
         {
-            var m = new NintendoLookup();
+            var m = new Nintendo();
             if (m.Publishers.ContainsKey(makerHex))
                 return m.Publishers[makerHex];
 
@@ -21,7 +21,7 @@ namespace DiscTools.Inspection.Statics
 
         public static string GetDiscId(string discIdString)
         {
-            var m = new NintendoLookup();
+            var m = new Nintendo();
             if (m.DiscIDs.ContainsKey(discIdString))
                 return m.DiscIDs[discIdString];
 
@@ -30,7 +30,7 @@ namespace DiscTools.Inspection.Statics
 
         public static string GetRegion(string regionString)
         {
-            var m = new NintendoLookup();
+            var m = new Nintendo();
             if (m.Regions.ContainsKey(regionString))
                 return m.Regions[regionString];
 
@@ -38,7 +38,7 @@ namespace DiscTools.Inspection.Statics
         }
 
 
-        public NintendoLookup()
+        public Nintendo()
         {
             Regions = new Dictionary<string, string>
             {

@@ -20,7 +20,7 @@ namespace DiscTools
         //public ISOFile iso;
 
         public DiscInspector()
-        {   
+        {
 
         }
         

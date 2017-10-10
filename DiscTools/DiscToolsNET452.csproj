@@ -48,27 +48,32 @@
     <Compile Include="CompilerServices.cs" />
     <Compile Include="CueHandler.cs" />
     <Compile Include="DiscInspector.cs" />
-    <Compile Include="Inspection\Interro3DO.cs" />
-    <Compile Include="Inspection\InterroAll.cs" />
+    <Compile Include="Inspection\InterroDiscJuggler.cs" />
+    <Compile Include="Inspection\InterroPSP.cs" />
+    <Compile Include="Inspection\InterroWii.cs" />
+    <Compile Include="Inspection\InterroGamecube.cs" />
+    <Compile Include="Inspection\InterroSpecific.cs" />
+    <Compile Include="Inspection\InterroDreamcast.cs" />
     <Compile Include="Inspection\InterroAmiga.cs" />
     <Compile Include="Inspection\InterroCDi.cs" />
-    <Compile Include="Inspection\InterroDiscJuggler.cs" />
-    <Compile Include="Inspection\InterroDreamcast.cs" />
-    <Compile Include="Inspection\InterroGamecube.cs" />
-    <Compile Include="Inspection\Interrogator.cs" />
-    <Compile Include="Inspection\InterroNeoGeoCD.cs" />
+    <Compile Include="Inspection\Interro3DO.cs" />
     <Compile Include="Inspection\InterroPCECD.cs" />
     <Compile Include="Inspection\InterroPCFX.cs" />
     <Compile Include="Inspection\InterroPlaydia.cs" />
-    <Compile Include="Inspection\InterroPSP.cs" />
-    <Compile Include="Inspection\InterroPSX.cs" />
-    <Compile Include="Inspection\InterroSaturn.cs" />
+    <Compile Include="Inspection\InterroNeoGeoCD.cs" />
     <Compile Include="Inspection\InterroSegaCD.cs" />
-    <Compile Include="Inspection\InterroSpecific.cs" />
-    <Compile Include="Inspection\InterroWii.cs" />
-    <Compile Include="Inspection\Statics\NintendoLookup.cs" />
-    <Compile Include="Inspection\Statics\SonyLookup.cs" />
+    <Compile Include="Inspection\InterroSaturn.cs" />
+    <Compile Include="Inspection\InterroPSX.cs" />
+    <Compile Include="Inspection\InterroAll.cs" />
+    <Compile Include="Inspection\Interrogator.cs" />
+    <Compile Include="Inspection\Statics\Nintendo.cs" />
+    <Compile Include="Inspection\Statics\Sony.cs" />
+    <Compile Include="Inspection\Statics\SonyMethods\SFO.cs" />
     <Compile Include="Inspection\TextConverters.cs" />
+    <Compile Include="Objects\CDiData.cs" />
+    <Compile Include="Objects\ISOData.cs" />
+    <Compile Include="Objects\PSPData.cs" />
+    <Compile Include="OtherFormats\CDi.cs" />
     <Compile Include="ISO\API_MednaDisc.cs" />
     <Compile Include="ISO\Bit.cs" />
     <Compile Include="ISO\BitReverse.cs" />
@@ -118,7 +123,6 @@
     <Compile Include="ISO\Internal\SynthUtils.cs" />
     <Compile Include="ISO\Util.cs" />
     <Compile Include="Objects\DiscData.cs" />
-    <Compile Include="OtherFormats\CDi.cs" />
     <Compile Include="SBI\SubQPatchData.cs" />
     <Compile Include="SerialNumber.cs" />
     <Compile Include="ISO\ISODirectoryNode.cs" />
@@ -135,7 +139,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

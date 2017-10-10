@@ -39,7 +39,7 @@ namespace DiscTools.Inspection
             discI.DetectedDiscType = DetectedDiscType.Wii;
 
             string consoleId = Encoding.Default.GetString(Encoding.Default.GetBytes(lbaString).Skip(0).Take(1).ToArray());
-            discI.Data.DeviceInformation = Statics.NintendoLookup.GetDiscId(consoleId);
+            discI.Data.DeviceInformation = Statics.Nintendo.GetDiscId(consoleId);
 
             // game name
             string gName = Encoding.Default.GetString(Encoding.Default.GetBytes(lbaString).Skip(32).Take(992).ToArray()).Trim().TrimEnd('\0');
@@ -51,12 +51,12 @@ namespace DiscTools.Inspection
 
             // country code
             string cc = Encoding.Default.GetString(Encoding.Default.GetBytes(lbaString).Skip(3).Take(1).ToArray());
-            discI.Data.AreaCodes = Statics.NintendoLookup.GetRegion(cc);
+            discI.Data.AreaCodes = Statics.Nintendo.GetRegion(cc);
 
             // maker code
             string makerHex = Encoding.Default.GetString(Encoding.Default.GetBytes(lbaString).Skip(4).Take(2).ToArray());
             
-            discI.Data.Publisher = Statics.NintendoLookup.GetMaker(makerHex);
+            discI.Data.Publisher = Statics.Nintendo.GetMaker(makerHex);
 
             // disc id
             string discId = Encoding.Default.GetString(Encoding.Default.GetBytes(lbaString).Skip(6).Take(1).ToArray());

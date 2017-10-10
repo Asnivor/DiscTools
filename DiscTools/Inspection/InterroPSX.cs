@@ -10,10 +10,10 @@ namespace DiscTools.Inspection
     {
         public bool ScanISOPSX()
         {
-            if (discI.Data.ISOData.ApplicationIdentifier == "PLAYSTATION")
+            if (discI.Data._ISOData.ApplicationIdentifier == "PLAYSTATION")
             {
                 // store lba for SYSTEM.CNF
-                var cnf = discI.Data.ISOData.ISOFiles.Where(a => a.Key.Contains("SYSTEM.CNF")).FirstOrDefault();
+                var cnf = discI.Data._ISOData.ISOFiles.Where(a => a.Key.Contains("SYSTEM.CNF")).FirstOrDefault();
                 if (cnf.Key.Contains("SYSTEM.CNF"))
                 {
                     ifn = cnf.Value;
@@ -73,9 +73,9 @@ namespace DiscTools.Inspection
 
                     if (isIso)
                     {
-                        discI.Data.GameTitle = discI.Data.ISOData.VolumeIdentifier;
-                        discI.Data.Publisher = discI.Data.ISOData.PublisherIdentifier;
-                        discI.Data.Developer = discI.Data.ISOData.DataPreparerIdentifier;
+                        discI.Data.GameTitle = discI.Data._ISOData.VolumeIdentifier;
+                        discI.Data.Publisher = discI.Data._ISOData.PublisherIdentifier;
+                        discI.Data.Developer = discI.Data._ISOData.DataPreparerIdentifier;
                     }
 
                     return true;
@@ -98,9 +98,9 @@ namespace DiscTools.Inspection
 
                     if (isIso)
                     {
-                        discI.Data.GameTitle = discI.Data.ISOData.VolumeIdentifier;
-                        discI.Data.Publisher = discI.Data.ISOData.PublisherIdentifier;
-                        discI.Data.Developer = discI.Data.ISOData.DataPreparerIdentifier;
+                        discI.Data.GameTitle = discI.Data._ISOData.VolumeIdentifier;
+                        discI.Data.Publisher = discI.Data._ISOData.PublisherIdentifier;
+                        discI.Data.Developer = discI.Data._ISOData.DataPreparerIdentifier;
                     }
 
                     // get other info
