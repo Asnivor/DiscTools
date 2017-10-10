@@ -8,7 +8,7 @@ namespace DiscTools.Inspection.Statics
 {
     public class Sony
     {
-        
+        /*
 
         public Dictionary<string, string> PSPRegion { get; set; }
 
@@ -83,5 +83,7 @@ namespace DiscTools.Inspection.Statics
                 { "0010", "Central / South America" }                
             };
         }
+
+    */
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using System.Text.RegularExpressions;
+using DiscTools.Objects;
 
 namespace DiscTools.Inspection
 {
@@ -27,6 +28,8 @@ namespace DiscTools.Inspection
         {
             if (lbaString.ToLower().Contains("cd-rtos"))
             {
+                CDiVolumeDescriptor cdv = new CDiVolumeDescriptor(currSector);
+
                 discI.Data.ManufacturerID = System.Text.Encoding.Default.GetString(currSector.ToList().Skip(1).Take(4).ToArray());
                 discI.Data.OtherData = System.Text.Encoding.Default.GetString(currSector.ToList().Skip(8).Take(16).ToArray()).Trim();
                 int start = 190;

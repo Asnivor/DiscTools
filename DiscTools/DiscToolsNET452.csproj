@@ -71,6 +71,7 @@
     <Compile Include="Inspection\Statics\SonyMethods\SFO.cs" />
     <Compile Include="Inspection\TextConverters.cs" />
     <Compile Include="Objects\CDiData.cs" />
+    <Compile Include="Objects\IOFunctions.cs" />
     <Compile Include="Objects\ISOData.cs" />
     <Compile Include="Objects\PSPData.cs" />
     <Compile Include="OtherFormats\CDi.cs" />

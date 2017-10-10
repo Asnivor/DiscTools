@@ -132,6 +132,8 @@ namespace DiscTools.Inspection
             discI.Data.TotalDataTracks = dataTracks;
             discI.Data.TotalTracks = audioTracks + dataTracks;
 
+            discI.DiscStructure = disc.Structure;
+
             // do actual interrogation
             switch (detectedDiscType)
             {

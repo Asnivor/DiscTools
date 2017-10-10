@@ -13,6 +13,7 @@ namespace DiscTools
     {
         public string CuePath { get; set; }
         public DiscData Data { get; set; }
+        public DiscStructure DiscStructure { get; set; }
         public DetectedDiscType DetectedDiscType { get; set; }
         public string DiscTypeString { get; set; }
         public string DiscViewString { get; set; }

@@ -21,7 +21,7 @@ namespace TestAppNET20
             //string dcPath = @"G:\_Emulation\Sega Saturn\disks\ws-gals_panic.cue";
             //string dcPath = @"G:\_Emulation\NeoGeo CD\discs\Metal Slug (1996)(SNK)(Jp-US)[!].cue";
             //string dcPath = @"G:\_Emulation\NeoGeo CD\discs\Breakers (1997)(Visco)(Jp)[!].cue";
-            string dcPath = @"G:\_Emulation\Philips CD-i\discs\Hotel Mario.cue";
+            //string dcPath = @"G:\_Emulation\Philips CD-i\discs\Hotel Mario.cue";
             //string dcPath = @"G:\_Emulation\Sega Megadrive - 32x - SegaCD\discs\segacd\Shining Force CD (Sega CD) (U)-redump.cue";
             //string dcPath = @"G:\_Emulation\Sega Saturn\disks\Primal Rage (Europe) (En,Fr,De,Es,It,Pt)\Primal Rage (Europe) (En,Fr,De,Es,It,Pt).cue";
             //string dcPath = @"G:\_Emulation\PCFX\Games\Battle Heat\Battle Heat.cue";
@@ -42,7 +42,7 @@ namespace TestAppNET20
             //var dreamcast = DiscInspector.ScanDreamcast(@"G:\_Emulation\Dreamcast\games\Daytona_USA_USA_DC-ECHELON\E-DAYUSA.cue1");
 
             //string dcPath = @"G:\_Emulation\PSX\iso\Alien Trilogy (E) [SLES-00101]\Alien Trilogy (E) [SLES-00101]\Alien Trilogy (E) [SLES-00101].cue";
-            //string dcPath = @"G:\_Emulation\PC Engine\discs\L-Dis (1991)(Masaya - NCS)(JP).ccd";
+            string dcPath = @"G:\_Emulation\PC Engine\discs\L-Dis (1991)(Masaya - NCS)(JP).ccd";
 
             //DiscInspector.UnknownTest();
 
