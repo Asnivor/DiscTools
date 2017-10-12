@@ -16,6 +16,7 @@ Class libraries for .NET2.0 and .NET4.5.2 that currently allow you to interrogat
 * Bandai Playdia
 * Gamecube
 * Wii
+* FM Towns
 
 *There is also currently experimental support for detecting DreamCast DiscJuggler (.cdi) files. This may be very slow as the disc is not being 'mounted' in the traditional sense.*
 
@@ -90,6 +91,7 @@ var cd32Disc = DiscInspector.ScanAmigaCD32(@"path\to\cue_or_ccd_or_iso");
 var playdiaDisc = DiscInspector.ScanPlaydia(@"path\to\cue_or_ccd_or_iso");
 var gcDisc = DiscInspector.ScanGamecube(@"path\to\cue_or_ccd_or_iso");
 var wiiDisc = DiscInspector.ScanWii(@"path\to\cue_or_ccd_or_iso");
+var townsDisc = DiscInspector.ScanTowns(@"path\to\cue_or_ccd_or_iso");
 ```
 
 ```vb
@@ -110,6 +112,7 @@ Dim cd32Disc = DiscInspector.ScanAmigaCD32(@"path\to\cue_or_ccd_or_iso")
 Dim playdiaDisc = DiscInspector.ScanPlaydia(@"path\to\cue_or_ccd_or_iso")
 Dim gcDisc = DiscInspector.ScanGamecube(@"path\to\cue_or_ccd_or_iso")
 Dim wiiDisc = DiscInspector.ScanWii(@"path\to\cue_or_ccd_or_iso")
+Dim townsDisc = DiscInspector.ScanTowns(@"path\to\cue_or_ccd_or_iso")
 ```
 
 

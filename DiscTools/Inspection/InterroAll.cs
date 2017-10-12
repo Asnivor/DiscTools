@@ -32,6 +32,10 @@ namespace DiscTools.Inspection
                 if (ScanISOSaturn())
                     return DetectedDiscType.SegaSaturn;
 
+                // FM Towns
+                if (ScanISOFMTowns())
+                    return DetectedDiscType.FMTowns;
+
                 // dreamcast
                 if (ScanISODreamcast())
                     return DetectedDiscType.DreamCast;

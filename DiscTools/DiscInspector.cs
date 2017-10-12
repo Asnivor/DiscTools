@@ -256,6 +256,17 @@ namespace DiscTools
 
             return res;
         }
+
+        public static DiscInspector ScanTowns(string cuePath)
+        {
+            var inter = new Interrogator(cuePath, true);
+            var res = inter.Start(DetectedDiscType.FMTowns);
+
+            // run the cue routine
+            res = CueHandler.CueRoutine(res, cuePath, true);
+
+            return res;
+        }
     }
 
     public enum DetectedDiscType
@@ -278,7 +289,8 @@ namespace DiscTools
         BandaiPlaydia,
         Gamecube,
         Wii,
-        SonyPS2
+        SonyPS2,
+        FMTowns
     }
 
 }

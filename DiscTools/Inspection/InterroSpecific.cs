@@ -40,6 +40,19 @@ namespace DiscTools.Inspection
                         return DetectedDiscType.SegaSaturn;
                 }
 
+                // FM Towns
+                if (systemType == DetectedDiscType.FMTowns)
+                {
+                    if (ScanISOFMTowns())
+                        return DetectedDiscType.FMTowns;
+                    else
+                    {
+                        // no non-cdfs lookups
+                        return DetectedDiscType.UnknownFormat;
+                    }
+                }
+                
+
                 // dreamcast
                 if (systemType == DetectedDiscType.DreamCast)
                 {

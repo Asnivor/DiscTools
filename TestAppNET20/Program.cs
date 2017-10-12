@@ -26,7 +26,11 @@ namespace TestAppNET20
             //string dcPath = @"G:\_Emulation\Sega Saturn\disks\Primal Rage (Europe) (En,Fr,De,Es,It,Pt)\Primal Rage (Europe) (En,Fr,De,Es,It,Pt).cue";
             //string dcPath = @"G:\_Emulation\PCFX\Games\Battle Heat\Battle Heat.cue";
             //string dcPath = @"G:\_Emulation\PCFX\Games\Angelique Special\Angelique Special.cue";
+
+
             //string dcPath = @"G:\_Emulation\Philips CD-i\discs\Zombie Dinos.cue";
+
+
             //string dcPath = @"G:\_Emulation\PSX\iso\Metal Gear Solid - Integral (J) [SLPM-86247]\Metal Gear Solid - Integral (J) (Disc 1) [SLPM-86247].cue";
             //string dcPath = @"G:\_Emulation\PC Engine\discs\Cyber_City_OEDO_808_(NTSC-J)_[NSCD0003]\Cyber_City_OEDO_808_(NTSC-J)_[NSCD0003].cue";
             //string dcPath = @"G:\_Emulation\Sega Saturn\disks\Virtua Fighter CG Portrait Series Vol1 Sarah Bryant (J) [!]\Virtua Fighter CG Portrait Series Vol1 Sarah Bryant (J) [!] [SegaSaturn].CCD";
@@ -42,7 +46,7 @@ namespace TestAppNET20
             //var dreamcast = DiscInspector.ScanDreamcast(@"G:\_Emulation\Dreamcast\games\Daytona_USA_USA_DC-ECHELON\E-DAYUSA.cue1");
 
             //string dcPath = @"G:\_Emulation\PSX\iso\Alien Trilogy (E) [SLES-00101]\Alien Trilogy (E) [SLES-00101]\Alien Trilogy (E) [SLES-00101].cue";
-            string dcPath = @"G:\_Emulation\PC Engine\discs\L-Dis (1991)(Masaya - NCS)(JP).ccd";
+            // string dcPath = @"G:\_Emulation\PC Engine\discs\L-Dis (1991)(Masaya - NCS)(JP).ccd";
 
             //DiscInspector.UnknownTest();
 
@@ -74,7 +78,14 @@ namespace TestAppNET20
             //string dcPath = @"C:\Users\admin\Downloads\Rakugaki Showtime (Japan) [SLPM-86272]\Rakugaki Showtime (Japan) [SLPM-86272].cue";
 
             //string dcPath = @"G:\_Emulation\psp\Ace_Combat_Joint_Assault_EUR_PSP-RoME\rm-acja.iso";
-           // string dcPath = @"G:\_Emulation\psp\Star_Ocean_Second_Evolution_USA_PSP-PSPKiNG\pspking-sose.ISO";
+            // string dcPath = @"G:\_Emulation\psp\Star_Ocean_Second_Evolution_USA_PSP-PSPKiNG\pspking-sose.ISO";
+
+            //string dcPath = @"G:\_Emulation\PSX\iso\Alien Trilogy (E) [SLES-00101]\Alien Trilogy (E) [SLES-00101].cue";
+            //string dcPath = @"G:\_Emulation\PSX\iso\Cool Boarders 2 (USA)\Cool Boarders 2 (USA)2.cue";
+
+
+            //string dcPath = @"G:\_Emulation\FM Towns\marty\Dungeon Master II for FM-Towns.cue";
+            string dcPath = @"G:\_Emulation\FM Towns\marty\Dungeon.Master.ISO.FM-Towns-OpTiMaL.cue";
 
             var dc = DiscInspector.ScanDisc(dcPath);
 
