@@ -220,13 +220,15 @@ namespace DiscTools.Inspection
                 currSector = data;
                 string dataStr = System.Text.Encoding.Default.GetString(data);
 
-                // psx
+                // psx - dont bother
+                /*
                 if (GetPSXData(dataStr))
                     return DiscSubType;
+                   
 
                 if (GetPSPData(dataStr))
                     return DetectedDiscType.SonyPSP;
-
+                     */
                 // saturn
                 if (GetSaturnData(dataStr))
                     return DetectedDiscType.SegaSaturn;
@@ -293,12 +295,14 @@ namespace DiscTools.Inspection
                     currSector = data;
                     string dataStr = System.Text.Encoding.Default.GetString(data);
 
+                    /*
                     // psx
                     if (GetPSXData(dataStr))
                         return DiscSubType;
 
                     if (GetPSPData(dataStr))
                         return DetectedDiscType.SonyPSP;
+                        */
 
                     // saturn
                     if (GetSaturnData(dataStr))

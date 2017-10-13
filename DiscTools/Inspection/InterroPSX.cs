@@ -11,10 +11,10 @@ namespace DiscTools.Inspection
         public bool ScanISOPSX()
         {
             if (discI.Data._ISOData.ApplicationIdentifier == "PLAYSTATION")
-            {
+            {      
                 // store lba for SYSTEM.CNF
-                var cnf = discI.Data._ISOData.ISOFiles.Where(a => a.Key.Contains("SYSTEM.CNF")).FirstOrDefault();
-                if (cnf.Key.Contains("SYSTEM.CNF"))
+                KeyValuePair<string, ISO.ISONode> cnf = discI.Data._ISOData.ISOFiles.Where(a => a.Key.Contains("SYSTEM.CNF")).FirstOrDefault();
+                if (cnf.Key != null && cnf.Key.Contains("SYSTEM.CNF"))
                 {
                     ifn = cnf.Value;
                     CurrentLBA = Convert.ToInt32(ifn.Offset);
@@ -25,7 +25,50 @@ namespace DiscTools.Inspection
                     CurrentLBA = 23;
                 }
 
-                return GetPSXData();
+                if (GetPSXData())
+                    return true;
+
+                // some jap discs (thunder storm and road blaster) appear not to even have a SYSTEM.CNF
+                // detect whether PSX.EXE exists, and if so try and parse this first
+                KeyValuePair<string, ISO.ISONode> psx = discI.Data._ISOData.ISOFiles.Where(a => a.Key.Contains("PSX.EXE")).FirstOrDefault();
+                if (psx.Key != null && psx.Key.Contains("PSX.EXE"))
+                {
+                    ifn = psx.Value;
+                    CurrentLBA = Convert.ToInt32(ifn.Offset);
+
+                    byte[] data = di.ReadData(CurrentLBA, 2048);
+                    byte[] data32 = data.ToList().ToArray();
+
+                    string sS = System.Text.Encoding.Default.GetString(data32);
+
+                    if (sS.Contains("Sony Computer Entertainment Inc. for Japan"))
+                    {
+                        // it is PSX - try and get the serial - may need to seek forward a bit
+                        for (int i = CurrentLBA; i < CurrentLBA + ifn.Length; i++)
+                        {
+                            byte[] d = di.ReadData(i, 2048);
+                            string s = System.Text.Encoding.Default.GetString(d);
+
+                            if (s.ToUpper().Contains("SLPS"))
+                            {
+                                int ind = s.IndexOf("SLPS");
+                                char[] serialChars = s.Substring(s.IndexOf("SLPS")).Take(10).ToArray();
+                                string serial = new string(serialChars).Trim();
+                                discI.Data.SerialNumber = serial;
+                                discI.Data.GameTitle = discI.Data._ISOData.VolumeIdentifier;
+                                discI.Data.Publisher = discI.Data._ISOData.PublisherIdentifier;
+                                discI.Data.Developer = discI.Data._ISOData.DataPreparerIdentifier;
+                                discI.Data.AreaCodes = "JAPAN";
+                                break;
+                            }
+                        }
+                        DiscSubType = DetectedDiscType.SonyPSX;
+                        return true;
+                    }
+
+                    //if (GetPSXData())
+                        return true;
+                }
             }
 
             return false;
@@ -34,7 +77,7 @@ namespace DiscTools.Inspection
         public bool GetPSXData()
         {
             byte[] data = di.GetPSXSerialNumber(CurrentLBA);
-            byte[] data32 = data.ToList().Take(200).ToArray();
+            byte[] data32 = data.ToList().ToArray();
 
             string sS = System.Text.Encoding.Default.GetString(data32);
 
@@ -115,6 +158,8 @@ namespace DiscTools.Inspection
                     return true;
                 }
             }
+
+            
 
             
 

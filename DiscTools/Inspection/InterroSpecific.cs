@@ -300,9 +300,10 @@ namespace DiscTools.Inspection
             for (int i = 0; i < 10000; i++)
             {
                 byte[] data = di.ReadData(i, 2048);
+                CurrentLBA = i;
                 currSector = data;
                 string dataStr = System.Text.Encoding.Default.GetString(data);
-
+                /*
                 // psx
                 if (systemType == DetectedDiscType.SonyPSX)
                 {
@@ -316,6 +317,7 @@ namespace DiscTools.Inspection
                     if (GetPSXData(dataStr))
                         return DetectedDiscType.SonyPSP;
                 }
+                */
 
                 // saturn
                 if (systemType == DetectedDiscType.SegaSaturn)
@@ -410,8 +412,9 @@ namespace DiscTools.Inspection
                 {
                     byte[] data = di.ReadData(i, 2048);
                     currSector = data;
+                    CurrentLBA = i;
                     string dataStr = System.Text.Encoding.Default.GetString(data);
-
+                    /*
                     // psx
                     if (systemType == DetectedDiscType.SonyPSX)
                     {
@@ -425,6 +428,7 @@ namespace DiscTools.Inspection
                         if (GetPSXData(dataStr))
                             return DetectedDiscType.SonyPSP;
                     }
+                    */
 
                     // saturn
                     if (systemType == DetectedDiscType.SegaSaturn)

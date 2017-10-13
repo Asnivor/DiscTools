@@ -85,8 +85,10 @@ namespace TestAppNET20
 
 
             //string dcPath = @"G:\_Emulation\FM Towns\marty\Dungeon Master II for FM-Towns.cue";
-            string dcPath = @"G:\_Emulation\FM Towns\marty\Dungeon.Master.ISO.FM-Towns-OpTiMaL.cue";
+            //string dcPath = @"G:\_Emulation\FM Towns\marty\Dungeon.Master.ISO.FM-Towns-OpTiMaL.cue";
 
+            string dcPath = @"G:\_Emulation\PSX\iso\Thunder Storm & Road Blaster (Japan) (Disc 1) (Thunder Storm).cue";
+            //var psx = DiscInspector.ScanPSX(dcPath);
             var dc = DiscInspector.ScanDisc(dcPath);
 
             string stop = "";
